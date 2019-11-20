@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.duan1">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.ND_Activity"></activity>
+        <activity android:name=".activity.HoatDongGDActivity" />
+        <activity android:name=".activity.SoSanhTSActivity" />
+        <activity android:name=".activity.ThemMT_DLActivity" />
+        <activity android:name=".activity.CachTinhBMIActivity" />
+        <activity android:name=".activity.BaiTapActivity" />
+        <activity android:name=".activity.ThucPhamActivity" />
+        <activity
+            android:name=".activity.CaiDatActivity"
+            android:parentActivityName=".activity.CaiDatActivity" />
+        <activity
+            android:name=".activity.BoChuyenDoiActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.ThuVienActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.ManHinhChaoActivity" />
+    </application>
+
+</manifest>

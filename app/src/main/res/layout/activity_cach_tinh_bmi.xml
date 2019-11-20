@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6A5A5"
+    android:orientation="vertical"
+    tools:context=".activity.CachTinhBMIActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarTBMI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="1. Công thức tính chỉ số BMI"
+        android:textColor="#000000"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:text="BMI = Cân nặng/ [(Chiều cao)2]"
+        android:textColor="#000000"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:text="Trong đó, chiều cao tính bằng cm
+và cân nặng tính bằng kg.
+\n
+Chỉ số BMI không áp dụng cho :\n
+         - Phụ nữ có thai,\n
+         - Vận động viên,\n
+        - Người tập thể hình"
+        android:textColor="#000000"
+        android:textSize="8pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="2. Bảng phân loại mức độ gầy-béo dựa vào chỉ số BMI"
+        android:textColor="#000000"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="24dp"
+        android:src="@drawable/tinhtoanbmi" />
+</LinearLayout>

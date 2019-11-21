@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CDDC39"
     android:orientation="vertical"
-    tools:context=".activity.ND_Activity">
+    tools:context=".activity.TheoDoiCNActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarTCN_ND"
+        android:id="@+id/toolbarTDCN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -20,15 +19,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.cardview.widget.CardView
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/combinedChart_CSCT"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="#A5F6AE" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Cân nặng trong lần cập nhật cuối cùng: 58 kg" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#00BCD4"
             android:orientation="vertical">
 
             <LinearLayout
@@ -47,7 +61,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_cnnd_date"
+                    android:id="@+id/tv_cncn_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -57,7 +71,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,17 +81,55 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="Họ và tên: "
+                    android:text="Cân nặng hiện tại:"
                     android:textColor="#000000"
                     android:textSize="8pt"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/edt_cnnd_name"
+                    android:id="@+id/edt_cncn_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
                     android:layout_weight="5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kg"
+                    android:textColor="#000000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Cân nặng lý tưởng"
+                    android:textColor="#000000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="BMI"
+                    android:textColor="#000000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,20 +139,26 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="77dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="Ngày sinh: "
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="CNLT"
                     android:textColor="#000000"
-                    android:textSize="8pt"
-                    android:textStyle="bold" />
+                    android:textSize="8pt" />
 
-                <EditText
-                    android:id="@+id/edt_cnnd_birthday"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="5" />
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="BMI"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,127 +170,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="Giới tính: "
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Cân nặng tối thiểu"
                     android:textColor="#000000"
                     android:textSize="8pt"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/edt_cnnd_sex"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="5" />
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Cân nặng tối đa"
+                    android:textColor="#000000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_tt_Height"
-                    android:layout_width="wrap_content"
+                    android:layout_width="77dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Chiều cao:"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="CNLT"
                     android:textColor="#000000"
-                    android:textSize="8pt"
-                    android:textStyle="bold" />
+                    android:textSize="8pt" />
 
-                <EditText
-                    android:id="@+id/edt_cnnd_Height"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="BMI"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/tv_tt_Weight"
+                <Button
+                    android:id="@+id/btn_cncn_"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Cân nặng: "
-                    android:textColor="#000000"
-                    android:textSize="8pt"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edt_cnnd_Weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="#FFEB3B"
+                    android:text="Cập Nhật"
+                    android:textSize="8pt" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="chú ý: Chiều cao đo bằng đơn vị centimeter (Cm) 1cm=0.01m, cân nặng đo bằng đơn vị kilogram(Kg)" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btn_cncn_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:background="#FFEB3B"
-                android:text="làm lại"
-                android:textSize="8pt" />
-
-            <Button
-                android:id="@+id/btn_cncn_CA"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:background="#FFEB3B"
-                android:text="Chụp ảnh"
-                android:textSize="8pt" />
-
-            <Button
-                android:id="@+id/btn_cncn_"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:background="#FFEB3B"
-                android:text="Cập nhật"
-                android:textSize="8pt" />
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/morong" />
-    </LinearLayout>
 </LinearLayout>

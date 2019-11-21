@@ -16,6 +16,7 @@ import com.example.duan1.R;
 import com.example.duan1.activity.HoatDongGDActivity;
 import com.example.duan1.activity.ND_Activity;
 import com.example.duan1.activity.SoSanhTSActivity;
+import com.example.duan1.activity.TheoDoiCNActivity;
 
 public class ChiSoCoTheFragment extends Fragment {
     @Nullable
@@ -25,11 +26,20 @@ public class ChiSoCoTheFragment extends Fragment {
         LinearLayout lnUpdate = view.findViewById(R.id.lnUpdate);
         CardView cvSoSanh = view.findViewById(R.id.cvSoSanh);
         CardView cvHoatDong = view.findViewById(R.id.cvHoatDong);
+        CardView cvWeight = view.findViewById(R.id.cvWeight);
+
 
         lnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ND_Activity.class);
+                startActivity(intent);
+            }
+        });
+        cvWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TheoDoiCNActivity.class);
                 startActivity(intent);
             }
         });

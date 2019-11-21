@@ -235,10 +235,10 @@
 
             <LinearLayout
 
-                android:layout_marginBottom="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="24dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -252,7 +252,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="#A5F6AE">
 
                         <com.github.mikephil.charting.charts.CombinedChart
                             android:id="@+id/combinedChart_CSCT"
@@ -299,7 +300,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="3dp"
-                                    android:text="Thông Số"
+                                    android:text="Theo Dõi"
                                     android:textColor="#000000"
                                     android:textSize="10dp" />
 

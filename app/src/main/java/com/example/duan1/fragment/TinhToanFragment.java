@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.CachTinhBMIActivity;
+import com.example.duan1.activity.ThemMT_DLActivity;
 
 public class TinhToanFragment extends Fragment {
     @Nullable
@@ -32,7 +33,7 @@ public class TinhToanFragment extends Fragment {
         final TextView tv_tt_ShowStatus = view.findViewById(R.id.tv_tt_ShowStatus);
         final TextView tv_tt_ShowComment = view.findViewById(R.id.tv_tt_ShowComment);
         Button btn_tt_TinhToan = view.findViewById(R.id.btn_tt_TinhToan);
-        CardView cvRestart = view.findViewById(R.id.cvRestart);
+        CardView cvRestart = view.findViewById(R.id.cvRefresh);
         CardView cvNext_DMT = view.findViewById(R.id.cvNext_DMT);
         CardView cvNext_BMI = view.findViewById(R.id.cvNext_BMI);
 
@@ -51,7 +52,7 @@ public class TinhToanFragment extends Fragment {
         cvNext_DMT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CachTinhBMIActivity.class);
+                Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
                 startActivity(intent);
             }
         });

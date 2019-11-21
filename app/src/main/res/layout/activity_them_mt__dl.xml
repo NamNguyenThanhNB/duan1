@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFDD33"
+    android:orientation="vertical"
     tools:context=".activity.ThemMT_DLActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,4 +18,153 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="TÊN MỤC TIÊU: "
+            android:textColor="#000000"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Bắt đầu"
+                android:textColor="#000000"
+                android:textSize="8pt"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_mtdl_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="dd/MM/yyyy" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Kết thúc"
+                android:textColor="#000000"
+                android:textSize="8pt"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_mtdl_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="dd/MM/yyyy" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THÔNG BÁO TIẾN ĐỘ"
+            android:textColor="#000000"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/s_mtdl_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="NỘI DUNG"
+            android:textColor="#000000"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_mtdl_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_refresh_black_24dp" />
+
+        <ImageView
+            android:id="@+id/img_mtdl_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_delete_forever_black_24dp" />
+
+        <ImageView
+            android:id="@+id/img_mtdl_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_add_circle_black_24dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edt_mtdl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="#FFFFFF"
+        android:gravity="top"
+        android:padding="16dp" />
 </LinearLayout>

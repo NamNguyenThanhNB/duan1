@@ -7,14 +7,14 @@ import android.os.Bundle;
 
 import com.example.duan1.R;
 
-public class ThemMT_DLActivity extends AppCompatActivity {
+public class TheoDoiCNActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_them_mt__dl);
-        Toolbar toolbar = findViewById(R.id.toolbarMTDL);
-        toolbar.setTitle("Mục Tiêu - Đặt Lịch");
+        setContentView(R.layout.activity_theo_doi_cn);
+        Toolbar toolbar = findViewById(R.id.toolbarTDCN);
+        toolbar.setTitle("Theo Dõi Cân Nặng");
         setSupportActionBar(toolbar);
 
         //hien thi nut back

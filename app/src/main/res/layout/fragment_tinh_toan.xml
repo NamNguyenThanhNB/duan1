@@ -168,7 +168,7 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/cvRestart"
+                            android:id="@+id/cvRefresh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

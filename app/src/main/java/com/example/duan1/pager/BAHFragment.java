@@ -27,6 +27,17 @@ public class BAHFragment extends Fragment {
         BAHPager BAHPager = new BAHPager(getActivity().getSupportFragmentManager());
         pager.setAdapter(BAHPager);
         tabLayout.setupWithViewPager(pager);
+
+        tabLayout.getTabAt(0).setCustomView(R.layout.pager_item_csct);
+        tabLayout.getTabAt(1).setCustomView(R.layout.pager_item_muctieu);
+        tabLayout.getTabAt(2).select();
+        tabLayout.getTabAt(2).setCustomView(R.layout.pager_item_home);
+        tabLayout.getTabAt(3).setCustomView(R.layout.pager_item_tinhtoan);
+        tabLayout.getTabAt(4).setCustomView(R.layout.pager_item_morong);
+
+
         return view;
     }
+
+
 }

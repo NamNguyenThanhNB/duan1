@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BodyAndHealthy</string>
+
+    <string name="pager_name_01">CHỈ SỐ</string>
+    <string name="pager_name_02">MỤC TIÊU</string>
+    <string name="pager_name_03"></string>
+    <string name="pager_name_04">TÍNH TOÁN</string>
+    <string name="pager_name_05">MỞ RỘNG</string>
 </resources>

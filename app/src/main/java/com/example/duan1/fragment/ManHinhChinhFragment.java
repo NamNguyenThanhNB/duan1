@@ -46,7 +46,6 @@ public class ManHinhChinhFragment extends Fragment {
         cvNext_Food = view.findViewById(R.id.cvNext_Food);
         cvNext_Exercise = view.findViewById(R.id.cvNext_Exercise);
 
-
         cvNext_Exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

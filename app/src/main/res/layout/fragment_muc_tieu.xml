@@ -8,7 +8,6 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +31,6 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvLibrary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="#A6A3EE"

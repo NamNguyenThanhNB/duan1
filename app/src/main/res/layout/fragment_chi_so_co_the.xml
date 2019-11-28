@@ -176,7 +176,7 @@
                             android:src="@drawable/chieucao" />
 
                         <LinearLayout
-                            android:id="@+id/lnUpdate"
+                            android:id="@+id/ln_csct_Update"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -200,7 +200,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/lnShare"
+                            android:id="@+id/ln_csct_Share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -269,7 +269,7 @@
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cvWeight"
+                        android:id="@+id/cv_csct_Weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -316,7 +316,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cvSoSanh"
+                        android:id="@+id/cv_csct_SoSanh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -363,7 +363,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cvHoatDong"
+                        android:id="@+id/cv_csct_HoatDong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"

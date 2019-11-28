@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,8 +17,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.BaiTapActivity;
-import com.example.duan1.activity.MainActivity;
 import com.example.duan1.activity.ThucPhamActivity;
+import com.example.duan1.inteface.MHChinh_Inteface;
+import com.example.duan1.presenter.MHChinh_Precenter;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,24 +32,155 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManHinhChinhFragment extends Fragment {
-    CombinedChart mChart;
-    private CardView cvNext_Exercise, cvNext_Food;
+public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
+
+    private TextView tvMhcStart;
+    private TextView tvMhcAge;
+    private ImageView imgMhcSex;
+    private TextView tvMhcHeight;
+    private TextView tvMhcBMI;
+    private TextView tvMhcWeight;
+    private TextView tvMhcStatus;
+    private TextView tvMhcPosttime;
+    private CardView cvBieuDo;
+    private CombinedChart mChart;
+    private CardView cvMhcWeight;
+    private CardView cvMhcBMI;
+    private CardView cvMhcNextFood;
+    private CardView cvMhcNextExercise;
+    private MHChinh_Precenter mhChinhPrecenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_man_hinh_chinh, container, false);
-        mChart = view.findViewById(R.id.combinedChart_MHC);
-        cvNext_Food = view.findViewById(R.id.cvNext_Food);
-        cvNext_Exercise = view.findViewById(R.id.cvNext_Exercise);
+        init(view);
+        mhChinhPrecenter = new MHChinh_Precenter(this);
 
-        cvNext_Exercise.setOnClickListener(new View.OnClickListener() {
+
+        cvMhcWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mhChinhPrecenter.setJob_cvMhcWeight();
+            }
+        });
+        cvMhcNextExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mhChinhPrecenter.setJob_cvMhcNextExercise();
+            }
+        });
+        cvMhcNextFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mhChinhPrecenter.setJob_cvMhcNextFood();
+            }
+        });
+        cvMhcBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mhChinhPrecenter.setJob_cvMhcBMI();
+            }
+        });
+        mhChinhPrecenter.setupChart();
+        return view;
+    }
+
+
+    void init(View view) {
+
+        tvMhcStart = (TextView) view.findViewById(R.id.tv_mhc_Start);
+        tvMhcAge = (TextView) view.findViewById(R.id.tv_mhc_Age);
+        imgMhcSex = (ImageView) view.findViewById(R.id.img_mhc_Sex);
+        tvMhcHeight = (TextView) view.findViewById(R.id.tv_mhc_Height);
+        tvMhcBMI = (TextView) view.findViewById(R.id.tv_mhc_BMI);
+        tvMhcWeight = (TextView) view.findViewById(R.id.tv_mhc_Weight);
+        tvMhcStatus = (TextView) view.findViewById(R.id.tv_mhc_Status);
+        tvMhcPosttime = (TextView) view.findViewById(R.id.tv_mhc_Posttime);
+        cvBieuDo = (CardView) view.findViewById(R.id.cvBieuDo);
+        mChart = (CombinedChart) view.findViewById(R.id.combinedChart_MHC);
+        cvMhcWeight = (CardView) view.findViewById(R.id.cv_mhc_Weight);
+        cvMhcBMI = (CardView) view.findViewById(R.id.cv_mhc_BMI);
+        cvMhcNextFood = (CardView) view.findViewById(R.id.cv_mhc_NextFood);
+        cvMhcNextExercise = (CardView) view.findViewById(R.id.cv_mhc_NextExercise);
+
+    }
+
+
+    public void onValueSelected(Entry e, Highlight h) {
+        Toast.makeText(getActivity(), "Value: "
+                + e.getY()
+                + ", index: "
+                + h.getX()
+                + ", DataSet index: "
+                + h.getDataSetIndex(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void onNothingSelected() {
+
+    }
+
+    private static DataSet dataChart() {
+
+        LineData d = new LineData();
+        int[] data = new int[]{1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9};
+
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+
+        for (int index = 0; index < 12; index++) {
+            entries.add(new Entry(index, data[index]));
+        }
+
+        LineDataSet set = new LineDataSet(entries, "Request Ots approved");
+        set.setColor(Color.GREEN);
+        set.setLineWidth(2.5f);
+        set.setCircleColor(Color.GREEN);
+        set.setCircleRadius(5f);
+        set.setFillColor(Color.GREEN);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setDrawValues(true);
+        set.setValueTextSize(10f);
+        set.setValueTextColor(Color.GREEN);
+
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        d.addDataSet(set);
+
+        return set;
+    }
+
+    @Override
+    public void setJob_cvMhcWeight() {
+
+        Toast.makeText(getActivity(), "setJob_cvMhcWeight", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
+    public void setJob_cvMhcBMI() {
+        Toast.makeText(getActivity(), "setJob_cvMhcBMI", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setJob_cvMhcNextFood() {
+        cvMhcNextFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ThucPhamActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public void setJob_cvMhcNextExercise() {
+        cvMhcNextExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BaiTapActivity.class);
@@ -54,18 +188,10 @@ public class ManHinhChinhFragment extends Fragment {
             }
         });
 
-        cvNext_Food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ThucPhamActivity.class);
-                startActivity(intent);
-            }
-        });
-        bieudo();
-        return view;
     }
 
-    private void bieudo() {
+    @Override
+    public void setupChart() {
 
         mChart.getDescription().setEnabled(false);
         mChart.setBackgroundColor(Color.WHITE);
@@ -118,50 +244,7 @@ public class ManHinhChinhFragment extends Fragment {
 
         mChart.setData(data);
         mChart.invalidate();
-    }
-
-
-    public void onValueSelected(Entry e, Highlight h) {
-        Toast.makeText(getActivity(), "Value: "
-                + e.getY()
-                + ", index: "
-                + h.getX()
-                + ", DataSet index: "
-                + h.getDataSetIndex(), Toast.LENGTH_SHORT).show();
-    }
-
-
-    public void onNothingSelected() {
 
     }
-
-    private static DataSet dataChart() {
-
-        LineData d = new LineData();
-        int[] data = new int[]{1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9};
-
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-
-        for (int index = 0; index < 12; index++) {
-            entries.add(new Entry(index, data[index]));
-        }
-
-        LineDataSet set = new LineDataSet(entries, "Request Ots approved");
-        set.setColor(Color.GREEN);
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.GREEN);
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.GREEN);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setDrawValues(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.GREEN);
-
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        d.addDataSet(set);
-
-        return set;
-    }
-
 }
 

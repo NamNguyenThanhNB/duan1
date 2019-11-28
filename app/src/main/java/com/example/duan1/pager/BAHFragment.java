@@ -35,7 +35,6 @@ public class BAHFragment extends Fragment {
         tabLayout.getTabAt(3).setCustomView(R.layout.pager_item_tinhtoan);
         tabLayout.getTabAt(4).setCustomView(R.layout.pager_item_morong);
 
-
         return view;
     }
 

@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.TheoDoiCNActivity"></activity>
-        <activity android:name=".activity.ND_Activity" />
-        <activity android:name=".activity.HoatDongGDActivity" />
-        <activity android:name=".activity.SoSanhTSActivity" />
+        <activity android:name=".activity.ND_Activity_Activity" />
+        <activity android:name=".activity.HoatDongGDActivity"></activity>
+        <activity android:name=".activity.SoSanhTSActivity"></activity>
         <activity android:name=".activity.ThemMT_DLActivity" />
         <activity android:name=".activity.CachTinhBMIActivity" />
         <activity android:name=".activity.BaiTapActivity" />
@@ -33,8 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ManHinhChaoActivity">
-        </activity>
+        <activity android:name=".activity.ManHinhChaoActivity"></activity>
     </application>
 
 </manifest>

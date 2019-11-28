@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,22 +16,126 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.ThemMT_DLActivity;
+import com.example.duan1.inteface.MucTieu_Interface;
+import com.example.duan1.presenter.MucTieu_Precenter;
 
-public class MucTieuFragment extends Fragment {
+public class MucTieuFragment extends Fragment implements MucTieu_Interface {
+    private Switch sGetUp;
+    private Switch sBedTime;
+    private Switch sMeal;
+    private Switch sDrink;
+    private Switch sExercise;
+    private ImageView imgMtAdd;
+    private MucTieu_Precenter mucTieuPrecenter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_muc_tieu, container, false);
-
-        ImageView img_mt_add_ = view.findViewById(R.id.img_mt_add_);
-
-        img_mt_add_.setOnClickListener(new View.OnClickListener() {
+        init(view);
+        mucTieuPrecenter = new MucTieu_Precenter(this);
+        imgMtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
-                getActivity().startActivity(intent);
+                mucTieuPrecenter.setJob_imgMtAdd();
+            }
+        });
+
+        sGetUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mucTieuPrecenter.setJob_sGetUp(isChecked);
+            }
+        });
+        sBedTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mucTieuPrecenter.setJob_sBedTime(isChecked);
+
+            }
+        });
+        sDrink.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mucTieuPrecenter.setJob_sDrink(isChecked);
+
+            }
+        });
+        sExercise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mucTieuPrecenter.setJob_sExercise(isChecked);
+
+            }
+        });
+        sMeal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mucTieuPrecenter.setJob_sMeal(isChecked);
+
             }
         });
         return view;
+    }
+
+    private void init(View view) {
+
+        sGetUp = (Switch) view.findViewById(R.id.sGetUp);
+        sBedTime = (Switch) view.findViewById(R.id.sBedTime);
+        sMeal = (Switch) view.findViewById(R.id.sMeal);
+        sDrink = (Switch) view.findViewById(R.id.sDrink);
+        sExercise = (Switch) view.findViewById(R.id.sExercise);
+        imgMtAdd = (ImageView) view.findViewById(R.id.img_mt_add_);
+    }
+
+    @Override
+    public void setJob_sGetUp(boolean x) {
+        if (x) {
+            Toast.makeText(getActivity(), "setJob_sGetUp is on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "setJob_sGetUp is off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setJob_sBedTime(boolean x) {
+        if (x) {
+            Toast.makeText(getActivity(), "setJob_sBedTime is on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "setJob_sBedTime is off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setJob_sMeal(boolean x) {
+        if (x) {
+            Toast.makeText(getActivity(), "setJob_sMeal is on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "setJob_sMeal is off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setJob_sDrink(boolean x) {
+        if (x) {
+            Toast.makeText(getActivity(), "setJob_sDrink is on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "setJob_sDrink is off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setJob_sExercise(boolean x) {
+        if (x) {
+            Toast.makeText(getActivity(), "setJob_sExercise is on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "setJob_sExercise is off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setJob_imgMtAdd() {
+        Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
+        getActivity().startActivity(intent);
     }
 }

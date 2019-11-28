@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,52 +18,208 @@ import androidx.fragment.app.Fragment;
 import com.example.duan1.R;
 import com.example.duan1.activity.CachTinhBMIActivity;
 import com.example.duan1.activity.ThemMT_DLActivity;
+import com.example.duan1.inteface.TinhToan_Interface;
+import com.example.duan1.model.NguoiDung;
+import com.example.duan1.presenter.TinhToan_Precenter;
 
-public class TinhToanFragment extends Fragment {
+import java.text.DecimalFormat;
+
+public class TinhToanFragment extends Fragment implements TinhToan_Interface {
+
+    private EditText edtTtName;
+    private EditText edtTtAge;
+    private EditText edtTtSex;
+    private EditText edtTtHeight;
+    private EditText edtTtWeight;
+    private Button btnTtTinhToan;
+    private CardView cvTtRefresh;
+    private CardView cvTtNextDMT;
+    private CardView cvTtNextBMI;
+    private TextView tvTtShowBMI;
+    private TextView tvTtShowStatus;
+    private TextView tvTtShowComment;
+
+    private TinhToan_Precenter tinhToan_precenter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tinh_toan, container, false);
+        init(view);
+        tinhToan_precenter = new TinhToan_Precenter(this);
 
-        final EditText edt_tt_Name = view.findViewById(R.id.edt_tt_Name);
-        final EditText edt_tt_Age = view.findViewById(R.id.edt_tt_Age);
-        final EditText edt_tt_Sex = view.findViewById(R.id.edt_tt_Sex);
-        final EditText edt_tt_Height = view.findViewById(R.id.edt_tt_Height);
-        final EditText edt_tt_Weight = view.findViewById(R.id.edt_tt_Weight);
-        final TextView tv_tt_ShowBMI = view.findViewById(R.id.tv_tt_ShowBMI);
-        final TextView tv_tt_ShowStatus = view.findViewById(R.id.tv_tt_ShowStatus);
-        final TextView tv_tt_ShowComment = view.findViewById(R.id.tv_tt_ShowComment);
-        Button btn_tt_TinhToan = view.findViewById(R.id.btn_tt_TinhToan);
-        CardView cvRestart = view.findViewById(R.id.cvRefresh);
-        CardView cvNext_DMT = view.findViewById(R.id.cvNext_DMT);
-        CardView cvNext_BMI = view.findViewById(R.id.cvNext_BMI);
-
-
-        cvRestart.setOnClickListener(new View.OnClickListener() {
+        btnTtTinhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edt_tt_Name.setText("");
-                edt_tt_Age.setText("");
-                edt_tt_Sex.setText("");
-                edt_tt_Height.setText("");
-                edt_tt_Weight.setText("");
+                tinhToan_precenter.setJob_btn_tt_TinhToan();
             }
         });
-
-        cvNext_DMT.setOnClickListener(new View.OnClickListener() {
+        cvTtRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
-                startActivity(intent);
+                tinhToan_precenter.setJob_cv_tt_Refresh();
             }
         });
-        cvNext_BMI.setOnClickListener(new View.OnClickListener() {
+        cvTtNextDMT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CachTinhBMIActivity.class);
-                startActivity(intent);
+                tinhToan_precenter.setJob_cv_tt_NextDMT();
+            }
+        });
+        cvTtNextBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tinhToan_precenter.setJob_cv_tt_NextBMI();
             }
         });
         return view;
+    }
+
+    private void init(View view) {
+
+        edtTtName = (EditText) view.findViewById(R.id.edt_tt_Name);
+        edtTtAge = (EditText) view.findViewById(R.id.edt_tt_Age);
+        edtTtSex = (EditText) view.findViewById(R.id.edt_tt_Sex);
+        edtTtHeight = (EditText) view.findViewById(R.id.edt_tt_Height);
+        edtTtWeight = (EditText) view.findViewById(R.id.edt_tt_Weight);
+
+        btnTtTinhToan = (Button) view.findViewById(R.id.btn_tt_TinhToan);
+
+        cvTtRefresh = (CardView) view.findViewById(R.id.cv_tt_Refresh);
+        cvTtNextDMT = (CardView) view.findViewById(R.id.cv_tt_NextDMT);
+        cvTtNextBMI = (CardView) view.findViewById(R.id.cv_tt_NextBMI);
+
+        tvTtShowBMI = (TextView) view.findViewById(R.id.tv_tt_ShowBMI);
+        tvTtShowStatus = (TextView) view.findViewById(R.id.tv_tt_ShowStatus);
+        tvTtShowComment = (TextView) view.findViewById(R.id.tv_tt_ShowComment);
+    }
+
+    @Override
+    public void setJob_btn_tt_TinhToan() {
+        NguoiDung nguoiDung = new NguoiDung();
+        nguoiDung.setName(edtTtName.getText().toString().trim());
+        nguoiDung.setSex(edtTtSex.getText().toString().trim());
+        nguoiDung.setAge(edtTtAge.getText().toString().trim());
+        nguoiDung.setHeight(edtTtHeight.getText().toString().trim());
+        nguoiDung.setWeight(edtTtWeight.getText().toString().trim());
+
+        double tinh = tinhToan_precenter.tinhtoan(nguoiDung);
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
+        tinhToan_precenter.setStatusBMI(tinh);
+    }
+
+    @Override
+    public void setJob_cv_tt_Refresh() {
+        edtTtAge.setText("");
+        edtTtHeight.setText("");
+        edtTtName.setText("");
+        edtTtSex.setText("");
+        edtTtWeight.setText("");
+
+        tvTtShowBMI.setText("Chỉ số BMI: ");
+        tvTtShowComment.setText("");
+        tvTtShowStatus.setText("Trạng thái cơ thể: ");
+    }
+
+    @Override
+    public void setJob_cv_tt_NextDMT() {
+        Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void setJob_cv_tt_NextBMI() {
+        Intent intent = new Intent(getActivity(), CachTinhBMIActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void setError_EmptyName() {
+        edtTtName.setError("Tên không được để trống");
+        edtTtName.requestFocus();
+    }
+
+    @Override
+    public void setError_EmptyAge() {
+        edtTtAge.setError("Tuổi không được để trống");
+        edtTtAge.requestFocus();
+    }
+
+    @Override
+    public void setError_AgeNotIsNumber() {
+        edtTtAge.setError("Tuổi không đúng định dạng");
+        edtTtAge.requestFocus();
+    }
+
+    @Override
+    public void setError_HeightNotIsNumber() {
+        edtTtHeight.setError("Chiều cao không đúng định dạng");
+        edtTtHeight.requestFocus();
+    }
+
+    @Override
+    public void setError_WeightNotIsNumber() {
+        edtTtWeight.setError("Cân nặng không đúng định dạng");
+        edtTtWeight.requestFocus();
+    }
+
+    @Override
+    public void setError_falseAge() {
+        edtTtAge.setError("Tuổi không được là số âm");
+        edtTtAge.requestFocus();
+    }
+
+    @Override
+    public void setError_falseWeight() {
+        edtTtWeight.setError("Cân nặng không được là số âm");
+        edtTtWeight.requestFocus();
+
+    }
+
+    @Override
+    public void setError_falseHeight() {
+        edtTtHeight.setError("Chiều cao không được là số âm");
+        edtTtHeight.requestFocus();
+
+    }
+
+    @Override
+    public void setError_EmptySex() {
+        edtTtSex.setError("Giới tính không được để trống");
+        edtTtSex.requestFocus();
+    }
+
+    @Override
+    public void setError_EmptyWeight() {
+        edtTtWeight.setError("Cân nặng không được để trống");
+        edtTtWeight.requestFocus();
+    }
+
+    @Override
+    public void setError_EmptyHeight() {
+        edtTtHeight.setError("Chiều cao không được để trống");
+        edtTtHeight.requestFocus();
+    }
+
+    @Override
+    public void setStatusBMI(double statusBMI) {
+        if (statusBMI < 18.5) {
+            tvTtShowStatus.setText("Gầy");
+        } else if (statusBMI < 24.9) {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Bình thường");
+        } else if (statusBMI <= 25) {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Thừa cân");
+        } else if (statusBMI < 29.9) {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Tiền béo phì");
+        } else if (statusBMI < 34.9) {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ I");
+        } else if (statusBMI < 39.9) {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ II");
+        } else {
+            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ III");
+        }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#CDDC39"
     android:orientation="vertical"
-    tools:context=".activity.ND_Activity">
+    tools:context=".activity.ND_Activity_Activity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarTCN_ND"
@@ -193,7 +193,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_cncn_refresh"
+                android:id="@+id/btn_cnnd_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -205,7 +205,7 @@
                 android:textSize="8pt" />
 
             <Button
-                android:id="@+id/btn_cncn_CA"
+                android:id="@+id/btn_cnnd_CA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -217,7 +217,7 @@
                 android:textSize="8pt" />
 
             <Button
-                android:id="@+id/btn_cncn_"
+                android:id="@+id/btn_cnnd_finish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -230,6 +230,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_cnnd_follow"
             android:layout_width="240dp"
             android:layout_height="240dp"
             android:layout_marginLeft="8dp"

@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.databinding.ActivityBoChuyenDoiBinding;
 import com.example.duan1.inteface.BoChuyenDoiActivity_Interface;
 import com.example.duan1.presenter.BoChuyenDoiActivity_Precenter;
 
@@ -30,7 +32,8 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bo_chuyen_doi);
+        ActivityBoChuyenDoiBinding activityBoChuyenDoiBinding = DataBindingUtil.setContentView(this, R.layout.activity_bo_chuyen_doi);
+
 
         Toolbar toolbar = findViewById(R.id.toolbarBCD);
         toolbar.setTitle("Bộ Chuyển Đổi");
@@ -54,24 +57,11 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
         spnEnd_weight = (Spinner) findViewById(R.id.spnEnd_weight);
         boChuyenDoiActivity_precenter = new BoChuyenDoiActivity_Precenter(this);
         boChuyenDoiActivity_precenter.createSpinner();
-
-        btnChuyenHeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boChuyenDoiActivity_precenter.setJob_btnChuyenHeight();
-            }
-        });
-        btnChuyenWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boChuyenDoiActivity_precenter.setJob_btnChuyenWeight();
-            }
-        });
+        activityBoChuyenDoiBinding.setBcdprecenter(boChuyenDoiActivity_precenter);
     }
 
     @Override
     public void createSpinner() {
-
         String arr[] = {
                 "millimeter(mm)",
                 "centimeter(cm)",

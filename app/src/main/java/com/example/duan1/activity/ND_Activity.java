@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.databinding.ActivityNdBinding;
 import com.example.duan1.inteface.NDActivity_Interface;
 import com.example.duan1.presenter.NDActivity_Precenter;
 
-public class ND_Activity_Activity extends AppCompatActivity implements NDActivity_Interface {
+public class ND_Activity extends AppCompatActivity implements NDActivity_Interface {
     private TextView tvCnndDate;
     private EditText edtCnndName;
     private EditText edtCnndBirthday;
@@ -33,7 +35,7 @@ public class ND_Activity_Activity extends AppCompatActivity implements NDActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nd);
+        ActivityNdBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_nd);
         Toolbar toolbar = findViewById(R.id.toolbarTCN_ND);
         toolbar.setTitle("Người Dùng");
         setSupportActionBar(toolbar);
@@ -42,25 +44,8 @@ public class ND_Activity_Activity extends AppCompatActivity implements NDActivit
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         nd_Activity_precenter = new NDActivity_Precenter(this);
-        btnCnndRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nd_Activity_precenter.setJob_btn_cnnd_refresh();
-            }
-        });
-        btnCnndCA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                nd_Activity_precenter.setJob_btn_cnnd_CA();
-            }
-        });
-        btnCnndFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nd_Activity_precenter.setJob_btn_cnnd_finish();
-            }
-        });
+        binding.setNdprecenter(nd_Activity_precenter);
     }
 
     void init() {

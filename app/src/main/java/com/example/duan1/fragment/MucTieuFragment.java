@@ -12,10 +12,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.ThemMT_DLActivity;
+import com.example.duan1.databinding.FragmentMucTieuBinding;
 import com.example.duan1.inteface.MucTieu_Interface;
 import com.example.duan1.presenter.MucTieu_Precenter;
 
@@ -27,65 +29,26 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
     private Switch sExercise;
     private ImageView imgMtAdd;
     private MucTieu_Precenter mucTieuPrecenter;
+    private FragmentMucTieuBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_muc_tieu, container, false);
-        init(view);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_muc_tieu, container, false);
+        init();
         mucTieuPrecenter = new MucTieu_Precenter(this);
-        imgMtAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mucTieuPrecenter.setJob_imgMtAdd();
-            }
-        });
-
-        sGetUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mucTieuPrecenter.setJob_sGetUp(isChecked);
-            }
-        });
-        sBedTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mucTieuPrecenter.setJob_sBedTime(isChecked);
-
-            }
-        });
-        sDrink.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mucTieuPrecenter.setJob_sDrink(isChecked);
-
-            }
-        });
-        sExercise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mucTieuPrecenter.setJob_sExercise(isChecked);
-
-            }
-        });
-        sMeal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mucTieuPrecenter.setJob_sMeal(isChecked);
-
-            }
-        });
-        return view;
+        binding.setMuctieuprecenter(mucTieuPrecenter);
+        return binding.getRoot();
     }
 
-    private void init(View view) {
+    private void init() {
 
-        sGetUp = (Switch) view.findViewById(R.id.sGetUp);
-        sBedTime = (Switch) view.findViewById(R.id.sBedTime);
-        sMeal = (Switch) view.findViewById(R.id.sMeal);
-        sDrink = (Switch) view.findViewById(R.id.sDrink);
-        sExercise = (Switch) view.findViewById(R.id.sExercise);
-        imgMtAdd = (ImageView) view.findViewById(R.id.img_mt_add_);
+        sGetUp = (Switch) binding.getRoot().findViewById(R.id.sGetUp);
+        sBedTime = (Switch) binding.getRoot().findViewById(R.id.sBedTime);
+        sMeal = (Switch) binding.getRoot().findViewById(R.id.sMeal);
+        sDrink = (Switch) binding.getRoot().findViewById(R.id.sDrink);
+        sExercise = (Switch) binding.getRoot().findViewById(R.id.sExercise);
+        imgMtAdd = (ImageView) binding.getRoot().findViewById(R.id.img_mt_add_);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.duan1.R;
-import com.example.duan1.inteface.MTDLActivity_Interface;
-import com.example.duan1.presenter.MTDLActivity_Precenter;
+import com.example.duan1.databinding.ActivityThemMtDlBinding;
+import com.example.duan1.inteface.AddMTDLActivity_Interface;
+import com.example.duan1.presenter.AddMTDLActivity_Precenter;
 
-public class ThemMT_DLActivity extends AppCompatActivity implements MTDLActivity_Interface {
+public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActivity_Interface {
     private EditText edtMtdlTitle;
     private EditText edtMtdlStart;
     private EditText edtMtdlEnd;
@@ -24,12 +26,12 @@ public class ThemMT_DLActivity extends AppCompatActivity implements MTDLActivity
     private ImageView imgMtdlDelete;
     private ImageView imgMtdlAdd;
     private EditText edtMtdlContent;
-    private MTDLActivity_Precenter mtdlActivity_precenter;
+    private AddMTDLActivity_Precenter mtdlActivity_precenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_them_mt__dl);
+        ActivityThemMtDlBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_them_mt__dl);
         Toolbar toolbar = findViewById(R.id.toolbarMTDL);
         toolbar.setTitle("Mục Tiêu - Đặt Lịch");
         setSupportActionBar(toolbar);
@@ -39,34 +41,10 @@ public class ThemMT_DLActivity extends AppCompatActivity implements MTDLActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         init();
-        mtdlActivity_precenter = new MTDLActivity_Precenter(this);
-        sMtdlNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mtdlActivity_precenter.setJob_sMtdlNotify(isChecked);
-            }
-        });
+        mtdlActivity_precenter = new AddMTDLActivity_Precenter(this);
 
-        imgMtdlRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mtdlActivity_precenter.setJob_imgMtdlRefresh();
-            }
-        });
 
-        imgMtdlDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mtdlActivity_precenter.setJob_imgMtdlDelete();
-            }
-        });
-
-        imgMtdlAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mtdlActivity_precenter.setJob_imgMtdlAdd();
-            }
-        });
+        binding.setAddMTDLprecenter(mtdlActivity_precenter);
     }
 
     private void init() {

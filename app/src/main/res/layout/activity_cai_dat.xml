@@ -1,93 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFDD33"
-    android:orientation="vertical"
-    tools:context=".activity.CaiDatActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarCD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+
+        <variable
+            name="caidatprecenter"
+            type="com.example.duan1.presenter.CaiDat_Precenter" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="#FFDD33"
+        android:orientation="vertical">
 
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarCD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_cd_nn_can"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhắc nhở cân: "
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+            <Switch
+                android:onCheckedChanged="@{(switch, checked)-> caidatprecenter.setJob_s_cd_nn_can(checked)}"
+                android:id="@+id/s_cd_nn_can"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_cd_nn_chuongbao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn chuông nhắc nhở "
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+            <Switch
+                android:onCheckedChanged="@{(switch, checked)-> caidatprecenter.setJob_s_cd_nn_chuongbao(checked)}"
+                android:id="@+id/s_cd_nn_chuongbao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/poly" />
 
         <TextView
-            android:id="@+id/tv_cd_nn_can"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nhắc nhở cân: "
-            android:textColor="#000000"
-            android:textSize="8pt" />
-
-        <Switch
-            android:id="@+id/s_cd_nn_can"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginRight="16dp"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
-
+            android:gravity="bottom|right"
+            android:text="Design by: Nguyễn Thành Nam" />
 
         <TextView
-            android:id="@+id/tv_cd_nn_chuongbao"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chọn chuông nhắc nhở "
-            android:textColor="#000000"
-            android:textSize="8pt" />
-
-        <Switch
-            android:id="@+id/s_cd_nn_chuongbao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginRight="16dp"
-            android:layout_weight="1" />
+            android:gravity="bottom|right"
+            android:text="Verson: 1.0.0" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/poly" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginRight="16dp"
-        android:gravity="bottom|right"
-        android:text="Design by: Nguyễn Thành Nam" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginRight="16dp"
-        android:gravity="bottom|right"
-        android:text="Verson: 1.0.0" />
-
-</LinearLayout>
+</layout>

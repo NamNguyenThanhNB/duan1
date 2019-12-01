@@ -1,328 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFDD33"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="tinhtoanprecenter"
+            type="com.example.duan1.presenter.TinhToan_Precenter" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFDD33"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvInfo"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#D8FFDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:orientation="vertical">
+                    app:cardBackgroundColor="#D8FFDC"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:orientation="horizontal">
+                        android:layout_margin="24dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:text="Tính chỉ số BMI"
+                                android:textColor="#000000"
+                                android:textSize="16pt"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_tt_Name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Họ và tên: "
+                                android:textColor="#000000"
+                                android:textSize="8pt" />
+
+                            <EditText
+                                android:id="@+id/edt_tt_Name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_tt_Age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tuổi: "
+                                android:textColor="#000000"
+                                android:textSize="8pt" />
+
+                            <EditText
+                                android:id="@+id/edt_tt_Age"
+                                android:layout_width="59dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="16dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_tt_Sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Giới tính: "
+                                android:textColor="#000000"
+                                android:textSize="8pt" />
+
+                            <EditText
+                                android:id="@+id/edt_tt_Sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_tt_Height"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="Chiều cao:"
+                                android:textColor="#000000"
+                                android:textSize="8pt" />
+
+                            <EditText
+                                android:id="@+id/edt_tt_Height"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="16dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_tt_Weight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cân nặng: "
+                                android:textColor="#000000"
+                                android:textSize="8pt" />
+
+                            <EditText
+                                android:id="@+id/edt_tt_Weight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:text="Tính chỉ số BMI"
-                            android:textColor="#000000"
+                            android:layout_marginBottom="16dp"
+                            android:text="chú ý: Chiều cao đo bằng đơn vị centimeter (Cm) 1cm=0.01m, cân nặng đo bằng đơn vị kilogram(Kg)" />
+
+                        <Button
+
+                            android:id="@+id/btn_tt_TinhToan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#019AE8"
+                            android:onClick="@{()-> tinhtoanprecenter.setJob_btn_tt_TinhToan()}"
+                            android:text="+ TÍNH TOÁN +"
+                            android:textColor="#FFFFFF"
                             android:textSize="16pt"
                             android:textStyle="bold" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_tt_Name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Họ và tên: "
-                            android:textColor="#000000"
-                            android:textSize="8pt" />
-
-                        <EditText
-                            android:id="@+id/edt_tt_Name"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginBottom="32dp"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_tt_Age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tuổi: "
-                            android:textColor="#000000"
-                            android:textSize="8pt" />
-
-                        <EditText
-                            android:id="@+id/edt_tt_Age"
-                            android:layout_width="59dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="16dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/tv_tt_Sex"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Giới tính: "
-                            android:textColor="#000000"
-                            android:textSize="8pt" />
-
-                        <EditText
-                            android:id="@+id/edt_tt_Sex"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_tt_Height"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="Chiều cao:"
-                            android:textColor="#000000"
-                            android:textSize="8pt" />
-
-                        <EditText
-                            android:id="@+id/edt_tt_Height"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="16dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/tv_tt_Weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cân nặng: "
-                            android:textColor="#000000"
-                            android:textSize="8pt" />
-
-                        <EditText
-                            android:id="@+id/edt_tt_Weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:text="chú ý: Chiều cao đo bằng đơn vị centimeter (Cm) 1cm=0.01m, cân nặng đo bằng đơn vị kilogram(Kg)" />
-
-                    <Button
-                        android:id="@+id/btn_tt_TinhToan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#019AE8"
-                        android:text="+ TÍNH TOÁN +"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16pt"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="32dp"
-                        android:orientation="horizontal">
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_tt_Refresh"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#A6A3EE"
-                            app:cardCornerRadius="8dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_tt_Refresh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_Refresh()}"
+                                app:cardBackgroundColor="#A6A3EE"
+                                app:cardCornerRadius="8dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="8dp"
                                     android:gravity="center"
-                                    android:text="Làm lại"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="13dp" />
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="3dp"
+                                        android:gravity="center"
+                                        android:text="Làm lại"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="13dp" />
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_tt_NextDMT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#A6A3EE"
-                            app:cardCornerRadius="8dp">
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_tt_NextDMT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextDMT()}"
+                                app:cardBackgroundColor="#A6A3EE"
+                                app:cardCornerRadius="8dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="8dp"
                                     android:gravity="center"
-                                    android:text="Đặt mục tiêu"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16dp" />
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="3dp"
+                                        android:gravity="center"
+                                        android:text="Đặt mục tiêu"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="16dp" />
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_tt_NextBMI"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#A6A3EE"
-                            app:cardCornerRadius="8dp">
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_tt_NextBMI"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextBMI()}"
+                                app:cardBackgroundColor="#A6A3EE"
+                                app:cardCornerRadius="8dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="8dp"
                                     android:gravity="center"
-                                    android:text="Cách tính"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16dp" />
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="3dp"
+                                        android:gravity="center"
+                                        android:text="Cách tính"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="16dp" />
 
-                        <androidx.cardview.widget.CardView
-                            android:visibility="gone"
-                            android:id="@+id/cvShare"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#A6A3EE"
-                            app:cardCornerRadius="8dp">
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cvShare"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="#A6A3EE"
+                                app:cardCornerRadius="8dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="8dp"
                                     android:gravity="center"
-                                    android:text="Chia sẻ"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="13dp" />
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="3dp"
+                                        android:gravity="center"
+                                        android:text="Chia sẻ"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="13dp" />
 
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/tv_tt_ShowBMI"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp"
-                android:text="Chỉ số BMI của bạn là:"
-                android:textColor="#000000"
-                android:textSize="8pt" />
+                <TextView
+                    android:onClick="@{()-> tinhtoanprecenter.setJob_btn_tt_TinhToan()}"
+                    android:id="@+id/tv_tt_ShowBMI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Chỉ số BMI của bạn là:"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
 
-            <TextView
-                android:id="@+id/tv_tt_ShowStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Trạng thái cơ thể của bạn là:"
-                android:textColor="#000000"
-                android:textSize="8pt" />
+                <TextView
+                    android:id="@+id/tv_tt_ShowStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Trạng thái cơ thể của bạn là:"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="NHẬN XÉT - LỜI KHUYÊN"
-                android:textColor="#000000"
-                android:textSize="8pt" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="NHẬN XÉT - LỜI KHUYÊN"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
 
-            <TextView
-                android:id="@+id/tv_tt_ShowComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textColor="#000000"
-                android:textSize="8pt" />
-        </LinearLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/tv_tt_ShowComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
+            </LinearLayout>
+        </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
+

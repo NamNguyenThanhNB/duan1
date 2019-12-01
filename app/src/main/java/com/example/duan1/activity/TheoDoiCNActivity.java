@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.databinding.ActivityTheoDoiCnBinding;
 import com.example.duan1.inteface.CNCNActivity_Interface;
 import com.example.duan1.presenter.CNCNActivity_Precenter;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -29,7 +31,7 @@ public class TheoDoiCNActivity extends AppCompatActivity implements CNCNActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_theo_doi_cn);
+        ActivityTheoDoiCnBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_theo_doi_cn);
         Toolbar toolbar = findViewById(R.id.toolbarTDCN);
         toolbar.setTitle("Theo Dõi Cân Nặng");
         setSupportActionBar(toolbar);
@@ -40,12 +42,7 @@ public class TheoDoiCNActivity extends AppCompatActivity implements CNCNActivity
 
         cncn_Activity_precenter = new CNCNActivity_Precenter(this);
 
-        btnCncnFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cncn_Activity_precenter.setJob_btn_cncn_finish();
-            }
-        });
+        binding.setTdcnprecenter(cncn_Activity_precenter);
     }
 
     void init() {

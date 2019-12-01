@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.databinding.ActivitySoSanhTsBinding;
 import com.example.duan1.inteface.SSTSActivity_Interface;
 import com.example.duan1.presenter.SSTSActivity_Precenter;
 
@@ -34,7 +36,7 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_so_sanh_ts);
+        ActivitySoSanhTsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_so_sanh_ts);
         Toolbar toolbar = findViewById(R.id.toolbarSSTS);
         toolbar.setTitle("So Sánh Thông Số");
         setSupportActionBar(toolbar);
@@ -45,12 +47,7 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
 
         ssts_activityPrecenter = new SSTSActivity_Precenter(this);
 
-        btnSstsFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ssts_activityPrecenter.setJob_btn_ssts_finish();
-            }
-        });
+        binding.setSstsprecenter(ssts_activityPrecenter);
     }
 
     void init() {

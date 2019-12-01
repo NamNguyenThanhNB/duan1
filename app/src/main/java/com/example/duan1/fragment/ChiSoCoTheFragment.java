@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.HoatDongGDActivity;
-import com.example.duan1.activity.ND_Activity_Activity;
+import com.example.duan1.activity.ND_Activity;
 import com.example.duan1.activity.SoSanhTSActivity;
 import com.example.duan1.activity.TheoDoiCNActivity;
 import com.example.duan1.inteface.CSCTActivity_Interface;
@@ -64,7 +64,7 @@ public class ChiSoCoTheFragment extends Fragment implements CSCTActivity_Interfa
     @Override
     public void setJob_ln_csct_Update() {
 
-        Intent intent = new Intent(getActivity(), ND_Activity_Activity.class);
+        Intent intent = new Intent(getActivity(), ND_Activity.class);
         startActivity(intent);
     }
 

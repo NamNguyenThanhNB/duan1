@@ -13,12 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.BaiTapActivity;
 import com.example.duan1.activity.ThucPhamActivity;
+import com.example.duan1.databinding.FragmentManHinhChinhBinding;
 import com.example.duan1.inteface.MHChinh_Inteface;
+import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.MHChinh_Precenter;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -53,60 +57,42 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
     private CardView cvMhcNextFood;
     private CardView cvMhcNextExercise;
     private MHChinh_Precenter mhChinhPrecenter;
+    private FragmentManHinhChinhBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_man_hinh_chinh, container, false);
-        init(view);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_man_hinh_chinh, container, false);
+        init();
         mhChinhPrecenter = new MHChinh_Precenter(this);
 
+        NguoiDung nguoiDung = new NguoiDung(1, "nam", "19", "nam", "58", "168");
 
-        cvMhcWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mhChinhPrecenter.setJob_cvMhcWeight();
-            }
-        });
-        cvMhcNextExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mhChinhPrecenter.setJob_cvMhcNextExercise();
-            }
-        });
-        cvMhcNextFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mhChinhPrecenter.setJob_cvMhcNextFood();
-            }
-        });
-        cvMhcBMI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mhChinhPrecenter.setJob_cvMhcBMI();
-            }
-        });
         mhChinhPrecenter.setupChart();
-        return view;
+        binding.setMhcprecenter(mhChinhPrecenter);
+
+        binding.setNguoidungView((nguoiDung));
+        return binding.getRoot();
     }
 
 
-    void init(View view) {
+    void init() {
 
-        tvMhcStart = (TextView) view.findViewById(R.id.tv_mhc_Start);
-        tvMhcAge = (TextView) view.findViewById(R.id.tv_mhc_Age);
-        imgMhcSex = (ImageView) view.findViewById(R.id.img_mhc_Sex);
-        tvMhcHeight = (TextView) view.findViewById(R.id.tv_mhc_Height);
-        tvMhcBMI = (TextView) view.findViewById(R.id.tv_mhc_BMI);
-        tvMhcWeight = (TextView) view.findViewById(R.id.tv_mhc_Weight);
-        tvMhcStatus = (TextView) view.findViewById(R.id.tv_mhc_Status);
-        tvMhcPosttime = (TextView) view.findViewById(R.id.tv_mhc_Posttime);
-        cvBieuDo = (CardView) view.findViewById(R.id.cvBieuDo);
-        mChart = (CombinedChart) view.findViewById(R.id.combinedChart_MHC);
-        cvMhcWeight = (CardView) view.findViewById(R.id.cv_mhc_Weight);
-        cvMhcBMI = (CardView) view.findViewById(R.id.cv_mhc_BMI);
-        cvMhcNextFood = (CardView) view.findViewById(R.id.cv_mhc_NextFood);
-        cvMhcNextExercise = (CardView) view.findViewById(R.id.cv_mhc_NextExercise);
+        tvMhcStart = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Start);
+        tvMhcAge = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Age);
+        imgMhcSex = (ImageView) binding.getRoot().findViewById(R.id.img_mhc_Sex);
+        tvMhcHeight = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Height);
+        tvMhcBMI = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_BMI);
+        tvMhcWeight = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Weight);
+        tvMhcStatus = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Status);
+        tvMhcPosttime = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Posttime);
+        cvBieuDo = (CardView) binding.getRoot().findViewById(R.id.cvBieuDo);
+        mChart = (CombinedChart) binding.getRoot().findViewById(R.id.combinedChart_MHC);
+        cvMhcWeight = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_Weight);
+        cvMhcBMI = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_BMI);
+        cvMhcNextFood = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_NextFood);
+        cvMhcNextExercise = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_NextExercise);
 
     }
 

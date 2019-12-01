@@ -1,11 +1,11 @@
 package com.example.duan1.presenter;
 
-import com.example.duan1.inteface.MTDLActivity_Interface;
+import com.example.duan1.inteface.AddMTDLActivity_Interface;
 
-public class MTDLActivity_Precenter {
-    private MTDLActivity_Interface mtdlActivity_interface;
+public class AddMTDLActivity_Precenter {
+    private AddMTDLActivity_Interface mtdlActivity_interface;
 
-    public MTDLActivity_Precenter(MTDLActivity_Interface mtdlActivity_interface) {
+    public AddMTDLActivity_Precenter(AddMTDLActivity_Interface mtdlActivity_interface) {
         this.mtdlActivity_interface = mtdlActivity_interface;
     }
 

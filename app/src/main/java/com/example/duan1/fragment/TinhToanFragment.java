@@ -13,11 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.CachTinhBMIActivity;
 import com.example.duan1.activity.ThemMT_DLActivity;
+import com.example.duan1.databinding.FragmentTinhToanBinding;
 import com.example.duan1.inteface.TinhToan_Interface;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.TinhToan_Precenter;
@@ -40,58 +42,36 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
     private TextView tvTtShowComment;
 
     private TinhToan_Precenter tinhToan_precenter;
+    private FragmentTinhToanBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tinh_toan, container, false);
-        init(view);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tinh_toan, container, false);
+        init();
         tinhToan_precenter = new TinhToan_Precenter(this);
+        binding.setTinhtoanprecenter(tinhToan_precenter);
 
-        btnTtTinhToan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinhToan_precenter.setJob_btn_tt_TinhToan();
-            }
-        });
-        cvTtRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinhToan_precenter.setJob_cv_tt_Refresh();
-            }
-        });
-        cvTtNextDMT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinhToan_precenter.setJob_cv_tt_NextDMT();
-            }
-        });
-        cvTtNextBMI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinhToan_precenter.setJob_cv_tt_NextBMI();
-            }
-        });
-        return view;
+        return binding.getRoot();
     }
 
-    private void init(View view) {
+    private void init() {
 
-        edtTtName = (EditText) view.findViewById(R.id.edt_tt_Name);
-        edtTtAge = (EditText) view.findViewById(R.id.edt_tt_Age);
-        edtTtSex = (EditText) view.findViewById(R.id.edt_tt_Sex);
-        edtTtHeight = (EditText) view.findViewById(R.id.edt_tt_Height);
-        edtTtWeight = (EditText) view.findViewById(R.id.edt_tt_Weight);
+        edtTtName = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Name);
+        edtTtAge = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Age);
+        edtTtSex = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Sex);
+        edtTtHeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Height);
+        edtTtWeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Weight);
 
-        btnTtTinhToan = (Button) view.findViewById(R.id.btn_tt_TinhToan);
+        btnTtTinhToan = (Button) binding.getRoot().findViewById(R.id.btn_tt_TinhToan);
 
-        cvTtRefresh = (CardView) view.findViewById(R.id.cv_tt_Refresh);
-        cvTtNextDMT = (CardView) view.findViewById(R.id.cv_tt_NextDMT);
-        cvTtNextBMI = (CardView) view.findViewById(R.id.cv_tt_NextBMI);
+        cvTtRefresh = (CardView) binding.getRoot().findViewById(R.id.cv_tt_Refresh);
+        cvTtNextDMT = (CardView) binding.getRoot().findViewById(R.id.cv_tt_NextDMT);
+        cvTtNextBMI = (CardView) binding.getRoot().findViewById(R.id.cv_tt_NextBMI);
 
-        tvTtShowBMI = (TextView) view.findViewById(R.id.tv_tt_ShowBMI);
-        tvTtShowStatus = (TextView) view.findViewById(R.id.tv_tt_ShowStatus);
-        tvTtShowComment = (TextView) view.findViewById(R.id.tv_tt_ShowComment);
+        tvTtShowBMI = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowBMI);
+        tvTtShowStatus = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowStatus);
+        tvTtShowComment = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowComment);
     }
 
     @Override
@@ -104,9 +84,12 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         nguoiDung.setWeight(edtTtWeight.getText().toString().trim());
 
         double tinh = tinhToan_precenter.tinhtoan(nguoiDung);
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
-        tinhToan_precenter.setStatusBMI(tinh);
+        if (tinh > 0) {
+
+            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+            tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
+            tinhToan_precenter.setStatusBMI(tinh);
+        }
     }
 
     @Override

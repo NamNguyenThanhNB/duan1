@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.TheoDoiCNActivity"></activity>
-        <activity android:name=".activity.ND_Activity_Activity" />
+        <activity android:name=".activity.ND_Activity" />
         <activity android:name=".activity.HoatDongGDActivity"></activity>
         <activity android:name=".activity.SoSanhTSActivity"></activity>
         <activity android:name=".activity.ThemMT_DLActivity" />

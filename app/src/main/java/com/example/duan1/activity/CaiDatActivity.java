@@ -2,6 +2,7 @@ package com.example.duan1.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -9,6 +10,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.databinding.ActivityCaiDatBinding;
 import com.example.duan1.inteface.CaiDat_Interface;
 import com.example.duan1.presenter.CaiDat_Precenter;
 
@@ -20,7 +22,8 @@ public class CaiDatActivity extends AppCompatActivity implements CaiDat_Interfac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cai_dat);
+
+        ActivityCaiDatBinding activityCaiDatBinding = DataBindingUtil.setContentView(this, R.layout.activity_cai_dat);
         Toolbar toolbar = findViewById(R.id.toolbarCD);
         toolbar.setTitle("Cài Đặt");
         setSupportActionBar(toolbar);
@@ -34,18 +37,7 @@ public class CaiDatActivity extends AppCompatActivity implements CaiDat_Interfac
         sCdNnChuongbao = (Switch) findViewById(R.id.s_cd_nn_chuongbao);
 
 
-        sCdNnCan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                caiDat_precenter.setJob_s_cd_nn_can(isChecked);
-            }
-        });
-        sCdNnChuongbao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                caiDat_precenter.setJob_s_cd_nn_chuongbao(isChecked);
-            }
-        });
+        activityCaiDatBinding.setCaidatprecenter(caiDat_precenter);
     }
 
     @Override

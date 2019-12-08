@@ -1,30 +1,40 @@
 package com.example.duan1.model;
 
 public class ThucPham {
-    String name;
-    String type;
+    public String tenTP;
+    public String loaiTP;
+    public String chedoTP;
 
     public ThucPham() {
     }
 
-    public ThucPham(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public String getTenTP() {
+        return tenTP;
     }
 
-    public String getName() {
-        return name;
+    public void setTenTP(String tenTP) {
+        this.tenTP = tenTP;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLoaiTP() {
+        return loaiTP;
     }
 
-    public String getType() {
-        return type;
+    public void setLoaiTP(String loaiTP) {
+        this.loaiTP = loaiTP;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getChedoTP() {
+        return chedoTP;
+    }
+
+    public void setChedoTP(String chedoTP) {
+        this.chedoTP = chedoTP;
+    }
+
+    public ThucPham(String tenTP, String loaiTP, String chedoTP) {
+        this.tenTP = tenTP;
+        this.loaiTP = loaiTP;
+        this.chedoTP = chedoTP;
     }
 }

@@ -35,10 +35,10 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungHolder> {
     public void onBindViewHolder(@NonNull NguoiDungHolder holder, int position) {
         holder.imgIcon.setImageResource(R.drawable.chisocothe);
 
-        holder.tvRvndDate.setText(nguoiDungList.get(position).getDate());
-        holder.tvRvndBmi.setText(nguoiDungList.get(position).getBMI()+"");
-        holder.tvRvndWeight.setText(nguoiDungList.get(position).getWeight());
-        holder.tvRvndHeight.setText(nguoiDungList.get(position).getHeight());
+        holder.tvRvndDate.setText(nguoiDungList.get(position).getNgaydangND());
+        holder.tvRvndBmi.setText(nguoiDungList.get(position)+" BMI");
+        holder.tvRvndWeight.setText(nguoiDungList.get(position).getCannang());
+        holder.tvRvndHeight.setText(nguoiDungList.get(position).getChieucao());
     }
 
     @Override

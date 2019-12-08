@@ -19,6 +19,8 @@ import com.example.duan1.R;
 import com.example.duan1.activity.BaiTapActivity;
 import com.example.duan1.activity.BoChuyenDoiActivity;
 import com.example.duan1.activity.CaiDatActivity;
+import com.example.duan1.activity.SoSanhTSActivity;
+import com.example.duan1.activity.TheoDoiCNActivity;
 import com.example.duan1.activity.ThuVienActivity;
 import com.example.duan1.activity.ThucPhamActivity;
 import com.example.duan1.databinding.FragmentMoRongBinding;
@@ -65,16 +67,16 @@ public class MoRongFragment extends Fragment implements MoRong_Interface {
     }
 
     @Override
-    public void setJob_cvFood_MR() {
+    public void setJob_cvW_MR() {
 
-        Intent intent = new Intent(getActivity(), ThucPhamActivity.class);
+        Intent intent = new Intent(getActivity(), TheoDoiCNActivity.class);
         getActivity().startActivity(intent);
     }
 
     @Override
-    public void setJob_cvExercise_MR() {
+    public void setJob_cvSS_MR() {
 
-        Intent intent = new Intent(getActivity(), BaiTapActivity.class);
+        Intent intent = new Intent(getActivity(), SoSanhTSActivity.class);
         getActivity().startActivity(intent);
     }
 

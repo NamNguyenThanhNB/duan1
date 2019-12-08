@@ -28,7 +28,7 @@ public class ManHinhChaoActivity extends AppCompatActivity implements MHChao_Int
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (Exception e) {
                     Toast.makeText(ManHinhChaoActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 } finally {

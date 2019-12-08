@@ -12,6 +12,10 @@
         <variable
             name="mhcprecenter"
             type="com.example.duan1.presenter.MHChinh_Precenter" />
+
+        <variable
+            name="thucphamprecenter"
+            type="com.example.duan1.presenter.ThucPham_Precenter" />
     </data>
 
     <LinearLayout
@@ -36,6 +40,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="#D8FFDC"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="8dp"
@@ -57,11 +62,11 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_mhc_Start"
+                                android:id="@+id/tv_mhc_TenND"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
-                                android:text="@{nguoidungView.name}"
+                                android:text="@{nguoidungView.tenND}"
                                 android:textColor="#000000"
                                 android:textSize="16pt"
                                 android:textStyle="bold" />
@@ -72,14 +77,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="1"
-                                android:text="@{nguoidungView.age}"
+                                android:text="chưa set"
                                 android:textColor="#000000"
                                 android:textSize="8pt" />
 
                             <ImageView
                                 android:id="@+id/img_mhc_Sex"
                                 android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_height="18dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="1" />
                         </LinearLayout>
@@ -109,7 +114,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
-                                    android:text="@{nguoidungView.height}"
+                                    android:text="@{nguoidungView.chieucao}"
 
                                     android:textColor="#000000"
                                     android:textSize="8pt" />
@@ -134,7 +139,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="right"
-                                    android:text="@{nguoidungView.getbmi()}"
+                                    android:text="chưa set"
                                     android:textColor="#000000"
                                     android:textSize="8pt" />
                             </LinearLayout>
@@ -166,7 +171,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
-                                    android:text="@{nguoidungView.weight}"
+                                    android:text="@{nguoidungView.cannang}"
                                     android:textColor="#000000"
                                     android:textSize="8pt" />
                             </LinearLayout>
@@ -192,7 +197,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="right"
-                                    android:text="@{nguoidungView.status}"
+                                    android:text="chưa set"
 
                                     android:textColor="#000000"
                                     android:textSize="8pt" />
@@ -219,255 +224,208 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{nguoidungView.date}"
+                                android:text="@{nguoidungView.ngaydangND}"
                                 android:textSize="8pt" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cvBieuDo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="12"
-                        app:cardCornerRadius="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <com.github.mikephil.charting.charts.CombinedChart
-                                android:id="@+id/combinedChart_MHC"
-                                android:layout_width="match_parent"
-                                android:layout_height="300dp"
-                                android:layout_marginTop="20dp" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="8dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#CDDC39"
                         android:orientation="vertical">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_mhc_Weight"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:onClick="@{()-> mhcprecenter.setJob_cvMhcWeight()}"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal">
 
-                            app:cardBackgroundColor="#D8FFDC"
-                            app:cardCornerRadius="8dp">
-
-                            <LinearLayout
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="8dp"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="MỤC TIÊU SẮP TỚI"
+                                android:textColor="#000000"
+                                android:textSize="10pt"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginRight="8dp"
-                                    android:src="@drawable/can" />
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#0FFFFF"
+                            android:orientation="vertical">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:text="Thông Số"
-                                        android:textColor="#000000"
-                                        android:textSize="10dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="cân nặng"
-                                        android:textColor="#000000"
-                                        android:textSize="10dp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_mhc_BMI"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="1"
-                            android:onClick="@{()-> mhcprecenter.setJob_cvMhcBMI()}"
-
-                            app:cardBackgroundColor="#FFA7B0"
-                            app:cardCornerRadius="8dp">
-
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_mhc_mt"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="8dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginRight="8dp"
-                                    android:src="@drawable/bmi" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:text="Thông số"
-                                        android:textColor="#000000"
-                                        android:textSize="10dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="BMI"
-                                        android:textColor="#000000"
-                                        android:textSize="10dp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                android:layout_marginLeft="24dp" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="24dp"
-                    android:orientation="horizontal">
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="8dp">
 
-                    <androidx.cardview.widget.CardView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#CDDC39"
+                        android:orientation="vertical">
 
-                        android:id="@+id/cv_mhc_NextFood"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="1"
-                        android:onClick="@{()-> mhcprecenter.setJob_cvMhcNextFood()}"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal">
 
-                        app:cardBackgroundColor="#D8FFDC"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="LỊCH HẸN SẮP TỚI"
+                                android:textColor="#000000"
+                                android:textSize="10pt"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="#0FFFFF"
+                            android:orientation="vertical">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_mhc_dl"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="24dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#CDDC39"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_margin="8dp"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/food" />
-
-                            <LinearLayout
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="CHUỖI THỨC ĂN"
+                                android:textColor="#000000"
+                                android:textSize="10pt"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
-                                    android:text="Thực phẩm cho phép"
-                                    android:textColor="#000000"
-                                    android:textSize="10dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Thực phẩm hạn chế"
-                                    android:textColor="#000000"
-                                    android:textSize="10dp" />
-                            </LinearLayout>
-
+                            <ImageView
+                                android:id="@+id/addFood"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:onClick="@{()-> thucphamprecenter.setJob_addFood()}"
+                                android:src="@drawable/ic_add_black_24dp" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_mhc_NextExercise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        android:onClick="@{()-> mhcprecenter.setJob_cvMhcNextExercise()}"
-
-                        app:cardBackgroundColor="#FFA7B0"
-                        app:cardCornerRadius="8dp"
-
-                        app:cardElevation="8dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:orientation="horizontal">
+                            android:background="#0FFFFF"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/strong" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="ĐƯỢC PHÉP"
+                                android:textSize="8pt"
+                                android:textStyle="bold" />
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_tp_much"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="3dp"
-                                    android:text="Bài tập của bạn"
-                                    android:textColor="#000000"
-                                    android:textSize="10dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=""
-                                    android:textColor="#000000"
-                                    android:textSize="10dp"
-                                    android:visibility="gone" />
-                            </LinearLayout>
-
+                                android:layout_marginLeft="24dp" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#D89EE9F3"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="HẠN CHẾ"
+                                android:textSize="8pt"
+                                android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_tp_limit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="24dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#D8FFFFFF"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="KHÔNG ĐƯỢC PHÉP"
+                                android:textSize="8pt"
+                                android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_tp_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="24dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </ScrollView>

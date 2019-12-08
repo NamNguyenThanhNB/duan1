@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -24,6 +25,7 @@ import com.example.duan1.databinding.FragmentManHinhChinhBinding;
 import com.example.duan1.inteface.MHChinh_Inteface;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.MHChinh_Precenter;
+import com.example.duan1.presenter.ThucPham_Precenter;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -42,20 +44,6 @@ import java.util.List;
 
 public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
-    private TextView tvMhcStart;
-    private TextView tvMhcAge;
-    private ImageView imgMhcSex;
-    private TextView tvMhcHeight;
-    private TextView tvMhcBMI;
-    private TextView tvMhcWeight;
-    private TextView tvMhcStatus;
-    private TextView tvMhcPosttime;
-    private CardView cvBieuDo;
-    private CombinedChart mChart;
-    private CardView cvMhcWeight;
-    private CardView cvMhcBMI;
-    private CardView cvMhcNextFood;
-    private CardView cvMhcNextExercise;
     private MHChinh_Precenter mhChinhPrecenter;
     private FragmentManHinhChinhBinding binding;
 
@@ -64,79 +52,15 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_man_hinh_chinh, container, false);
-        init();
+
         mhChinhPrecenter = new MHChinh_Precenter(this);
 
-        NguoiDung nguoiDung = new NguoiDung(1, "nam", "19", "nam", "58", "168");
-
-        mhChinhPrecenter.setupChart();
+        NguoiDung nguoiDung = new NguoiDung(1, "nam", "19", "nam", "58", "168", "null", "20/11/2019");
         binding.setMhcprecenter(mhChinhPrecenter);
-
+        ThucPham_Precenter thucPham_precenter = new ThucPham_Precenter(this);
+        binding.setThucphamprecenter(thucPham_precenter);
         binding.setNguoidungView((nguoiDung));
         return binding.getRoot();
-    }
-
-
-    void init() {
-
-        tvMhcStart = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Start);
-        tvMhcAge = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Age);
-        imgMhcSex = (ImageView) binding.getRoot().findViewById(R.id.img_mhc_Sex);
-        tvMhcHeight = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Height);
-        tvMhcBMI = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_BMI);
-        tvMhcWeight = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Weight);
-        tvMhcStatus = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Status);
-        tvMhcPosttime = (TextView) binding.getRoot().findViewById(R.id.tv_mhc_Posttime);
-        cvBieuDo = (CardView) binding.getRoot().findViewById(R.id.cvBieuDo);
-        mChart = (CombinedChart) binding.getRoot().findViewById(R.id.combinedChart_MHC);
-        cvMhcWeight = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_Weight);
-        cvMhcBMI = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_BMI);
-        cvMhcNextFood = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_NextFood);
-        cvMhcNextExercise = (CardView) binding.getRoot().findViewById(R.id.cv_mhc_NextExercise);
-
-    }
-
-
-    public void onValueSelected(Entry e, Highlight h) {
-        Toast.makeText(getActivity(), "Value: "
-                + e.getY()
-                + ", index: "
-                + h.getX()
-                + ", DataSet index: "
-                + h.getDataSetIndex(), Toast.LENGTH_SHORT).show();
-    }
-
-
-    public void onNothingSelected() {
-
-    }
-
-    private static DataSet dataChart() {
-
-        LineData d = new LineData();
-        int[] data = new int[]{1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9};
-
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-
-        for (int index = 0; index < 12; index++) {
-            entries.add(new Entry(index, data[index]));
-        }
-
-        LineDataSet set = new LineDataSet(entries, "Request Ots approved");
-        set.setColor(Color.GREEN);
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.GREEN);
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.GREEN);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setDrawValues(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.GREEN);
-
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        d.addDataSet(set);
-
-        return set;
     }
 
     @Override
@@ -154,83 +78,47 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
     @Override
     public void setJob_cvMhcNextFood() {
-        cvMhcNextFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ThucPhamActivity.class);
                 startActivity(intent);
-            }
-        });
+
 
     }
 
     @Override
     public void setJob_cvMhcNextExercise() {
-        cvMhcNextExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BaiTapActivity.class);
                 startActivity(intent);
-            }
-        });
 
     }
 
     @Override
-    public void setupChart() {
+    public void setJob_addFood() {
+        Toast.makeText(getActivity(), "show dialog for add foods", Toast.LENGTH_SHORT).show();
 
-        mChart.getDescription().setEnabled(false);
-        mChart.setBackgroundColor(Color.WHITE);
-        mChart.setDrawGridBackground(false);
-        mChart.setDrawBarShadow(false);
-        mChart.setHighlightFullBarEnabled(false);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setView(R.layout.dialog_add_food);
+        final AlertDialog dialog = alertDialog.show();
+    }
 
-//        mChart.setOnChartValueSelectedListener(getActivity());
-
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(0f);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinimum(0f);
-
-        final List<String> xLabel = new ArrayList<>();
-        xLabel.add("Jan");
-        xLabel.add("Feb");
-        xLabel.add("Mar");
-        xLabel.add("Apr");
-        xLabel.add("May");
-        xLabel.add("Jun");
-        xLabel.add("Jul");
-        xLabel.add("Aug");
-        xLabel.add("Sep");
-        xLabel.add("Oct");
-        xLabel.add("Nov");
-        xLabel.add("Dec");
-
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAxisMinimum(0f);
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return xLabel.get((int) value % xLabel.size());
-            }
-        });
-
-        CombinedData data = new CombinedData();
-        LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart());
-
-        data.setData(lineDatas);
-
-        xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-
-        mChart.setData(data);
-        mChart.invalidate();
+    @Override
+    public void setJob_tvTpShowComment() {
 
     }
+
+    @Override
+    public void setJob_rvTpMuch() {
+
+    }
+
+    @Override
+    public void setJob_rvTpLimit() {
+
+    }
+
+    @Override
+    public void setJob_rvTpNo() {
+
+    }
+
 }
 

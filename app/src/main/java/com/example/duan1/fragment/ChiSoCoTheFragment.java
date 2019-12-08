@@ -27,34 +27,15 @@ public class ChiSoCoTheFragment extends Fragment implements CSCTActivity_Interfa
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chi_so_co_the, container, false);
+
+
         LinearLayout lnUpdate = view.findViewById(R.id.ln_csct_Update);
-        CardView cvSoSanh = view.findViewById(R.id.cv_csct_SoSanh);
-        CardView cvHoatDong = view.findViewById(R.id.cv_csct_HoatDong);
-        CardView cvWeight = view.findViewById(R.id.cv_csct_Weight);
         csct_activityPrecenter = new CSCTActivity_Precenter(this);
 
         lnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 csct_activityPrecenter.setJob_ln_csct_Update();
-            }
-        });
-        cvWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                csct_activityPrecenter.setJob_cv_csct_Weight();
-            }
-        });
-        cvSoSanh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                csct_activityPrecenter.setJob_cv_csct_SoSanh();
-            }
-        });
-        cvHoatDong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                csct_activityPrecenter.setJobcv_csct_HoatDong();
             }
         });
 
@@ -66,26 +47,5 @@ public class ChiSoCoTheFragment extends Fragment implements CSCTActivity_Interfa
 
         Intent intent = new Intent(getActivity(), ND_Activity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void setJob_cv_csct_Weight() {
-        Intent intent = new Intent(getActivity(), TheoDoiCNActivity.class);
-        startActivity(intent);
-
-    }
-
-    @Override
-    public void setJob_cv_csct_SoSanh() {
-        Intent intent = new Intent(getActivity(), SoSanhTSActivity.class);
-        startActivity(intent);
-
-    }
-
-    @Override
-    public void setJobcv_csct_HoatDong() {
-        Intent intent = new Intent(getActivity(), HoatDongGDActivity.class);
-        startActivity(intent);
-
     }
 }

@@ -22,12 +22,7 @@ import com.example.duan1.inteface.MucTieu_Interface;
 import com.example.duan1.presenter.MucTieu_Precenter;
 
 public class MucTieuFragment extends Fragment implements MucTieu_Interface {
-    private Switch sGetUp;
-    private Switch sBedTime;
-    private Switch sMeal;
-    private Switch sDrink;
-    private Switch sExercise;
-    private ImageView imgMtAdd;
+
     private MucTieu_Precenter mucTieuPrecenter;
     private FragmentMucTieuBinding binding;
 
@@ -35,20 +30,10 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_muc_tieu, container, false);
-        init();
+
         mucTieuPrecenter = new MucTieu_Precenter(this);
         binding.setMuctieuprecenter(mucTieuPrecenter);
         return binding.getRoot();
-    }
-
-    private void init() {
-
-        sGetUp = (Switch) binding.getRoot().findViewById(R.id.sGetUp);
-        sBedTime = (Switch) binding.getRoot().findViewById(R.id.sBedTime);
-        sMeal = (Switch) binding.getRoot().findViewById(R.id.sMeal);
-        sDrink = (Switch) binding.getRoot().findViewById(R.id.sDrink);
-        sExercise = (Switch) binding.getRoot().findViewById(R.id.sExercise);
-        imgMtAdd = (ImageView) binding.getRoot().findViewById(R.id.img_mt_add_);
     }
 
     @Override
@@ -99,6 +84,18 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
     @Override
     public void setJob_imgMtAdd() {
         Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
+        intent.putExtra("MT-DL", 0);
         getActivity().startActivity(intent);
+
+        Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setJob_imgLHAdd() {
+        Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
+        intent.putExtra("MT-DL", 1);
+        getActivity().startActivity(intent);
+        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -11,5 +11,13 @@ public interface MHChinh_Inteface {
 
     void setJob_cvMhcNextExercise();
 
-    void setupChart();
+    void setJob_addFood();
+
+    void setJob_tvTpShowComment();
+
+    void setJob_rvTpMuch();
+
+    void setJob_rvTpLimit();
+
+    void setJob_rvTpNo();
 }

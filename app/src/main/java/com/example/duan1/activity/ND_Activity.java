@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.duan1.R;
 import com.example.duan1.databinding.ActivityNdBinding;
 import com.example.duan1.inteface.NDActivity_Interface;
+import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.NDActivity_Precenter;
 
 public class ND_Activity extends AppCompatActivity implements NDActivity_Interface {

@@ -77,11 +77,11 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
     @Override
     public void setJob_btn_tt_TinhToan() {
         NguoiDung nguoiDung = new NguoiDung();
-        nguoiDung.setName(edtTtName.getText().toString().trim());
-        nguoiDung.setSex(edtTtSex.getText().toString().trim());
-        nguoiDung.setAge(edtTtAge.getText().toString().trim());
-        nguoiDung.setHeight(edtTtHeight.getText().toString().trim());
-        nguoiDung.setWeight(edtTtWeight.getText().toString().trim());
+        nguoiDung.setTenND(edtTtName.getText().toString().trim());
+        nguoiDung.setGioitinh(edtTtSex.getText().toString().trim());
+        nguoiDung.setTuoiND(edtTtAge.getText().toString().trim());
+        nguoiDung.setChieucao(edtTtHeight.getText().toString().trim());
+        nguoiDung.setCannang(edtTtWeight.getText().toString().trim());
 
         double tinh = tinhToan_precenter.tinhtoan(nguoiDung);
         if (tinh > 0) {

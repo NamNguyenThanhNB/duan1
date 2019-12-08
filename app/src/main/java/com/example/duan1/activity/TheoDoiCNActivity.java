@@ -18,7 +18,7 @@ import com.example.duan1.presenter.CNCNActivity_Precenter;
 import com.github.mikephil.charting.charts.CombinedChart;
 
 public class TheoDoiCNActivity extends AppCompatActivity implements CNCNActivity_Interface {
-    private CombinedChart combinedChartCSCT;
+
     private TextView tvCncnDate;
     private EditText edtCncnWeight;
     private TextView tvCncnCnlt;
@@ -46,7 +46,6 @@ public class TheoDoiCNActivity extends AppCompatActivity implements CNCNActivity
     }
 
     void init() {
-        combinedChartCSCT = (CombinedChart) findViewById(R.id.combinedChart_CSCT);
         tvCncnDate = (TextView) findViewById(R.id.tv_cncn_date);
         edtCncnWeight = (EditText) findViewById(R.id.edt_cncn_weight);
         tvCncnCnlt = (TextView) findViewById(R.id.tv_cncn_cnlt);

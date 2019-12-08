@@ -25,13 +25,13 @@ public class MoRong_Precenter {
     }
 
 
-    public void setJob_cvFood_MR() {
-        moRong_interface.setJob_cvFood_MR();
+    public void setJob_cvW_MR() {
+        moRong_interface.setJob_cvW_MR();
     }
 
 
-    public void setJob_cvExercise_MR() {
-        moRong_interface.setJob_cvExercise_MR();
+    public void setJob_cvSS_MR() {
+        moRong_interface.setJob_cvSS_MR();
     }
 
 

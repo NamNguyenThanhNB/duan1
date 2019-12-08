@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.example.duan1.R;
 import com.example.duan1.adapter.NguoiDungAdapter;
+import com.example.duan1.dao.NguoidungDao;
+import com.example.duan1.database.BodyAndHealthyDatabase;
 import com.example.duan1.fragment.MoRongFragment;
 import com.example.duan1.model.NguoiDung;
 
@@ -22,6 +24,8 @@ public class ThuVienActivity extends AppCompatActivity {
     private List<NguoiDung> nguoiDungList;
     private NguoiDungAdapter nguoiDungAdapter;
     private RecyclerView rvList_ND;
+
+    private NguoidungDao nguoidungDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class ThuVienActivity extends AppCompatActivity {
         //hien thi nut back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        nguoidungDao = new NguoidungDao(this);
 //        ImageView imgBack_01 = findViewById(R.id.imgBack_01);
 //        imgBack_01.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -46,16 +50,7 @@ public class ThuVienActivity extends AppCompatActivity {
 //            }
 //        });
 
-        nguoiDungList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            NguoiDung nguoiDung = new NguoiDung();
-            nguoiDung.setName("nam " + i);
-            nguoiDung.setWeight("58");
-            nguoiDung.setHeight("165");
-            nguoiDung.setDate("20/11/2019");
-
-            nguoiDungList.add(nguoiDung);
-        }
+        nguoiDungList = nguoidungDao.selectND();
         nguoiDungAdapter = new NguoiDungAdapter(this, nguoiDungList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvList_ND.setLayoutManager(linearLayoutManager);

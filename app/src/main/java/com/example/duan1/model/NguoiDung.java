@@ -11,121 +11,106 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NguoiDung {
-    public int id;
-    public String name;
-    public String birth;
-    public String age;
-    public String sex;
-    public String weight;
-    public String height;
-    public String date;
-    public String status;
-    public double BMI;
+    public int maND;
+    public String tenND;
+    public String ngaysinh;
+    public String gioitinh;
+    public String chieucao;
+    public String cannang;
+    public String anh;
+    public String ngaydangND;
 
+    public String getTuoiND() {
+        return tuoiND;
+    }
+
+    public void setTuoiND(String tuoiND) {
+        this.tuoiND = tuoiND;
+    }
+
+    public String tuoiND;
 
     public NguoiDung() {
     }
 
-    public NguoiDung(int id, String name, String age, String sex, String weight, String height) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        this.weight = weight;
-        this.height = height;
+    public NguoiDung(int maND, String tenND, String ngaysinh, String gioitinh, String chieucao, String cannang, String anh, String ngaydangND) {
+        this.maND = maND;
+        this.tenND = tenND;
+        this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
+        this.chieucao = chieucao;
+        this.cannang = cannang;
+        this.anh = anh;
+        this.ngaydangND = ngaydangND;
     }
 
-    public String getbmi() {
-        return String.valueOf(BMI);
+    public int getMaND() {
+        return maND;
     }
 
-    public String getStatus() {
-        return status;
+    public void setMaND(int maND) {
+        this.maND = maND;
     }
 
-    public int getId() {
-        return id;
+    public String getTenND() {
+        return tenND;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTenND(String tenND) {
+        this.tenND = tenND;
     }
 
-    public String getBirth() {
-        return birth;
+    public String getNgaysinh() {
+        return ngaysinh;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
+    public void setNgaysinh(String ngaysinh) {
+        this.ngaysinh = ngaysinh;
     }
 
-    public String getDate() {
-        return date;
+    public String getGioitinh() {
+        return gioitinh;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setGioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
     }
 
-    public double getBMI() {
-        return BMI;
+    public String getChieucao() {
+        return chieucao;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setChieucao(String chieucao) {
+        this.chieucao = chieucao;
     }
 
-    public void setBMI(double BMI) {
-        this.BMI = BMI;
+    public String getCannang() {
+        return cannang;
     }
 
-    public String getName() {
-        return name;
+    public void setCannang(String cannang) {
+        this.cannang = cannang;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getAnh() {
+        return anh;
     }
 
-    public String getAge() {
-        return age;
+    public void setAnh(String anh) {
+        this.anh = anh;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public String getNgaydangND() {
+        return ngaydangND;
     }
 
-    public String getSex() {
-        return sex;
+    public void setNgaydangND(String ngaydangND) {
+        this.ngaydangND = ngaydangND;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
-
-    public double setBMI_(NguoiDung nguoiDung) {
+    public double tinhBMI(double w, double h) {
         double bmi = -1;
         try {
-
-            double w = Double.parseDouble(nguoiDung.getWeight());
-            double h = Double.parseDouble(nguoiDung.getHeight());
             bmi = w / (h * h);
             if (bmi < 1) {
                 bmi = bmi * 10000;
@@ -137,10 +122,9 @@ public class NguoiDung {
         return Double.parseDouble(decimalFormat.format(bmi));
     }
 
-    public String setStatus_(NguoiDung nguoiDung) {
+    public String setStatus(double statusBMI) {
         String statuss = null;
         try {
-            double statusBMI = nguoiDung.getBMI();
 
             if (statusBMI < 18.5) {
                 statuss = "Gầy";
@@ -163,7 +147,7 @@ public class NguoiDung {
         return statuss;
     }
 
-    public String setDate_() {
+    public String ngayHienTai() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
         dateFormatter.setLenient(false);
         Date today = new Date();

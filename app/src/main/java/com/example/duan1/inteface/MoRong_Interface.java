@@ -7,9 +7,9 @@ public interface MoRong_Interface {
 
     void setJob_cvSetting();
 
-    void setJob_cvFood_MR();
+    void setJob_cvW_MR();
 
-    void setJob_cvExercise_MR();
+    void setJob_cvSS_MR();
 
     void setJob_cvReset();
 

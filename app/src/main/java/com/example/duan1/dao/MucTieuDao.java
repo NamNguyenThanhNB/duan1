@@ -20,7 +20,7 @@ public class MucTieuDao {
     private BodyAndHealthyDatabase dbHelper;
     public static final String TAG = "MucTieuDao";
     public static final String SQL_MucTieuDB = "" +
-            "CREATE TABLE " + TABLE_NAME + " ( tenMT NVARCHAR primary key, noidungMT NVARCHAR, ngayBDMT NVARCHAR, ngayKTMT NVARCHAR);";
+            "CREATE TABLE " + TABLE_NAME + " ( tenMT NVARCHAR primary key, noidungMT NVARCHAR, ngayBDMT NVARCHAR, ngayKTMT Date);";
 
     public MucTieuDao(Context context) {
         dbHelper = new BodyAndHealthyDatabase(context);
@@ -107,11 +107,13 @@ public class MucTieuDao {
         return mucTieuList;
     }
 
-    public List<MucTieu> selectMucTieu(String table, String s) {
+
+
+    public List<MucTieu> selectMucTieu(String s) {
         List<MucTieu> mucTieuList = new ArrayList<>();
         // b2 : viet cau lenh select
 
-        String select = "SELECT * FROM " + TABLE_NAME + " WHERE " + table + " = ?";
+        String select = "SELECT * FROM " + TABLE_NAME + " WHERE ngayBDMT = ?";
 
         // b3 : su dung cau lenh rawQuery
         Cursor cursor = dbR.rawQuery(select, new String[]{s});

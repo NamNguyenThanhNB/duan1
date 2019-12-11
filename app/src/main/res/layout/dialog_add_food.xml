@@ -115,11 +115,12 @@
                     android:textSize="8pt" />
 
                 <EditText
-                    android:paddingLeft="8dp"
                     android:id="@+id/edt_addFood_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom" />
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:textColor="#000" />
             </LinearLayout>
 
             <LinearLayout

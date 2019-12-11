@@ -28,11 +28,18 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
     private Context context;
     private List<LichTrinh> lichTrinhList;
     private LichTrinhDao lichTrinhDao;
+    private int x, dem = 0;
 
     public LichTrinhAdapter(Context context, List<LichTrinh> lichTrinhList) {
         this.context = context;
         this.lichTrinhList = lichTrinhList;
         lichTrinhDao = new LichTrinhDao(context);
+    }
+
+    public LichTrinhAdapter(Context context, List<LichTrinh> lichTrinhList, int x) {
+        this.context = context;
+        this.lichTrinhList = lichTrinhList;
+        this.x = x;
     }
 
     @NonNull
@@ -45,9 +52,11 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LichTrinhHolder holder, final int position) {
+        holder.tv_s.setVisibility(View.GONE);
+        holder.tv_e.setText("Thời gian diễn ra: ");
         holder.tvRvmtTitle.setText(lichTrinhList.get(position).getTenLT());
         holder.tvRvmtSTime.setVisibility(View.GONE);
-        holder.tvRvdlSTime.setText("Thời gian diễn ra: " + lichTrinhList.get(position).getTgdienraLT());
+        holder.tvRvdlSTime.setText(lichTrinhList.get(position).getTgdienraLT());
         holder.tvRvmtTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +71,9 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
                 final EditText edtMtdlContentShow;
                 final LinearLayout lnMtdlShowDel;
                 final LinearLayout lnMtdlShowUpdate;
+                final TextView tvTGDR_mtdl;
 
-
+                tvTGDR_mtdl = (TextView) dialog.findViewById(R.id.tvTGDR_mtdl);
                 tvShowMTDL = (TextView) dialog.findViewById(R.id.tv_showMTDL_);
                 edtMtdlShowTitle = (EditText) dialog.findViewById(R.id.edt_mtdlShow_title);
                 lnMtdlShowDL = (LinearLayout) dialog.findViewById(R.id.ln_mtdlShow_DL);
@@ -80,94 +90,112 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
                 edtMtdlShowStartDL.setText(lichTrinhList.get(position).getTgdienraLT());
                 edtMtdlContentShow.setText(lichTrinhList.get(position).getNoidungLT());
 
-                lnMtdlShowUpdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String title = edtMtdlShowTitle.getText().toString().trim();
-                        String dlStart = edtMtdlShowStartDL.getText().toString().trim();
-                        String content = edtMtdlContentShow.getText().toString().trim();
+                if (x != 1) {
+                    edtMtdlShowStartDL.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
+                            alertDialog_dp.setView(R.layout.dialog_select_date);
+                            final AlertDialog dialog_dp = alertDialog_dp.show();
+                            DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
+                            Calendar calendar = Calendar.getInstance();
 
+                            // Lấy ra năm - tháng - ngày hiện tại
+                            int year = calendar.get(calendar.YEAR);
+                            final int month = calendar.get(calendar.MONTH);
+                            int day = calendar.get(calendar.DAY_OF_MONTH);
 
-                        edtMtdlShowStartDL.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v) {
-                                final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
-                                alertDialog_dp.setView(R.layout.dialog_select_date);
-                                final AlertDialog dialog_dp = alertDialog_dp.show();
-                                DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
-                                Calendar calendar = Calendar.getInstance();
+                            // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+                            dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
+                                @Override
+                                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+                                    String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                                    edtMtdlShowStartDL.setText(sDL);
+                                    dialog_dp.dismiss();
+                                }
+                            });
+                            return false;
+                        }
+                    });
 
-                                // Lấy ra năm - tháng - ngày hiện tại
-                                int year = calendar.get(calendar.YEAR);
-                                final int month = calendar.get(calendar.MONTH);
-                                int day = calendar.get(calendar.DAY_OF_MONTH);
+                    lnMtdlShowUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = edtMtdlShowTitle.getText().toString().trim();
+                            String dlStart = edtMtdlShowStartDL.getText().toString().trim();
+                            String content = edtMtdlContentShow.getText().toString().trim();
 
-                                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-                                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-                                    @Override
-                                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                        Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-                                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                                        edtMtdlShowStartDL.setText(sDL);
-                                        dialog_dp.dismiss();
-                                    }
-                                });
-                                return false;
+                            LichTrinh lichTrinh = new LichTrinh(title, content, dlStart);
+                            boolean result = lichTrinhDao.updateLT(lichTrinh);
+                            if (result) {
+
+                                lichTrinhList.get(position).setTenLT(title);
+                                lichTrinhList.get(position).setNoidungLT(content);
+                                lichTrinhList.get(position).setTgdienraLT(dlStart);
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                             }
-                        });
-
-                        LichTrinh lichTrinh = new LichTrinh(title, content, dlStart);
-                        boolean result = lichTrinhDao.updateLT(lichTrinh);
-                        if (result) {
-
-                            lichTrinhList.get(position).setTenLT(title);
-                            lichTrinhList.get(position).setNoidungLT(content);
-                            lichTrinhList.get(position).setTgdienraLT(dlStart);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                });
-                lnMtdlShowDel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean result = lichTrinhDao.deleteLT(lichTrinhList.get(position).getTenLT());
-                        if (result) {
-                            lichTrinhList.remove(position);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        } else {
+                    });
+                    lnMtdlShowDel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean result = lichTrinhDao.deleteLT(lichTrinhList.get(position).getTenLT());
+                            if (result) {
+                                lichTrinhList.remove(position);
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            } else {
 
-                            Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                boolean result = lichTrinhDao.deleteLT(lichTrinhList.get(position).getTenLT());
-                if (result) {
-                    lichTrinhList.remove(position);
-                    notifyDataSetChanged();
+                    });
                 } else {
-
-                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    LinearLayout linearLayout = dialog.findViewById(R.id.linearLayout);
+                    linearLayout.setVisibility(View.GONE);
+                    edtMtdlContentShow.setEnabled(false);
+                    edtMtdlShowStartDL.setEnabled(false);
                 }
-                return false;
             }
         });
+        if (x != 1) {
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    boolean result = lichTrinhDao.deleteLT(lichTrinhList.get(position).getTenLT());
+                    if (result) {
+                        lichTrinhList.remove(position);
+                        notifyDataSetChanged();
+                    } else {
+
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        return lichTrinhList.size();
+        dem = 1;
+        for (int j = 1; j < lichTrinhList.size(); j++) {
+            if (lichTrinhList.get(0).getTgdienraLT().equalsIgnoreCase(lichTrinhList.get(j).getTgdienraLT())) {
+                dem++;
+            }
+        }
+        if (x == 1) {
+            return dem;
+        } else {
+            return lichTrinhList.size();
+        }
     }
 }

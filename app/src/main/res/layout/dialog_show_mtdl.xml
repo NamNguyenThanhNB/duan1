@@ -41,7 +41,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:paddingRight="16dp" />
+                    android:gravity="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -59,6 +60,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvS_mtdl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -72,7 +74,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="dd/MM/yyyy" />
+                        android:hint="dd/MM/yyyy"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
 
@@ -84,6 +87,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvE_mtdl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -97,7 +101,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="dd/MM/yyyy" />
+                        android:hint="dd/MM/yyyy"
+                        android:textColor="#000000" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -116,6 +121,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvTGDR_mtdl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -129,7 +135,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="dd/MM/yyyy" />
+                        android:hint="dd/MM/yyyy"
+                        android:textColor="#000000" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -181,7 +188,8 @@
                 android:background="#FFFFFF"
                 android:gravity="top"
                 android:minHeight="200dp"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textColor="#000000" />
 
         </LinearLayout>
     </ScrollView>

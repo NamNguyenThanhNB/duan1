@@ -31,8 +31,16 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     private Context context;
     private List<MucTieu> mucTieuList;
     private MucTieuDao mucTieuDao;
+    private int x, dem = 0;
 
     public MucTieuAdapter(Context context, List<MucTieu> mucTieuList) {
+        this.context = context;
+        this.mucTieuList = mucTieuList;
+        mucTieuDao = new MucTieuDao(context);
+    }
+
+    public MucTieuAdapter(Context context, List<MucTieu> mucTieuList, int x) {
+        this.x = x;
         this.context = context;
         this.mucTieuList = mucTieuList;
         mucTieuDao = new MucTieuDao(context);
@@ -48,9 +56,10 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MucTieuHolder holder, final int position) {
+
         holder.tvRvmtTitle.setText(mucTieuList.get(position).getTenMT());
-        holder.tvRvmtSTime.setText("Bắt đầu: " + mucTieuList.get(position).getNgayBDMT());
-        holder.tvRvmtETime.setText("Kết thúc: " + mucTieuList.get(position).getNgayKTMT());
+        holder.tvRvmtSTime.setText(mucTieuList.get(position).getNgayBDMT());
+        holder.tvRvmtETime.setText(mucTieuList.get(position).getNgayKTMT());
         holder.tvRvmtTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,125 +94,143 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
                 edtMtdlShowStartMT.setText(mucTieuList.get(position).getNgayBDMT());
                 edtMtdlShowEndMT.setText(mucTieuList.get(position).getNgayKTMT());
                 edtMtdlContentShow.setText(mucTieuList.get(position).getNoidungMT());
-
-                lnMtdlShowUpdate.setOnClickListener(new View.OnClickListener() {
+                edtMtdlShowStartMT.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        String title = edtMtdlShowTitle.getText().toString().trim();
-                        final String mtStart = edtMtdlShowStartMT.getText().toString().trim();
-                        String mtEnd = edtMtdlShowEndMT.getText().toString().trim();
-                        String content = edtMtdlContentShow.getText().toString().trim();
-                        edtMtdlShowStartMT.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
+                        alertDialog_dp.setView(R.layout.dialog_select_date);
+                        final AlertDialog dialog_dp = alertDialog_dp.show();
+                        DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
+                        Calendar calendar = Calendar.getInstance();
+
+                        // Lấy ra năm - tháng - ngày hiện tại
+                        int year = calendar.get(calendar.YEAR);
+                        final int month = calendar.get(calendar.MONTH);
+                        int day = calendar.get(calendar.DAY_OF_MONTH);
+
+                        // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+                        dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                             @Override
-                            public boolean onLongClick(View v) {
-                                final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
-                                alertDialog_dp.setView(R.layout.dialog_select_date);
-                                final AlertDialog dialog_dp = alertDialog_dp.show();
-                                DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
-                                Calendar calendar = Calendar.getInstance();
-
-                                // Lấy ra năm - tháng - ngày hiện tại
-                                int year = calendar.get(calendar.YEAR);
-                                final int month = calendar.get(calendar.MONTH);
-                                int day = calendar.get(calendar.DAY_OF_MONTH);
-
-                                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-                                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-                                    @Override
-                                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                        Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-                                        String sMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                                        edtMtdlShowStartMT.setText(sMT);
-                                        dialog_dp.dismiss();
-                                    }
-                                });
-
-                                return false;
+                            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+                                String sMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                                edtMtdlShowStartMT.setText(sMT);
+                                dialog_dp.dismiss();
                             }
                         });
 
-                        edtMtdlShowEndMT.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v) {
-                                final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
-                                alertDialog_dp.setView(R.layout.dialog_select_date);
-                                final AlertDialog dialog_dp = alertDialog_dp.show();
-                                DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
-                                Calendar calendar = Calendar.getInstance();
+                        return false;
+                    }
+                });
+                if (x != 1) {
 
-                                // Lấy ra năm - tháng - ngày hiện tại
-                                int year = calendar.get(calendar.YEAR);
-                                final int month = calendar.get(calendar.MONTH);
-                                int day = calendar.get(calendar.DAY_OF_MONTH);
+                    edtMtdlShowEndMT.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            final AlertDialog.Builder alertDialog_dp = new AlertDialog.Builder(context);
+                            alertDialog_dp.setView(R.layout.dialog_select_date);
+                            final AlertDialog dialog_dp = alertDialog_dp.show();
+                            DatePicker dpCalendar = dialog_dp.findViewById(R.id.dpCalendar);
+                            Calendar calendar = Calendar.getInstance();
 
-                                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-                                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-                                    @Override
-                                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                        Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-                                        String eMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                                        edtMtdlShowEndMT.setText(eMT);
-                                        dialog_dp.dismiss();
-                                    }
-                                });
-                                return false;
+                            // Lấy ra năm - tháng - ngày hiện tại
+                            int year = calendar.get(calendar.YEAR);
+                            final int month = calendar.get(calendar.MONTH);
+                            int day = calendar.get(calendar.DAY_OF_MONTH);
+
+                            // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+                            dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
+                                @Override
+                                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    Toast.makeText(context, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+                                    String eMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                                    edtMtdlShowEndMT.setText(eMT);
+                                    dialog_dp.dismiss();
+                                }
+                            });
+                            return false;
+                        }
+                    });
+                    lnMtdlShowUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = edtMtdlShowTitle.getText().toString().trim();
+                            final String mtStart = edtMtdlShowStartMT.getText().toString().trim();
+                            String mtEnd = edtMtdlShowEndMT.getText().toString().trim();
+                            String content = edtMtdlContentShow.getText().toString().trim();
+
+
+                            MucTieu mucTieu = new MucTieu(title, content, mtStart, mtEnd);
+                            boolean result = mucTieuDao.updateMT(mucTieu);
+                            if (result) {
+
+                                mucTieuList.get(position).setTenMT(title);
+                                mucTieuList.get(position).setNoidungMT(content);
+                                mucTieuList.get(position).setNgayBDMT(mtStart);
+                                mucTieuList.get(position).setNgayKTMT(mtEnd);
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                             }
-                        });
-
-
-                        MucTieu mucTieu = new MucTieu(title, content, mtStart, mtEnd);
-                        boolean result = mucTieuDao.updateMT(mucTieu);
-                        if (result) {
-
-                            mucTieuList.get(position).setTenMT(title);
-                            mucTieuList.get(position).setNoidungMT(content);
-                            mucTieuList.get(position).setNgayBDMT(mtStart);
-                            mucTieuList.get(position).setNgayKTMT(mtEnd);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                });
-                lnMtdlShowDel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean result = mucTieuDao.deleteMT(mucTieuList.get(position).getTenMT());
-                        if (result) {
-                            mucTieuList.remove(position);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        } else {
+                    });
+                    lnMtdlShowDel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean result = mucTieuDao.deleteMT(mucTieuList.get(position).getTenMT());
+                            if (result) {
+                                mucTieuList.remove(position);
+                                notifyDataSetChanged();
+                            } else {
 
-                            Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                boolean result = mucTieuDao.deleteMT(mucTieuList.get(position).getTenMT());
-                if (result) {
-                    mucTieuList.remove(position);
-                    notifyDataSetChanged();
+                    });
                 } else {
-
-                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    LinearLayout linearLayout = dialog.findViewById(R.id.linearLayout);
+                    linearLayout.setVisibility(View.GONE);
+                    edtMtdlContentShow.setEnabled(false);
+                    edtMtdlShowStartMT.setEnabled(false);
+                    edtMtdlShowEndMT.setEnabled(false);
                 }
-                return false;
+
             }
         });
+        if (x != 1) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    boolean result = mucTieuDao.deleteMT(mucTieuList.get(position).getTenMT());
+                    if (result) {
+                        mucTieuList.remove(position);
+                        notifyDataSetChanged();
+                    } else {
+
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        return mucTieuList.size();
+        dem = 1;
+        for (int j = 1; j < mucTieuList.size(); j++) {
+            if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(mucTieuList.get(j).getNgayBDMT())) {
+                dem++;
+            }
+        }
+        if (x == 1) {
+            return dem;
+        } else {
+            return mucTieuList.size();
+        }
     }
 }

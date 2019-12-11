@@ -56,6 +56,7 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
 
         mucTieuDao = new MucTieuDao(getActivity());
         lichTrinhDao = new LichTrinhDao(getActivity());
+
         List<MucTieu> mucTieuList = mucTieuDao.selectMT();
         List<LichTrinh> lichTrinhList = lichTrinhDao.selectLT();
 

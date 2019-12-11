@@ -104,5 +104,27 @@ public class LichTrinhDao {
         }
         return lichTrinhList;
     }
+    public List<LichTrinh> selectLichTrinh(String s) {
+        List<LichTrinh> lichTrinhList = new ArrayList<>();
+        // b2 : viet cau lenh select
 
+        String select = "SELECT * FROM " + TABLE_NAME+ " WHERE tgdienraLT = ?";;
+
+        // b3 : su dung cau lenh rawQuery
+        Cursor cursor = dbR.rawQuery(select,  new String[]{s});
+        if (cursor.moveToFirst()) {
+            do {
+                LichTrinh lichTrinh = new LichTrinh();
+                lichTrinh.setTenLT(cursor.getString(0));
+                lichTrinh.setNoidungLT(cursor.getString(1));
+                lichTrinh.setTgdienraLT(cursor.getString(2));
+
+                lichTrinhList.add(lichTrinh);
+            } while (cursor.moveToNext());
+
+            // dong ket noi con tro
+            cursor.close();
+        }
+        return lichTrinhList;
+    }
 }

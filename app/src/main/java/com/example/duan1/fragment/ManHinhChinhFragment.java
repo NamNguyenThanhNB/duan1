@@ -1,6 +1,7 @@
 package com.example.duan1.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.R;
+import com.example.duan1.adapter.LichTrinhAdapter;
+import com.example.duan1.adapter.MucTieuAdapter;
 import com.example.duan1.adapter.ThucPhamAdapter;
+import com.example.duan1.dao.LichTrinhDao;
+import com.example.duan1.dao.MucTieuDao;
 import com.example.duan1.dao.NguoidungDao;
 import com.example.duan1.dao.ThucPhamDao;
 import com.example.duan1.databinding.FragmentManHinhChinhBinding;
 import com.example.duan1.inteface.MHChinh_Inteface;
+import com.example.duan1.model.LichTrinh;
+import com.example.duan1.model.MucTieu;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.model.ThucPham;
 import com.example.duan1.presenter.MHChinh_Precenter;
 import com.example.duan1.presenter.ThucPham_Precenter;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
@@ -44,6 +56,10 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
     private RecyclerView rvTpNo;
 
     private NguoidungDao nguoidungDao;
+    private MucTieuDao mucTieuDao;
+    private LichTrinhDao lichTrinhDao;
+    private MucTieuAdapter mucTieuAdapter;
+    private LichTrinhAdapter lichTrinhAdapter;
 
     @Nullable
     @Override
@@ -70,6 +86,90 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
         binding.setThucphamprecenter(thucPham_precenter);
         binding.setNguoidungView((nguoiDung));
+
+        mucTieuDao = new MucTieuDao(getActivity());
+        lichTrinhDao = new LichTrinhDao(getActivity());
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        List<MucTieu> mucTieuListDao = mucTieuDao.selectMT();
+        List<LichTrinh> lichTrinhListDao = lichTrinhDao.selectLT();
+        List<MucTieu> smucTieuList = new ArrayList<>();
+        List<LichTrinh> slichTrinhList = new ArrayList<>();
+        if (mucTieuListDao.size() > 0) {
+            int sizeMT = mucTieuListDao.size();
+            for (int i = 0; i < sizeMT; i++) {
+                Date date1 = new Date();
+                ParsePosition posmt = new ParsePosition(0);
+                Date mti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT(), posmt);
+                if (mti.after(date1)) {
+                    smucTieuList.add(mucTieuListDao.get(i));
+                }
+            }
+
+            sizeMT = smucTieuList.size();
+            for (int i = 0; i < (sizeMT - 1); i++) {
+                for (int j = i; j < sizeMT; j++) {
+                    ParsePosition posmt1 = new ParsePosition(0);
+                    Date mti = simpleDateFormat.parse(smucTieuList.get(i).getNgayBDMT(), posmt1);
+                    ParsePosition posmt2 = new ParsePosition(0);
+                    Date mtj = simpleDateFormat.parse(smucTieuList.get(j).getNgayBDMT(), posmt2);
+
+                    if (mti.after(mtj)) {
+                        MucTieu mt1 = smucTieuList.get(i);
+                        smucTieuList.set(i, smucTieuList.get(j));
+                        smucTieuList.set(j, mt1);
+                    }
+                }
+            }
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            if (smucTieuList.size() > 0) {
+                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList,1);
+                rvMhcMt.setLayoutManager(linearLayoutManager);
+                rvMhcMt.setAdapter(mucTieuAdapter);
+            } else {
+                Log.e("3", "lt");
+            }
+        }
+
+        if (lichTrinhListDao.size() > 0) {
+            int sizeLT = lichTrinhListDao.size();
+            for (int i = 0; i < sizeLT; i++) {
+                Date date1 = new Date();
+                ParsePosition posmt = new ParsePosition(0);
+                Date mti = simpleDateFormat.parse(lichTrinhListDao.get(i).getTgdienraLT(), posmt);
+                if (mti.after(date1)) {
+                    slichTrinhList.add(lichTrinhListDao.get(i));
+                }
+            }
+
+            sizeLT = slichTrinhList.size();
+            for (int i = 0; i < (sizeLT - 1); i++) {
+                for (int j = i; j < sizeLT; j++) {
+                    ParsePosition posmt1 = new ParsePosition(0);
+                    Date lti = simpleDateFormat.parse(slichTrinhList.get(i).getTgdienraLT(), posmt1);
+                    ParsePosition posmt2 = new ParsePosition(0);
+                    Date ltj = simpleDateFormat.parse(slichTrinhList.get(j).getTgdienraLT(), posmt2);
+
+                    if (lti.after(ltj)) {
+                        LichTrinh lt1 = slichTrinhList.get(i);
+                        slichTrinhList.set(i, slichTrinhList.get(j));
+                        slichTrinhList.set(j, lt1);
+                    }
+                }
+            }
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            if (slichTrinhList.size() > 0) {
+                lichTrinhAdapter = new LichTrinhAdapter(getActivity(), slichTrinhList,1);
+                rvMhcDl.setLayoutManager(linearLayoutManager);
+                rvMhcDl.setAdapter(lichTrinhAdapter);
+            } else {
+                Log.e("3", "dl");
+            }
+        }
 
         return binding.getRoot();
     }

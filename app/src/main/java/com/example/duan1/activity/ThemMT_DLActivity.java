@@ -4,9 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -250,6 +253,7 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
                 boolean result = mucTieuDao.insertMT(mucTieu);
                 if (result) {
                     Intent intent = new Intent(this, MucTieuFragment.class);
+                    notifyAll();
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Tạo mục tiêu không thành công", Toast.LENGTH_SHORT).show();
@@ -268,6 +272,7 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
                 boolean result = lichTrinhDao.insertLT(lichTrinh);
                 if (result) {
                     Intent intent = new Intent(this, MucTieuFragment.class);
+                    notifyAll();
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Tạo lịch trình không thành công", Toast.LENGTH_SHORT).show();

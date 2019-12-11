@@ -1,84 +1,290 @@
 package com.example.duan1.activity;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan1.R;
+import com.example.duan1.dao.NguoidungDao;
 import com.example.duan1.databinding.ActivityNdBinding;
 import com.example.duan1.inteface.NDActivity_Interface;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.NDActivity_Precenter;
 
+import java.util.Calendar;
+import java.util.List;
+
 public class ND_Activity extends AppCompatActivity implements NDActivity_Interface {
+
     private TextView tvCnndDate;
     private EditText edtCnndName;
     private EditText edtCnndBirthday;
-    private EditText edtCnndSex;
-    private TextView tvTtHeight;
+    private Spinner spn_sex;
     private EditText edtCnndHeight;
-    private TextView tvTtWeight;
     private EditText edtCnndWeight;
+    private ImageView img_cnnd_birthday;
     private Button btnCnndRefresh;
     private Button btnCnndCA;
     private Button btnCnndFinish;
     private ImageView imgCnndFollow;
     private NDActivity_Precenter nd_Activity_precenter;
+    private ActivityNdBinding binding;
+    private int getE;
+
+    private NguoidungDao nguoidungDao;
+    private List<NguoiDung> nguoiDungList;
+    private int vitri = -1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityNdBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_nd);
-        Toolbar toolbar = findViewById(R.id.toolbarTCN_ND);
-        toolbar.setTitle("Người Dùng");
-        setSupportActionBar(toolbar);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_nd);
         init();
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        nd_Activity_precenter = new NDActivity_Precenter(this);
+        nguoidungDao = new NguoidungDao(this);
+        Toolbar toolbar = findViewById(R.id.toolbarTCN_ND);
+        // ghi người dùng cũ
+        nguoiDungList = nguoidungDao.selectND();
+        vitri = nguoiDungList.size() - 1;
+        if (vitri < 0) {
+            toolbar.setTitle("TẠO NGƯỜI DÙNG");
+            edtCnndBirthday.setHint("dd/MM/yyyy");
+        } else {
+            toolbar.setTitle("CẬP NHẬT");
 
+            binding.setNguoidungAdd(nguoiDungList.get(vitri));
+            tvCnndDate.setText(nguoiDungList.get(vitri).getNgaydangND());
+            if (nguoiDungList.get(vitri).getGioitinh().equalsIgnoreCase("Nam")) {
+                spn_sex.setSelection(0);
+            } else {
+                spn_sex.setSelection(1);
+            }
+        }
+        setSupportActionBar(toolbar);
+
+
+        nd_Activity_precenter = new NDActivity_Precenter(this);
         binding.setNdprecenter(nd_Activity_precenter);
+
+//        tvCnndDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
+//                alertDialog.setView(R.layout.dialog_select_date);
+//                final AlertDialog dialog = alertDialog.show();
+//                DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
+//                Calendar calendar = Calendar.getInstance();
+//
+//                // Lấy ra năm - tháng - ngày hiện tại
+//                int year = calendar.get(calendar.YEAR);
+//                final int month = calendar.get(calendar.MONTH);
+//                int day = calendar.get(calendar.DAY_OF_MONTH);
+//
+//                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+//                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
+//                    @Override
+//                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+//                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+//                        tvCnndDate.setText(sDL);
+//                        dialog.dismiss();
+//                    }
+//                });
+//            }
+//        });
+
+        img_cnnd_birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
+                alertDialog.setView(R.layout.dialog_select_date);
+                final AlertDialog dialog = alertDialog.show();
+                DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
+                Calendar calendar = Calendar.getInstance();
+
+                // Lấy ra năm - tháng - ngày hiện tại
+                int year = calendar.get(calendar.YEAR);
+                final int month = calendar.get(calendar.MONTH);
+                int day = calendar.get(calendar.DAY_OF_MONTH);
+
+                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        edtCnndBirthday.setText(sDL);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
-    void init() {
-
+    private void init() {
+        img_cnnd_birthday = findViewById(R.id.img_cnnd_birthday);
         tvCnndDate = (TextView) findViewById(R.id.tv_cnnd_date);
         edtCnndName = (EditText) findViewById(R.id.edt_cnnd_name);
         edtCnndBirthday = (EditText) findViewById(R.id.edt_cnnd_birthday);
-        edtCnndSex = (EditText) findViewById(R.id.edt_cnnd_sex);
-        tvTtHeight = (TextView) findViewById(R.id.tv_tt_Height);
+        spn_sex = (Spinner) findViewById(R.id.spn_sex);
         edtCnndHeight = (EditText) findViewById(R.id.edt_cnnd_Height);
-        tvTtWeight = (TextView) findViewById(R.id.tv_tt_Weight);
         edtCnndWeight = (EditText) findViewById(R.id.edt_cnnd_Weight);
         btnCnndRefresh = (Button) findViewById(R.id.btn_cnnd_refresh);
         btnCnndCA = (Button) findViewById(R.id.btn_cnnd_CA);
         btnCnndFinish = (Button) findViewById(R.id.btn_cnnd_finish);
         imgCnndFollow = (ImageView) findViewById(R.id.img_cnnd_follow);
 
-
     }
+
 
     @Override
     public void setJob_btn_cnnd_refresh() {
-        Toast.makeText(this, "setJob_btn_cnnd_refresh", Toast.LENGTH_SHORT).show();
+        edtCnndName.setText("");
+        edtCnndBirthday.setText("");
+        spn_sex.setSelection(0);
+        edtCnndHeight.setText("");
+        edtCnndWeight.setText("");
     }
 
     @Override
     public void setJob_btn_cnnd_CA() {
-        Toast.makeText(this, "setJob_btn_cnnd_CA", Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(ND_Activity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    999);
+        } else {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 999);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 999 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imgCnndFollow.setImageBitmap(imageBitmap);
+        } else {
+            Toast.makeText(this, "HAY CHUP ANH", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void setJob_btn_cnnd_finish() {
-        Toast.makeText(this, "setJob_btn_cnnd_finish", Toast.LENGTH_SHORT).show();
+        if (vitri < 0) {
+            if (checkND()) {
+                String name = edtCnndName.getText().toString().trim();
+                String birth = edtCnndBirthday.getText().toString().trim();
+                String sex = spn_sex.getSelectedItem().toString();
+                String height = edtCnndHeight.getText().toString().trim();
+                String weight = edtCnndWeight.getText().toString().trim();
+                String ngaydang = tvCnndDate.getText().toString().trim();
+
+                NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
+                boolean result = nguoidungDao.insertND(nguoiDung);
+                Intent intent = new Intent(ND_Activity.this, MainActivity.class);
+                startActivity(intent);
+                if (result) {
+                    Toast.makeText(this, "true ins", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "false ins", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            String name = edtCnndName.getText().toString().trim();
+            String birth = edtCnndBirthday.getText().toString().trim();
+            String sex = spn_sex.getSelectedItem().toString();
+            String height = edtCnndHeight.getText().toString().trim();
+            String weight = edtCnndWeight.getText().toString().trim();
+            String ngaydang = tvCnndDate.getText().toString().trim();
+            int id = nguoidungDao.findIDbyDate(ngaydang);
+            if (ngaydang.equalsIgnoreCase(nguoiDungList.get(nguoiDungList.size() - 1).getNgaydangND())) {
+                NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
+                boolean result = nguoidungDao.updateND(nguoiDung);
+                if (result) {
+                    Toast.makeText(this, "true update", Toast.LENGTH_SHORT).show();
+                    notifyAll();
+
+                } else {
+                    Toast.makeText(this, "false update", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
+                boolean result = nguoidungDao.insertND(nguoiDung);
+
+                if (result) {
+                    Toast.makeText(this, "true ins update", Toast.LENGTH_SHORT).show();
+                    notifyAll();
+                } else {
+                    Toast.makeText(this, "false ins update", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    public boolean checkND() {
+        String name = edtCnndName.getText().toString().trim();
+        String birth = edtCnndBirthday.getText().toString().trim();
+        String sex = spn_sex.getSelectedItem().toString();
+        String height = edtCnndHeight.getText().toString().trim();
+        String weight = edtCnndWeight.getText().toString().trim();
+        if (name.isEmpty()) {
+            edtCnndName.setError("Hãy nhập tên");
+            edtCnndName.requestFocus();
+            return false;
+        } else if (birth.isEmpty()) {
+            edtCnndBirthday.setError("Hãy nhập ngày sinh");
+            edtCnndBirthday.requestFocus();
+            return false;
+        } else if (height.isEmpty()) {
+            edtCnndHeight.setError("Hãy nhập chiều cao");
+            edtCnndHeight.requestFocus();
+            return false;
+        } else if (Double.parseDouble(height) < 1 || Double.parseDouble(height) > 400) {
+            try {
+                edtCnndHeight.setError("Hãy nhập chiều cao là một số >0 và <400");
+                edtCnndHeight.requestFocus();
+                return false;
+            } catch (Exception e) {
+                edtCnndHeight.setError("Hãy nhập chiều cao là một số");
+                edtCnndHeight.requestFocus();
+                return false;
+            }
+        } else if (weight.isEmpty()) {
+            edtCnndWeight.setError("Hãy nhập cân nặng");
+            edtCnndWeight.requestFocus();
+            return false;
+        } else if (Double.parseDouble(weight) < 1) {
+            try {
+                edtCnndWeight.setError("Hãy nhập cân nặng là một số dương");
+                edtCnndWeight.requestFocus();
+                return false;
+            } catch (Exception e) {
+                edtCnndWeight.setError("Hãy nhập cân nặng là một số");
+                edtCnndWeight.requestFocus();
+                return false;
+            }
+        }
+        return true;
     }
 }

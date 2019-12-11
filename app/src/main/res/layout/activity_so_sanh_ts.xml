@@ -7,6 +7,16 @@
     <data>
 
         <variable
+            name="nguoidungView"
+            type="com.example.duan1.model.NguoiDung" />
+        <variable
+            name="nguoidungView01"
+            type="com.example.duan1.model.NguoiDung" />
+        <variable
+            name="nguoidungView02"
+            type="com.example.duan1.model.NguoiDung" />
+
+        <variable
             name="sstsprecenter"
             type="com.example.duan1.presenter.SSTSActivity_Precenter" />
     </data>
@@ -52,7 +62,7 @@
                         android:id="@+id/tv_ss_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Họ và tên: "
+                        android:text="@{nguoidungView.tenND}"
                         android:textColor="#000000"
                         android:textSize="16pt"
                         android:textStyle="bold" />
@@ -78,7 +88,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:layout_weight="5" />
+                        android:layout_weight="5"
+                        android:enabled="false"
+                        android:textColor="#000000"
+                        android:text="@{nguoidungView.ngaysinh}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,7 +113,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:layout_weight="5" />
+                        android:layout_weight="5"
+                        android:enabled="false"
+                        android:textColor="#000000"
+                        android:text="@{nguoidungView.gioitinh}" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -123,13 +139,12 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_ss_date01"
+                    <Spinner
+                        android:id="@+id/spn_ssts_01"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:background="#8BC34A"
-                        android:gravity="center"
-                        android:text="date 01(spinner)"
+                        android:layout_gravity= "center"
                         android:textColor="#000000"
                         android:textSize="8pt" />
 
@@ -164,6 +179,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="8dp"
+                                    android:enabled="false"
+                                    android:textColor="#000000"
+                                    android:text="@{nguoidungView01.chieucao}"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -186,6 +204,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="8dp"
+                                    android:enabled="false"
+                                    android:textColor="#000000"
+                                    android:text="@{nguoidungView01.cannang}"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -195,7 +216,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="16dp"
-                                android:text="BMI 1"
+                                android:text="@{nguoidungView01.tinhBMI()}"
                                 android:textColor="#000000"
                                 android:textSize="8pt"
                                 android:textStyle="bold" />
@@ -209,13 +230,12 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_ss_date02"
+                    <Spinner
+                        android:id="@+id/spn_ssts_02"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:background="#8BC34A"
                         android:gravity="center"
-                        android:text="date 02(spinner)"
                         android:textColor="#000000"
                         android:textSize="8pt" />
 
@@ -249,6 +269,9 @@
                                     android:id="@+id/edt_ss_height_2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:text="@{nguoidungView02.chieucao}"
+                                    android:textColor="#000000"
                                     android:layout_marginRight="8dp"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -272,6 +295,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="8dp"
+                                    android:enabled="false"
+                                    android:textColor="#000000"
+                                    android:text="@{nguoidungView02.cannang}"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -281,7 +307,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="16dp"
-                                android:text="BMI 2"
+                                android:text="@{nguoidungView02.tinhBMI()}"
                                 android:textColor="#000000"
                                 android:textSize="8pt"
                                 android:textStyle="bold" />

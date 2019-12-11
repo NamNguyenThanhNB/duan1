@@ -6,4 +6,15 @@
     <string name="pager_name_03"></string>
     <string name="pager_name_04">TÍNH TOÁN</string>
     <string name="pager_name_05">MỞ RỘNG</string>
+
+    <string-array name="levelFood_array">
+        <item>Được phép</item>
+        <item>Hạn chế</item>
+        <item>Không được</item>
+    </string-array>
+
+    <string-array name="sex_array">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
 </resources>

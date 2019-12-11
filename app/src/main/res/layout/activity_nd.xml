@@ -53,24 +53,34 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1"
+                        android:layout_margin="8dp"
+                        android:layout_weight="3"
                         android:text="CẬP NHẬT"
                         android:textColor="#000000"
                         android:textSize="8pt"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_cnnd_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1"
-                        android:text="Date"
-                        android:textSize="8pt"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="Ngày: "
+                        android:textColor="#000000"
+                        android:textSize="8pt" />
 
+                    <TextView
+                        android:id="@+id/tv_cnnd_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="right"
+                        android:text="@{ndprecenter.dateToday}"
+                        android:textColor="#000000"
+                        android:textSize="8pt" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,7 +102,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:layout_weight="5" />
+                        android:layout_weight="5"
+                        android:text="@{nguoidungAdd.tenND}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -115,7 +126,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:layout_weight="5" />
+                        android:layout_weight="5"
+                        android:text="@{nguoidungAdd.ngaysinh}" />
+
+                    <ImageView
+                        android:id="@+id/img_cnnd_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_add_black_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -132,12 +151,14 @@
                         android:textSize="8pt"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/edt_cnnd_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="5" />
+
+                    <Spinner
+                        android:id="@+id/spn_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:entries="@array/sex_array"
+                        android:gravity="bottom"
+                        android:textColor="#000" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -148,7 +169,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_tt_Height"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
@@ -162,10 +182,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="@{nguoidungAdd.chieucao}" />
 
                     <TextView
-                        android:id="@+id/tv_tt_Weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
@@ -178,7 +198,8 @@
                         android:id="@+id/edt_cnnd_Weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="@{nguoidungAdd.cannang}" />
                 </LinearLayout>
 
                 <TextView
@@ -252,7 +273,7 @@
                 android:layout_height="240dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/morong" />
+                android:src="@drawable/chisocothe" />
         </LinearLayout>
     </LinearLayout>
 

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.duan1">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TheoDoiCNActivity"></activity>
-        <activity android:name=".activity.ND_Activity" />
-        <activity android:name=".activity.HoatDongGDActivity"></activity>
-        <activity android:name=".activity.SoSanhTSActivity"></activity>
+        <activity android:name=".activity.AddNguoiDungActivity"></activity>
+        <activity android:name=".activity.TheoDoiCNActivity" />
+        <activity android:name=".activity.ND_Activity"></activity>
+        <activity android:name=".activity.HoatDongGDActivity" />
+        <activity android:name=".activity.SoSanhTSActivity" />
         <activity android:name=".activity.ThemMT_DLActivity" />
         <activity android:name=".activity.CachTinhBMIActivity" />
         <activity android:name=".activity.BaiTapActivity" />
@@ -22,12 +27,13 @@
             android:parentActivityName=".activity.CaiDatActivity" />
         <activity
             android:name=".activity.BoChuyenDoiActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MainActivity"></activity>
         <activity
             android:name=".activity.ThuVienActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.ManHinhChaoActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

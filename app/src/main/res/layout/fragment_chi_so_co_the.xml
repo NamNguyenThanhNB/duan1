@@ -30,10 +30,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
+                android:layout_weight="1"
                 android:text="Hồ sơ của bạn"
                 android:textColor="#000000"
                 android:textSize="16pt"
@@ -42,7 +42,7 @@
 
             <LinearLayout
                 android:id="@+id/ln_csct_Update"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:onClick="@{()-> csctprecenter.setJob_ln_csct_Update()}"
                 android:orientation="vertical">
@@ -66,6 +66,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
@@ -81,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:text="Họ tên: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_csct_Name"
@@ -105,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:text="Ngày sinh: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_csct_Birthday"
@@ -129,7 +132,8 @@
                     android:layout_height="wrap_content"
                     android:text="Chiều cao: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
 
                 <TextView
@@ -138,6 +142,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:text="@{nguoidungView.chieucao}"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Cm"
                     android:textColor="#000000"
                     android:textSize="8pt" />
             </LinearLayout>
@@ -154,7 +165,8 @@
                     android:layout_height="wrap_content"
                     android:text="Cân nặng: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
 
                 <TextView
@@ -162,6 +174,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{nguoidungView.cannang}"
+                    android:textColor="#000000"
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Kg"
                     android:textColor="#000000"
                     android:textSize="8pt" />
             </LinearLayout>
@@ -178,7 +197,8 @@
                     android:layout_height="wrap_content"
                     android:text="BMI: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
 
                 <TextView
@@ -186,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="chưa set"
+                    android:text="@{nguoidungView.tinhBMI()}"
                     android:textColor="#000000"
                     android:textSize="8pt" />
             </LinearLayout>
@@ -204,13 +224,14 @@
                     android:layout_height="wrap_content"
                     android:text="Trạng thái: "
                     android:textColor="#000000"
-                    android:textSize="8pt" />
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_mhc_Status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="chưa set"
+                    android:text="@{nguoidungView.sStatus()}"
                     android:textColor="#000000"
                     android:textSize="8pt" />
             </LinearLayout>
@@ -239,6 +260,7 @@
                 android:textSize="8pt" />
 
             <TextView
+                android:textColor="#000000"
                 android:id="@+id/tv_csct_Posttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

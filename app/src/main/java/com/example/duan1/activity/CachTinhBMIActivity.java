@@ -17,9 +17,6 @@ public class CachTinhBMIActivity extends AppCompatActivity {
         toolbar.setTitle("Cách Tính Chỉ Số BMI");
         setSupportActionBar(toolbar);
 
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
     }

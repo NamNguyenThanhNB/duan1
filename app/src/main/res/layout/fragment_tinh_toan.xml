@@ -62,7 +62,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
+                            android:layout_marginBottom="8dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -84,7 +84,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
+                            android:layout_marginBottom="24dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -143,6 +143,7 @@
                                 android:id="@+id/tv_tt_Weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
                                 android:text="Cân nặng: "
                                 android:textColor="#000000"
                                 android:textSize="8pt" />
@@ -301,42 +302,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:onClick="@{()-> tinhtoanprecenter.setJob_btn_tt_TinhToan()}"
-                    android:id="@+id/tv_tt_ShowBMI"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Chỉ số BMI của bạn là:"
-                    android:textColor="#000000"
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/tv_tt_ShowStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Trạng thái cơ thể của bạn là:"
-                    android:textColor="#000000"
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="NHẬN XÉT - LỜI KHUYÊN"
-                    android:textColor="#000000"
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/tv_tt_ShowComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="#000000"
-                    android:textSize="8pt" />
             </LinearLayout>
         </ScrollView>
 

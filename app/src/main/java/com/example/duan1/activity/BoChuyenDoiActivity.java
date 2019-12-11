@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import com.example.duan1.R;
 import com.example.duan1.databinding.ActivityBoChuyenDoiBinding;
 import com.example.duan1.inteface.BoChuyenDoiActivity_Interface;
 import com.example.duan1.presenter.BoChuyenDoiActivity_Precenter;
+
+import java.text.DecimalFormat;
 
 public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDoiActivity_Interface {
 
@@ -29,6 +32,16 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
 
     private BoChuyenDoiActivity_Precenter boChuyenDoiActivity_precenter;
 
+    String arr[] = {
+            "millimeter(mm)",
+            "centimeter(cm)",
+            "meter(m)",
+            "kilometer(km)"};
+    String arr1[] = {
+            "miligam(mg)",
+            "gam(g)",
+            "kilôgam(kg)"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +51,6 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
         Toolbar toolbar = findViewById(R.id.toolbarBCD);
         toolbar.setTitle("Bộ Chuyển Đổi");
         setSupportActionBar(toolbar);
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         edtStartHeight = (EditText) findViewById(R.id.edt_Start_height);
@@ -58,19 +68,12 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
         boChuyenDoiActivity_precenter = new BoChuyenDoiActivity_Precenter(this);
         boChuyenDoiActivity_precenter.createSpinner();
         activityBoChuyenDoiBinding.setBcdprecenter(boChuyenDoiActivity_precenter);
+
+
     }
 
     @Override
     public void createSpinner() {
-        String arr[] = {
-                "millimeter(mm)",
-                "centimeter(cm)",
-                "meter(m)",
-                "kilometer(km)"};
-        String arr1[] = {
-                "miligam(mg)",
-                "gam(g)",
-                "kilôgam(kg)"};
         //Gán Data source (arr) vào Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (
@@ -100,11 +103,108 @@ public class BoChuyenDoiActivity extends AppCompatActivity implements BoChuyenDo
 
     @Override
     public void setJob_btnChuyenHeight() {
-        Toast.makeText(this, "setJob_btnChuyenHeight", Toast.LENGTH_SHORT).show();
+        try {
+            double sheight = Double.parseDouble(edtStartHeight.getText().toString().trim());
+            double eheight = 1;
+
+
+            String sdv = spnStart_height.getSelectedItem().toString().trim();
+            String edv = spnEnd_height.getSelectedItem().toString().trim();
+
+            if (sdv.equals(arr[0])) {
+                if (edv.equals(arr[0])) {
+                    eheight = sheight * 1;
+                } else if (edv.equals(arr[1])) {
+                    eheight = sheight * 0.1;
+                } else if (edv.equals(arr[2])) {
+                    eheight = sheight * 0.001;
+                } else if (edv.equals(arr[3])) {
+                    eheight = sheight * 0.000001;
+                }
+            } else if (sdv.equals(arr[1])) {
+                if (edv.equals(arr[0])) {
+                    eheight = sheight * 10;
+                } else if (edv.equals(arr[1])) {
+                    eheight = sheight * 1;
+                } else if (edv.equals(arr[2])) {
+                    eheight = sheight * 0.01;
+                } else if (edv.equals(arr[3])) {
+                    eheight = sheight * 0.00001;
+                }
+            } else if (sdv.equals(arr[2])) {
+                if (edv.equals(arr[0])) {
+                    eheight = sheight * 1000;
+                } else if (edv.equals(arr[1])) {
+                    eheight = sheight * 100;
+                } else if (edv.equals(arr[2])) {
+                    eheight = sheight * 1;
+                } else if (edv.equals(arr[3])) {
+                    eheight = sheight * 0.001;
+                }
+            } else if (sdv.equals(arr[3])) {
+                if (edv.equals(arr[0])) {
+                    eheight = sheight * 1000000;
+                } else if (edv.equals(arr[1])) {
+                    eheight = sheight * 100000;
+                } else if (edv.equals(arr[2])) {
+                    eheight = sheight * 1000;
+                } else if (edv.equals(arr[3])) {
+                    eheight = sheight * 1;
+                }
+            }
+
+
+            if (eheight > 9999999) {
+                edtEndHeight.setText("Con số quá lớn");
+            } else if (eheight < 0.000001) {
+                edtEndHeight.setText("Con số quá nhỏ");
+            } else {
+                edtEndHeight.setText(eheight + "");
+            }
+        } catch (Exception e) {
+            edtStartHeight.setError("phải là một số" + e);
+        }
+
     }
 
     @Override
     public void setJob_btnChuyenWeight() {
-        Toast.makeText(this, "setJob_btnChuyenWeight", Toast.LENGTH_SHORT).show();
+        try {
+            double sweight = Double.parseDouble(edtStartWeight.getText().toString().trim());
+            double eweight = 1;
+
+
+            String sdv = spnStart_weight.getSelectedItem().toString().trim();
+            String edv = spnEnd_weight.getSelectedItem().toString().trim();
+
+            if (sdv.equals(arr1[0])) {
+                if (edv.equals(arr1[0])) {
+                    eweight = eweight * 1;
+                } else if (edv.equals(arr1[1])) {
+                    eweight = eweight * 0.001;
+                } else if (edv.equals(arr1[2])) {
+                    eweight = eweight * 0.000001;
+                }
+            } else if (sdv.equals(arr1[1])) {
+                if (edv.equals(arr1[0])) {
+                    eweight = eweight * 1000;
+                } else if (edv.equals(arr1[1])) {
+                    eweight = eweight * 1;
+                } else if (edv.equals(arr1[2])) {
+                    eweight = eweight * 0.001;
+                }
+            } else if (sdv.equals(arr1[2])) {
+                if (edv.equals(arr1[0])) {
+                    eweight = eweight * 1000000;
+                } else if (edv.equals(arr1[1])) {
+                    eweight = eweight * 1000;
+                } else if (edv.equals(arr1[2])) {
+                    eweight = eweight * 1;
+                }
+            }
+                edtEndWeight.setText(eweight + "");
+        } catch (Exception e) {
+            edtStartWeight.setError("phải là một số" + e);
+        }
     }
 }

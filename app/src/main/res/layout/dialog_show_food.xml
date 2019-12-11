@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_addFood"
+        android:id="@+id/btn_showFood"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,26 +20,27 @@
         android:background="#00BCD4"
         android:text="Thêm"
         android:textColor="#fff"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
-        android:id="@+id/btn_addFood_refresh"
+        android:id="@+id/btn_showFood_update"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="32dp"
         android:background="#00BCD4"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="Làm lại"
+        android:text="Sửa"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_addFood" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_showFood" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -65,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/btn_addFood_exit"
+        android:id="@+id/btn_showFood_del"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -73,11 +74,11 @@
         android:background="#00BCD4"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="Thoát"
+        android:text="Xóa"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_addFood_refresh"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_showFood_update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_addFood_refresh" />
+        app:layout_constraintTop_toTopOf="@+id/btn_showFood_update" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -115,11 +116,11 @@
                     android:textSize="8pt" />
 
                 <EditText
-                    android:paddingLeft="8dp"
-                    android:id="@+id/edt_addFood_Name"
+                    android:id="@+id/edt_showFood_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom" />
+                    android:gravity="bottom"
+                    android:paddingLeft="8dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -137,11 +138,10 @@
                     android:textSize="8pt" />
 
                 <EditText
-                    android:id="@+id/edt_addFood_Type"
+                    android:id="@+id/edt_showFood_Type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
-                    android:hint="vd:rau,cá,..."
                     android:paddingLeft="8dp" />
             </LinearLayout>
 
@@ -162,9 +162,8 @@
                     android:textColor="#000"
                     android:textSize="8pt" />
 
-
                 <Spinner
-                    android:id="@+id/spn_addFood_Level"
+                    android:id="@+id/spn_showFood_Level"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:entries="@array/levelFood_array"

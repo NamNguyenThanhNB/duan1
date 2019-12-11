@@ -18,9 +18,6 @@ public class ThucPham_Precenter {
 
     }
 
-    public void setJob_tvTpShowComment() {
-        mhChinhInteface.setJob_tvTpShowComment();
-    }
 
     public void setJob_rvTpMuch() {
         mhChinhInteface.setJob_rvTpMuch();

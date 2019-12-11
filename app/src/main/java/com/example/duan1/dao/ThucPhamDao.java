@@ -30,9 +30,9 @@ public class ThucPhamDao {
 
     public boolean insertTP(ThucPham thucPham) {
         ContentValues values = new ContentValues();
-        values.put("name", thucPham.getTenTP());
-        values.put("type", thucPham.getLoaiTP());
-        values.put("level", thucPham.getChedoTP());
+        values.put("tenTP", thucPham.getTenTP());
+        values.put("loaiTP", thucPham.getLoaiTP());
+        values.put("chedoTP", thucPham.getChedoTP());
 
         long result = dbW.insert(TABLE_NAME, null, values);
 
@@ -49,11 +49,11 @@ public class ThucPhamDao {
 
     public boolean updateTP(ThucPham thucPham) {
         ContentValues values = new ContentValues();
-        values.put("name", thucPham.getTenTP());
-        values.put("type", thucPham.getLoaiTP());
-        values.put("level", thucPham.getChedoTP());
+        values.put("tenTP", thucPham.getTenTP());
+        values.put("loaiTP", thucPham.getLoaiTP());
+        values.put("chedoTP", thucPham.getChedoTP());
 
-        long result = dbW.update(TABLE_NAME, values, "tenTP" + " =?", new String[]{String.valueOf(thucPham.getTenTP())});
+        long result = dbW.update(TABLE_NAME, values, "tenTP" + " =?", new String[]{thucPham.getTenTP()});
 
         try {
             if (result < 0) {
@@ -66,9 +66,9 @@ public class ThucPhamDao {
         return true;
     }
 
-    public boolean deleteTP(int id) {
+    public boolean deleteTP(String id) {
 
-        long result = dbW.delete(TABLE_NAME, "id_TP" + " =?", new String[]{String.valueOf(id)});
+        long result = dbW.delete(TABLE_NAME, "tenTP" + " =?", new String[]{String.valueOf(id)});
 
         try {
             if (result < 0) {
@@ -89,6 +89,30 @@ public class ThucPhamDao {
 
         // b3 : su dung cau lenh rawQuery
         Cursor cursor = dbR.rawQuery(select, null);
+        if (cursor.moveToFirst()) {
+            do {
+                ThucPham thucPham = new ThucPham();
+                thucPham.setTenTP(cursor.getString(0));
+                thucPham.setLoaiTP(cursor.getString(1));
+                thucPham.setChedoTP(cursor.getString(2));
+
+                thucPhamList.add(thucPham);
+            } while (cursor.moveToNext());
+
+            // dong ket noi con tro
+            cursor.close();
+        }
+        return thucPhamList;
+    }
+
+    public List<ThucPham> selectThucPham(String s) {
+        List<ThucPham> thucPhamList = new ArrayList<>();
+        // b2 : viet cau lenh select
+
+        String select = "SELECT * FROM " + TABLE_NAME + " WHERE chedoTP = ?";
+
+        // b3 : su dung cau lenh rawQuery
+        Cursor cursor = dbR.rawQuery(select, new String[]{s});
         if (cursor.moveToFirst()) {
             do {
                 ThucPham thucPham = new ThucPham();

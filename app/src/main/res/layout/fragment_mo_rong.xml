@@ -71,8 +71,7 @@
                                 android:layout_marginBottom="3dp"
                                 android:gravity="center"
                                 android:text="Thư viện"
-                                android:textColor="#000000"
-                                android:textSize="13dp" />
+                                android:textColor="#000000" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -108,8 +107,7 @@
                                 android:layout_marginBottom="3dp"
                                 android:gravity="center"
                                 android:text="Chuyển đổi"
-                                android:textColor="#000000"
-                                android:textSize="16dp" />
+                                android:textColor="#000000" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -122,6 +120,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:onClick="@{()-> morongprecenter.setJob_cvSetting()}"
+                        android:visibility="gone"
                         app:cardBackgroundColor="#FEFA99"
                         app:cardCornerRadius="8dp">
 
@@ -145,8 +144,7 @@
                                 android:layout_marginBottom="3dp"
                                 android:gravity="center"
                                 android:text="Cài đặt"
-                                android:textColor="#000000"
-                                android:textSize="16dp" />
+                                android:textColor="#000000" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -165,6 +163,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:onClick="@{()-> morongprecenter.setJob_cvW_MR()}"
+                        android:visibility="gone"
                         app:cardBackgroundColor="#10E958"
                         app:cardCornerRadius="8dp">
 
@@ -224,9 +223,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="3dp"
                                 android:gravity="center"
-                                android:text="So sánh thông số"
-                                android:textColor="#000000"
-                                android:textSize="16dp" />
+                                android:text="So sánh"
+                                android:textColor="#000000" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>

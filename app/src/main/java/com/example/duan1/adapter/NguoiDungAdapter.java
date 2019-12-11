@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.adapters.AdapterViewBindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.R;
@@ -34,11 +35,12 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungHolder> {
     @Override
     public void onBindViewHolder(@NonNull NguoiDungHolder holder, int position) {
         holder.imgIcon.setImageResource(R.drawable.chisocothe);
-
-        holder.tvRvndDate.setText(nguoiDungList.get(position).getNgaydangND());
-        holder.tvRvndBmi.setText(nguoiDungList.get(position)+" BMI");
-        holder.tvRvndWeight.setText(nguoiDungList.get(position).getCannang());
-        holder.tvRvndHeight.setText(nguoiDungList.get(position).getChieucao());
+        NguoiDung nguoiDung = nguoiDungList.get(position);
+        String bmi = nguoiDung.tinhBMI();
+        holder.tvRvndDate.setText("Ngày cập nhật: " + nguoiDungList.get(position).getNgaydangND());
+        holder.tvRvndBmi.setText("BMI: " + bmi);
+        holder.tvRvndWeight.setText("C.nặng: " + nguoiDungList.get(position).getCannang() + " Kg");
+        holder.tvRvndHeight.setText("C.cao: " + nguoiDungList.get(position).getChieucao() + " Cm");
     }
 
     @Override

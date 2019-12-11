@@ -34,9 +34,6 @@ public class ThucPhamActivity extends AppCompatActivity implements MHChinh_Intef
         toolbar.setTitle("Thực Phẩm");
         setSupportActionBar(toolbar);
 
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         tvTpShowComment = (TextView) findViewById(R.id.tv_tp_ShowComment);
         addFood = (ImageView) findViewById(R.id.addFood);
@@ -48,25 +45,6 @@ public class ThucPhamActivity extends AppCompatActivity implements MHChinh_Intef
         activityThucPhamBinding.setThucphamprecenter(thucPham_precenter);
     }
 
-    @Override
-    public void setJob_cvMhcWeight() {
-
-    }
-
-    @Override
-    public void setJob_cvMhcBMI() {
-
-    }
-
-    @Override
-    public void setJob_cvMhcNextFood() {
-
-    }
-
-    @Override
-    public void setJob_cvMhcNextExercise() {
-
-    }
 
     @Override
     public void setJob_addFood() {
@@ -75,11 +53,6 @@ public class ThucPhamActivity extends AppCompatActivity implements MHChinh_Intef
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setView(R.layout.dialog_add_food);
         final AlertDialog dialog = alertDialog.show();
-
-    }
-
-    @Override
-    public void setJob_tvTpShowComment() {
 
     }
 

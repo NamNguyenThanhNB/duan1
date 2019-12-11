@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -37,9 +39,6 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
     private CardView cvTtRefresh;
     private CardView cvTtNextDMT;
     private CardView cvTtNextBMI;
-    private TextView tvTtShowBMI;
-    private TextView tvTtShowStatus;
-    private TextView tvTtShowComment;
 
     private TinhToan_Precenter tinhToan_precenter;
     private FragmentTinhToanBinding binding;
@@ -68,10 +67,6 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         cvTtRefresh = (CardView) binding.getRoot().findViewById(R.id.cv_tt_Refresh);
         cvTtNextDMT = (CardView) binding.getRoot().findViewById(R.id.cv_tt_NextDMT);
         cvTtNextBMI = (CardView) binding.getRoot().findViewById(R.id.cv_tt_NextBMI);
-
-        tvTtShowBMI = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowBMI);
-        tvTtShowStatus = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowStatus);
-        tvTtShowComment = (TextView) binding.getRoot().findViewById(R.id.tv_tt_ShowComment);
     }
 
     @Override
@@ -87,8 +82,42 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         if (tinh > 0) {
 
             DecimalFormat decimalFormat = new DecimalFormat("#.00");
-            tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
+
             tinhToan_precenter.setStatusBMI(tinh);
+
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setView(R.layout.dialog_show_tt);
+            final AlertDialog dialog = alertDialog.show();
+
+            Button back = dialog.findViewById(R.id.btn_showTT_back);
+            TextView tvTtShowBMI = dialog.findViewById(R.id.tv_showTT_ShowBMI);
+            TextView tvTtShowStatus = (TextView) dialog.findViewById(R.id.tv_showTT_ShowStatus);
+            TextView tvTtShowComment = (TextView) dialog.findViewById(R.id.tv_showTT_ShowComment);
+
+
+            tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
+            if (tinh < 18.5) {
+                tvTtShowStatus.setText("Gầy");
+            } else if (tinh < 24.9) {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Bình thường");
+            } else if (tinh <= 25) {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Thừa cân");
+            } else if (tinh < 29.9) {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Tiền béo phì");
+            } else if (tinh < 34.9) {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ I");
+            } else if (tinh < 39.9) {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ II");
+            } else {
+                tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ III");
+            }
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    setJob_cv_tt_Refresh();
+                }
+            });
         }
     }
 
@@ -99,10 +128,6 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         edtTtName.setText("");
         edtTtSex.setText("");
         edtTtWeight.setText("");
-
-        tvTtShowBMI.setText("Chỉ số BMI: ");
-        tvTtShowComment.setText("");
-        tvTtShowStatus.setText("Trạng thái cơ thể: ");
     }
 
     @Override
@@ -121,14 +146,34 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
 
     @Override
     public void setError_EmptyName() {
-        edtTtName.setError("Tên không được để trống");
-        edtTtName.requestFocus();
+        edtTtName.setText("null");
     }
 
     @Override
     public void setError_EmptyAge() {
-        edtTtAge.setError("Tuổi không được để trống");
-        edtTtAge.requestFocus();
+        edtTtAge.setText("null");
+    }
+
+    @Override
+    public void setError_EmptySex() {
+        edtTtSex.setText("null");
+    }
+
+    @Override
+    public void setError_EmptyWeight() {
+        edtTtWeight.setError("Cân nặng không được để trống");
+        edtTtWeight.requestFocus();
+    }
+
+    @Override
+    public void setError_EmptyHeight() {
+        edtTtHeight.setError("Chiều cao không được để trống");
+        edtTtHeight.requestFocus();
+    }
+
+    @Override
+    public void setStatusBMI(double statusBMI) {
+
     }
 
     @Override
@@ -167,42 +212,5 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         edtTtHeight.setError("Chiều cao không được là số âm");
         edtTtHeight.requestFocus();
 
-    }
-
-    @Override
-    public void setError_EmptySex() {
-        edtTtSex.setError("Giới tính không được để trống");
-        edtTtSex.requestFocus();
-    }
-
-    @Override
-    public void setError_EmptyWeight() {
-        edtTtWeight.setError("Cân nặng không được để trống");
-        edtTtWeight.requestFocus();
-    }
-
-    @Override
-    public void setError_EmptyHeight() {
-        edtTtHeight.setError("Chiều cao không được để trống");
-        edtTtHeight.requestFocus();
-    }
-
-    @Override
-    public void setStatusBMI(double statusBMI) {
-        if (statusBMI < 18.5) {
-            tvTtShowStatus.setText("Gầy");
-        } else if (statusBMI < 24.9) {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Bình thường");
-        } else if (statusBMI <= 25) {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Thừa cân");
-        } else if (statusBMI < 29.9) {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Tiền béo phì");
-        } else if (statusBMI < 34.9) {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ I");
-        } else if (statusBMI < 39.9) {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ II");
-        } else {
-            tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ III");
-        }
     }
 }

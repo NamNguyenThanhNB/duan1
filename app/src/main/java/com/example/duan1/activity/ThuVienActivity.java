@@ -37,9 +37,6 @@ public class ThuVienActivity extends AppCompatActivity {
 
         rvList_ND = findViewById(R.id.rvList_ND);
         setSupportActionBar(toolbar);
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         nguoidungDao = new NguoidungDao(this);
 //        ImageView imgBack_01 = findViewById(R.id.imgBack_01);
 //        imgBack_01.setOnClickListener(new View.OnClickListener() {

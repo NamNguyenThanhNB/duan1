@@ -9,9 +9,6 @@ public class AddMTDLActivity_Precenter {
         this.mtdlActivity_interface = mtdlActivity_interface;
     }
 
-    public void setJob_sMtdlNotify(boolean x) {
-        mtdlActivity_interface.setJob_sMtdlNotify(x);
-    }
 
     public void setJob_imgMtdlRefresh() {
         mtdlActivity_interface.setJob_imgMtdlRefresh();

@@ -2,6 +2,9 @@ package com.example.duan1.presenter;
 
 import com.example.duan1.inteface.NDActivity_Interface;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class NDActivity_Precenter {
 
     private NDActivity_Interface nd_Activity_interface;
@@ -23,4 +26,11 @@ public class NDActivity_Precenter {
         nd_Activity_interface.setJob_btn_cnnd_finish();
 
     }
+
+    public String getDateToday() {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return String.valueOf(simpleDateFormat.format(date));
+    }
+
 }

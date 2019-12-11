@@ -17,8 +17,5 @@ public class BaiTapActivity extends AppCompatActivity {
         toolbar.setTitle("Bài Tập");
         setSupportActionBar(toolbar);
 
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }

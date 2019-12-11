@@ -28,9 +28,6 @@ public class CaiDatActivity extends AppCompatActivity implements CaiDat_Interfac
         toolbar.setTitle("Cài Đặt");
         setSupportActionBar(toolbar);
 
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         caiDat_precenter = new CaiDat_Precenter(this);
 
         sCdNnCan = (Switch) findViewById(R.id.s_cd_nn_can);

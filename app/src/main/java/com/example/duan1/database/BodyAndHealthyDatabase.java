@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.duan1.dao.LichTrinhDao;
+import com.example.duan1.dao.MucTieuDao;
 import com.example.duan1.dao.NguoidungDao;
+import com.example.duan1.dao.ThucPhamDao;
 
 public class BodyAndHealthyDatabase extends SQLiteOpenHelper {
 
@@ -20,6 +23,9 @@ public class BodyAndHealthyDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(NguoidungDao.SQL_NguoiDungDB);
+        db.execSQL(ThucPhamDao.SQL_ThucPhamDB);
+        db.execSQL(MucTieuDao.SQL_MucTieuDB);
+        db.execSQL(LichTrinhDao.SQL_LichTrinhDB);
     }
 
     @Override

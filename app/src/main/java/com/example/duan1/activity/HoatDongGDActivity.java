@@ -17,8 +17,5 @@ public class HoatDongGDActivity extends AppCompatActivity {
         toolbar.setTitle("Hoạt Động Gần Đây");
         setSupportActionBar(toolbar);
 
-        //hien thi nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }

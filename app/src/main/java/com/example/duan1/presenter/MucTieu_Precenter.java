@@ -38,6 +38,6 @@ public class MucTieu_Precenter {
     }
 
     public void setJob_imgLHAdd() {
-        mucTieu_interface.setJob_imgLHAdd();
+        mucTieu_interface.setJobImgLHAdd();
     }
 }

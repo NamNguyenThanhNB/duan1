@@ -16,19 +16,12 @@ public class TinhToan_Precenter {
 
     public double tinhtoan(NguoiDung nguoiDung) {
 
-
-        if (nguoiDung.getTenND().isEmpty()) {
-            tinhToan_interface.setError_EmptyName();
-        } else if (nguoiDung.getTuoiND().isEmpty()) {
-            tinhToan_interface.setError_EmptyAge();
-        } else if (Integer.parseInt(nguoiDung.getTuoiND()) < 1) {
+        if (!nguoiDung.getTuoiND().isEmpty() && Integer.parseInt(nguoiDung.getTuoiND()) < 1) {
             try {
                 tinhToan_interface.setError_falseAge();
             } catch (Exception e) {
                 tinhToan_interface.setError_AgeNotIsNumber();
             }
-        } else if (nguoiDung.getGioitinh().isEmpty()) {
-            tinhToan_interface.setError_EmptySex();
         } else if (nguoiDung.getChieucao().isEmpty()) {
             tinhToan_interface.setError_EmptyHeight();
         } else if (Double.parseDouble(nguoiDung.getChieucao()) < 1) {
@@ -46,6 +39,16 @@ public class TinhToan_Precenter {
                 tinhToan_interface.setError_WeightNotIsNumber();
             }
         } else {
+
+            if (nguoiDung.getTenND().isEmpty()) {
+                tinhToan_interface.setError_EmptyName();
+            }
+            if (nguoiDung.getTuoiND().isEmpty()) {
+                tinhToan_interface.setError_EmptyAge();
+            }
+            if (nguoiDung.getGioitinh().isEmpty()) {
+                tinhToan_interface.setError_EmptySex();
+            }
             double weight = Double.parseDouble(nguoiDung.getCannang());
             double height = Double.parseDouble(nguoiDung.getChieucao());
             tinh = weight / (height * height);

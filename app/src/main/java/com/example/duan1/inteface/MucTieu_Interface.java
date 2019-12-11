@@ -13,5 +13,5 @@ public interface MucTieu_Interface {
     void setJob_sExercise(boolean x);
 
     void setJob_imgMtAdd();
-    void setJob_imgLHAdd();
+    void setJobImgLHAdd();
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.example.duan1.database.BodyAndHealthyDatabase;
@@ -104,14 +105,16 @@ public class LichTrinhDao {
         }
         return lichTrinhList;
     }
+
     public List<LichTrinh> selectLichTrinh(String s) {
         List<LichTrinh> lichTrinhList = new ArrayList<>();
         // b2 : viet cau lenh select
 
-        String select = "SELECT * FROM " + TABLE_NAME+ " WHERE tgdienraLT = ?";;
+        String select = "SELECT * FROM " + TABLE_NAME + " WHERE tgdienraLT = ?";
+        ;
 
         // b3 : su dung cau lenh rawQuery
-        Cursor cursor = dbR.rawQuery(select,  new String[]{s});
+        Cursor cursor = dbR.rawQuery(select, new String[]{s});
         if (cursor.moveToFirst()) {
             do {
                 LichTrinh lichTrinh = new LichTrinh();
@@ -127,4 +130,6 @@ public class LichTrinhDao {
         }
         return lichTrinhList;
     }
+
+
 }

@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="Bạn có chắc muốn xóa toàn bộ dữ liệu trong ứng dụng ?"
+        android:text=""
         android:textColor="#000000"
         android:textSize="8pt"
         android:textStyle="bold" />

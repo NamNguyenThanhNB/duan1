@@ -202,10 +202,9 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
 
                 NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
                 boolean result = nguoidungDao.insertND(nguoiDung);
-                Intent intent = new Intent(ND_Activity.this, MainActivity.class);
-                startActivity(intent);
                 if (result) {
-                    Toast.makeText(this, "true ins", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ND_Activity.this, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(this, "false ins", Toast.LENGTH_SHORT).show();
                 }
@@ -222,7 +221,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
                 NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
                 boolean result = nguoidungDao.updateND(nguoiDung);
                 if (result) {
-                    Toast.makeText(this, "true update", Toast.LENGTH_SHORT).show();
                     notifyAll();
 
                 } else {
@@ -233,7 +231,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
                 boolean result = nguoidungDao.insertND(nguoiDung);
 
                 if (result) {
-                    Toast.makeText(this, "true ins update", Toast.LENGTH_SHORT).show();
                     notifyAll();
                 } else {
                     Toast.makeText(this, "false ins update", Toast.LENGTH_SHORT).show();

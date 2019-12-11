@@ -223,7 +223,6 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
                     boolean result = thucPhamDao.insertTP(thucPham);
 
                     if (result == true) {
-                        Toast.makeText(getActivity(), "true:" + result, Toast.LENGTH_SHORT).show();
                         List<ThucPham> thucPhamList_Much = thucPhamDao.selectThucPham("Được phép");
                         List<ThucPham> thucPhamList_limit = thucPhamDao.selectThucPham("Hạn chế");
                         List<ThucPham> thucPhamList_no = thucPhamDao.selectThucPham("Không được");

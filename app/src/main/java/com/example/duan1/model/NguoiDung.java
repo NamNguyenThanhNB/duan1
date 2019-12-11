@@ -3,14 +3,12 @@ package com.example.duan1.model;
 import android.util.Log;
 
 import com.example.duan1.R;
-import com.example.duan1.dao.NguoidungDao;
 
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class NguoiDung {
     public int maND;
@@ -269,24 +267,32 @@ public class NguoiDung {
 
     public String tinhTuoi() {
 
-        Calendar currentDate, a;
+        Calendar currentDate;
         int cday, cmonth, cyear;
         int bday, bmonth, byear;
         //getting the current date
         currentDate = Calendar.getInstance();
-        cday = currentDate.get(Calendar.DAY_OF_MONTH);
+        cday = currentDate.get(Calendar.DATE);
         cmonth = currentDate.get(Calendar.MONTH) + 1;
         cyear = currentDate.get(Calendar.YEAR);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         ParsePosition pos = new ParsePosition(0);
-        Date birhDate = simpleDateFormat.parse(getNgaydangND(), pos);
+        Date birhDate = simpleDateFormat.parse(getNgaysinh(), pos);
+        Log.e("ádd", currentDate + " --- " + birhDate);
 
-        bday = birhDate.getDay();
-        bmonth = birhDate.getMonth();
-        byear = birhDate.getYear();
-
-
+        char[] arr = getNgaysinh().toCharArray();
+        int t = arr.length;
+        String a1 = String.valueOf(arr[t - 4]);
+        String a2 = String.valueOf(arr[t - 3]);
+        String a3 = String.valueOf(arr[t - 2]);
+        String a4 = String.valueOf(arr[t - 1]);
+        String a = a1 + a2 + a3 + a4;
+        bday = birhDate.getDate();
+        bmonth = birhDate.getMonth() + 1;
+        byear = Integer.parseInt(a);
+        Log.e("1", cday + " --- " + cmonth + " --- " + cyear);
+        Log.e("2", bday + " --- " + bmonth + " --- " + a);
         int agey = cyear - byear;
         int agem = cmonth - bmonth;
         int aged = cday - bday;
@@ -296,7 +302,7 @@ public class NguoiDung {
         if (agem < 0) {
             resultMessage = (agem * -1) + " month " + aged + " days " + agey + " years old";
         } else {
-            resultMessage = String.valueOf(agey / 100);
+            resultMessage = String.valueOf(agey);
         }
 
         return resultMessage;

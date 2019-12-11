@@ -127,8 +127,6 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
         Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
         intent.putExtra("MT-DL", 0);
         getActivity().startActivity(intent);
-
-        Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -136,7 +134,6 @@ public class MucTieuFragment extends Fragment implements MucTieu_Interface {
         Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
         intent.putExtra("MT-DL", 1);
         getActivity().startActivity(intent);
-        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 
     }
 }

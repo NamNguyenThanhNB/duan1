@@ -273,7 +273,7 @@
                 android:layout_height="240dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/chisocothe" />
+                android:src="@drawable/chieucao" />
         </LinearLayout>
     </LinearLayout>
 

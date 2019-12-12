@@ -173,27 +173,8 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
 
     @Override
     public void setJob_btn_cnnd_CA() {
-        if (ContextCompat.checkSelfPermission(ND_Activity.this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                    999);
-        } else {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, 999);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 999 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imgCnndFollow.setImageBitmap(imageBitmap);
-        } else {
-            Toast.makeText(this, "HAY CHUP ANH", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(this, ChupAnhActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -292,39 +273,4 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
         return true;
     }
 
-    public void Image() {
-        BitmapDrawable drawable;
-        Bitmap bitmap;
-
-        drawable = (BitmapDrawable) imgCnndFollow.getDrawable();
-        bitmap = drawable.getBitmap();
-
-        FileOutputStream outputStream = null;
-        File sdCard = Environment.getExternalStoragePublicDirectory("");
-
-        File directory = new File(sdCard.getAbsolutePath() + "/BodyAndHealthyImg");
-        directory.mkdir();
-
-
-        String filename = String.format("%d.jpg", System.currentTimeMillis());
-        File outFile = new File(directory, filename);
-
-        Toast.makeText(this, "Image save successfully", Toast.LENGTH_SHORT).show();
-        try {
-            outputStream = new FileOutputStream(outFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            intent.setData(Uri.fromFile(outFile));
-
-            sendBroadcast(intent);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

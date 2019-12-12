@@ -13,9 +13,10 @@
         android:roundIcon="@drawable/adr"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddNguoiDungActivity"></activity>
+        <activity android:name=".activity.ChupAnhActivity"></activity>
+        <activity android:name=".activity.AddNguoiDungActivity" />
         <activity android:name=".activity.TheoDoiCNActivity" />
-        <activity android:name=".activity.ND_Activity"></activity>
+        <activity android:name=".activity.ND_Activity" />
         <activity android:name=".activity.HoatDongGDActivity" />
         <activity android:name=".activity.SoSanhTSActivity" />
         <activity android:name=".activity.ThemMT_DLActivity" />
@@ -27,13 +28,12 @@
             android:parentActivityName=".activity.CaiDatActivity" />
         <activity
             android:name=".activity.BoChuyenDoiActivity"
-            android:parentActivityName=".activity.MainActivity"></activity>
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.ThuVienActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ManHinhChaoActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

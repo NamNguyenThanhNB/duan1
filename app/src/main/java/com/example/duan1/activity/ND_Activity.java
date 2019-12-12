@@ -12,7 +12,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +33,10 @@ import com.example.duan1.inteface.NDActivity_Interface;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.NDActivity_Precenter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -191,6 +198,7 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
 
     @Override
     public void setJob_btn_cnnd_finish() {
+        Image();
         if (vitri < 0) {
             if (checkND()) {
                 String name = edtCnndName.getText().toString().trim();
@@ -283,5 +291,41 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
             }
         }
         return true;
+    }
+
+    public void Image() {
+        BitmapDrawable drawable;
+        Bitmap bitmap;
+
+        drawable = (BitmapDrawable) imgCnndFollow.getDrawable();
+        bitmap = drawable.getBitmap();
+
+        FileOutputStream outputStream = null;
+        File sdCard = Environment.getExternalStoragePublicDirectory("");
+
+        File directory = new File(sdCard.getAbsolutePath() + "/BodyAndHealthyImg");
+        directory.mkdir();
+
+
+        String filename = String.format("%d.jpg", System.currentTimeMillis());
+        File outFile = new File(directory, filename);
+
+        Toast.makeText(this, "Image save successfully", Toast.LENGTH_SHORT).show();
+        try {
+            outputStream = new FileOutputStream(outFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent.setData(Uri.fromFile(outFile));
+
+            sendBroadcast(intent);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

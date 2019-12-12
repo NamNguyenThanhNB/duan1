@@ -198,7 +198,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
 
     @Override
     public void setJob_btn_cnnd_finish() {
-        Image();
         if (vitri < 0) {
             if (checkND()) {
                 String name = edtCnndName.getText().toString().trim();

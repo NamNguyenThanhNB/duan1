@@ -1,22 +1,16 @@
 package com.example.duan1.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duan1.ChupAnhActivity;
 import com.example.duan1.R;
 import com.example.duan1.dao.NguoidungDao;
 import com.example.duan1.databinding.ActivityNdBinding;
@@ -33,10 +28,6 @@ import com.example.duan1.inteface.NDActivity_Interface;
 import com.example.duan1.model.NguoiDung;
 import com.example.duan1.presenter.NDActivity_Precenter;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -70,81 +61,78 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
         Toolbar toolbar = findViewById(R.id.toolbarTCN_ND);
         // ghi người dùng cũ
         nguoiDungList = nguoidungDao.selectND();
+
+
         vitri = nguoiDungList.size() - 1;
-        if (vitri < 0) {
-            toolbar.setTitle("TẠO NGƯỜI DÙNG");
-            edtCnndBirthday.setHint("dd/MM/yyyy");
-        } else {
-            toolbar.setTitle("CẬP NHẬT");
+// Check for SD Card
+//        if (!Environment.getExternalStorageState().equals(
+//                Environment.MEDIA_MOUNTED)) {
+//            Toast.makeText(this, "Không có SD Card, chụp ảnh không hợp lệ", Toast.LENGTH_LONG)
+//                    .show();
+//
+//            btnCnndCA.setVisibility(View.GONE);
+//            imgCnndFollow.setVisibility(View.GONE);
+//        } else {
+            if (vitri < 0) {
+                toolbar.setTitle("TẠO NGƯỜI DÙNG");
+                edtCnndBirthday.setHint("dd/MM/yyyy");
 
-            binding.setNguoidungAdd(nguoiDungList.get(vitri));
-            tvCnndDate.setText(nguoiDungList.get(vitri).getNgaydangND());
-            if (nguoiDungList.get(vitri).getGioitinh().equalsIgnoreCase("Nam")) {
-                spn_sex.setSelection(0);
             } else {
-                spn_sex.setSelection(1);
+                toolbar.setTitle("CẬP NHẬT");
+
+                binding.setNguoidungAdd(nguoiDungList.get(vitri));
+                tvCnndDate.setText(nguoiDungList.get(vitri).getNgaydangND());
+                if (nguoiDungList.get(vitri).getGioitinh().equalsIgnoreCase("Nam")) {
+                    spn_sex.setSelection(0);
+                } else {
+                    spn_sex.setSelection(1);
+                }
             }
+
+
+            String pathImg = getIntent().getStringExtra("uriImage");
+            if (vitri < 0 || pathImg.equals("")) {
+                Toast.makeText(this, "a"+pathImg, Toast.LENGTH_SHORT).show();
+                Log.e("url",pathImg+"");
+                Bitmap bmp = BitmapFactory.decodeFile(pathImg);
+                imgCnndFollow.setImageBitmap(bmp);
+            } else {
+                Bitmap bmp = BitmapFactory.decodeFile(nguoidungDao.selectNDbyDate(tvCnndDate.getText().toString()).getAnh());
+                imgCnndFollow.setImageBitmap(bmp);
+            }
+            setSupportActionBar(toolbar);
+
+            nd_Activity_precenter = new NDActivity_Precenter(this);
+            binding.setNdprecenter(nd_Activity_precenter);
+
+            img_cnnd_birthday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
+                    alertDialog.setView(R.layout.dialog_select_date);
+                    final AlertDialog dialog = alertDialog.show();
+                    DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
+                    Calendar calendar = Calendar.getInstance();
+
+                    // Lấy ra năm - tháng - ngày hiện tại
+                    int year = calendar.get(calendar.YEAR);
+                    final int month = calendar.get(calendar.MONTH);
+                    int day = calendar.get(calendar.DAY_OF_MONTH);
+
+                    // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
+                    dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
+                        @Override
+                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+                            String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                            edtCnndBirthday.setText(sDL);
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
         }
-        setSupportActionBar(toolbar);
 
-
-        nd_Activity_precenter = new NDActivity_Precenter(this);
-        binding.setNdprecenter(nd_Activity_precenter);
-
-//        tvCnndDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
-//                alertDialog.setView(R.layout.dialog_select_date);
-//                final AlertDialog dialog = alertDialog.show();
-//                DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
-//                Calendar calendar = Calendar.getInstance();
-//
-//                // Lấy ra năm - tháng - ngày hiện tại
-//                int year = calendar.get(calendar.YEAR);
-//                final int month = calendar.get(calendar.MONTH);
-//                int day = calendar.get(calendar.DAY_OF_MONTH);
-//
-//                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-//                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-//                    @Override
-//                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-//                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-//                        tvCnndDate.setText(sDL);
-//                        dialog.dismiss();
-//                    }
-//                });
-//            }
-//        });
-
-        img_cnnd_birthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
-                alertDialog.setView(R.layout.dialog_select_date);
-                final AlertDialog dialog = alertDialog.show();
-                DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
-                Calendar calendar = Calendar.getInstance();
-
-                // Lấy ra năm - tháng - ngày hiện tại
-                int year = calendar.get(calendar.YEAR);
-                final int month = calendar.get(calendar.MONTH);
-                int day = calendar.get(calendar.DAY_OF_MONTH);
-
-                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-                    @Override
-                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                        edtCnndBirthday.setText(sDL);
-                        dialog.dismiss();
-                    }
-                });
-            }
-        });
-    }
 
     private void init() {
         img_cnnd_birthday = findViewById(R.id.img_cnnd_birthday);

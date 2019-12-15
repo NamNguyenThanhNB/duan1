@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFDD33"
+        android:background="#D8FFDC"
         android:orientation="vertical">
 
         <ScrollView
@@ -179,7 +179,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#CDDC39"
+                        android:background="#543ed0"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -194,12 +194,11 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="TẠO MỤC TIÊU"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
 
                             <ImageView
-
                                 android:id="@+id/addFood"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
@@ -211,11 +210,12 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#0FFFFF"
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
+                               android:padding="8dp"
                                 android:id="@+id/rv_mtdl_mt"
+                                android:background="#bc5fce"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
                         </LinearLayout>
@@ -232,7 +232,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#CDDC39"
+                        android:background="#543ed0"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -247,7 +247,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="TẠO LỊCH HẸN"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
 
@@ -263,10 +263,11 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#0FFFFF"
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:padding="8dp"
+                                android:background="#bc5fce"
                                 android:id="@+id/rv_mtdl_dl"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"/>

@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CDDC39"
+        android:background="#D8FFDC"
         android:orientation="vertical"
         tools:context=".activity.ND_Activity">
 
@@ -31,7 +31,8 @@
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="#fff" />
 
 
         <androidx.cardview.widget.CardView

@@ -58,7 +58,6 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
 
         edtTtName = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Name);
         edtTtAge = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Age);
-        edtTtSex = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Sex);
         edtTtHeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Height);
         edtTtWeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Weight);
 
@@ -98,18 +97,29 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
             tvTtShowBMI.setText("Chỉ số BMI: " + decimalFormat.format(tinh));
             if (tinh < 18.5) {
                 tvTtShowStatus.setText("Gầy");
+                tvTtShowComment.setText("Hãy ăn các loại thức ăn chứa nhiều chất đạm (protein), chất béo tốt, tinh bột… để tăng cân nha !!!");
             } else if (tinh < 24.9) {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Bình thường");
+                tvTtShowComment.setText("Hãy ăn uống điều độ và tâp thể dục thường xuyên để phát huy nha !!!");
             } else if (tinh <= 25) {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Thừa cân");
+                tvTtShowComment.setText("Tình trạng của bạn chưa quá nặng, hãy ăn uống điều độ và tâp thể dục để lấy lại vóc dáng  !!!");
             } else if (tinh < 29.9) {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Tiền béo phì");
+                tvTtShowComment.setText("Bạn nên xây dựng chế độ ăn hợp lí hơn, chánh xa các món ăn dầu mỡ và nên tập gym để có chế độ luyện tập chuẩn xác nhất  !!!");
+
             } else if (tinh < 34.9) {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ I");
+                tvTtShowComment.setText("Bí đao luộc từ lâu đã được biết đến là một trong những loại thức ăn giảm cân có hiệu quả cao nhất. " +
+                        "Trong bí đao chứa hàm lượng chất xơ và nước khi ăn bí đao bạn sẽ cảm thấy no lâu hơn," +
+                        " cảm giác thèm ăn cũng giảm đi, bí đoa còn chứa một loại axit đặc biệt có tác dụng gây ức chế quá trình hình thành mỡ thừa dưới ra." +
+                        " Bạn thử nó chưa !!!");
             } else if (tinh < 39.9) {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ II");
+                tvTtShowComment.setText("Tình trạng của bạn đang tệ đi, hãy ăn uống điều độ và tâp thể dục để lấy lại vóc dáng  !!!");
             } else {
                 tvTtShowStatus.setText("Trạng thái cơ thể: " + "Béo phì độ III");
+                tvTtShowComment.setText("Tình trạng của bạn rất tệ, hãy ăn uống điều độ và tâp thể dục để lấy lại vóc dáng  !!!");
             }
             back.setOnClickListener(new View.OnClickListener() {
                 @Override

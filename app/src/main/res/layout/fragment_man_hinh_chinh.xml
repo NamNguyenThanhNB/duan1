@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFDD33"
+        android:background="#D8FFDC"
         android:orientation="vertical">
 
 
@@ -43,7 +43,6 @@
                     android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="#00BCD4"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -354,7 +353,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#CDDC39"
+                        android:background="#543ed0"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -369,7 +368,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="MỤC TIÊU SẮP TỚI"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -378,14 +377,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#0FFFFF"
+                            android:background="#bc5fce"
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:padding="8dp"
                                 android:id="@+id/rv_mhc_mt"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="24dp" />
+                                android:layout_height="match_parent" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -399,7 +398,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#CDDC39"
+                        android:background="#543ed0"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -414,7 +413,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="LỊCH HẸN SẮP TỚI"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -422,14 +421,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#0FFFFF"
+                            android:background="#bc5fce"
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:padding="8dp"
                                 android:id="@+id/rv_mhc_dl"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="24dp" />
+                                android:layout_height="match_parent" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -446,7 +445,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#CDDC39"
+                        android:background="#543ed0"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -461,7 +460,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="CHUỖI THỨC ĂN"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
 

@@ -29,6 +29,7 @@
         tools:context=".activity.SoSanhTSActivity">
 
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="#fff"
             android:id="@+id/toolbarSSTS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

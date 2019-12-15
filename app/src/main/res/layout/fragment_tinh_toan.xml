@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFDD33"
+        android:background="#D8FFDC"
         android:orientation="vertical">
 
         <ScrollView
@@ -28,7 +28,7 @@
                     android:id="@+id/cvInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#D8FFDC"
+                    app:cardBackgroundColor="#00BCD4"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="24dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -110,11 +110,13 @@
                                 android:textColor="#000000"
                                 android:textSize="8pt" />
 
-                            <EditText
-                                android:id="@+id/edt_tt_Sex"
+
+                            <Spinner
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_height="match_parent"
+                                android:entries="@array/sex_array"
+                                android:gravity="bottom"
+                                android:textColor="#000" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -158,150 +160,160 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
+                            android:layout_marginBottom="24dp"
                             android:text="chú ý: Chiều cao đo bằng đơn vị centimeter (Cm) 1cm=0.01m, cân nặng đo bằng đơn vị kilogram(Kg)" />
 
-                        <Button
-
-                            android:id="@+id/btn_tt_TinhToan"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#019AE8"
-                            android:onClick="@{()-> tinhtoanprecenter.setJob_btn_tt_TinhToan()}"
-                            android:text="+ TÍNH TOÁN +"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16pt"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="32dp"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cv_tt_Refresh"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="8dp"
-                                android:layout_weight="1"
-                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_Refresh()}"
-                                app:cardBackgroundColor="#A6A3EE"
-                                app:cardCornerRadius="8dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="8dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:gravity="center"
-                                        android:text="Làm lại"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="13dp" />
-
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cv_tt_NextDMT"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="8dp"
-                                android:layout_weight="1"
-                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextDMT()}"
-                                app:cardBackgroundColor="#A6A3EE"
-                                app:cardCornerRadius="8dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="8dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:gravity="center"
-                                        android:text="Đặt mục tiêu"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16dp" />
-
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cv_tt_NextBMI"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="8dp"
-                                android:layout_weight="1"
-                                android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextBMI()}"
-                                app:cardBackgroundColor="#A6A3EE"
-                                app:cardCornerRadius="8dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="8dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:gravity="center"
-                                        android:text="Cách tính"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16dp" />
-
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cvShare"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="8dp"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                app:cardBackgroundColor="#A6A3EE"
-                                app:cardCornerRadius="8dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="8dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="3dp"
-                                        android:gravity="center"
-                                        android:text="Chia sẻ"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="13dp" />
-
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_tt_TinhToan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#019AE8"
+                        android:onClick="@{()-> tinhtoanprecenter.setJob_btn_tt_TinhToan()}"
+                        android:text="+ TÍNH TOÁN +"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16pt"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_tt_Refresh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_Refresh()}"
+                            app:cardBackgroundColor="#019AE8"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center"
+                                    android:text="Làm lại"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16dp" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_tt_NextDMT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextDMT()}"
+                            app:cardBackgroundColor="#019AE8"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center"
+                                    android:text="Đặt mục tiêu"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_tt_NextBMI"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> tinhtoanprecenter.setJob_cv_tt_NextBMI()}"
+                            app:cardBackgroundColor="#019AE8"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center"
+                                    android:text="Cách tính"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16dp" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cvShare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            app:cardBackgroundColor="#A6A3EE"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center"
+                                    android:text="Chia sẻ"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13dp" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -87,7 +89,6 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NguoiDung nguoiDung01 = nguoidungDao.selectNDbyDate(spn_ssts_01.getSelectedItem().toString());
                 binding.setNguoidungView01(nguoiDung01);
-                Toast.makeText(SoSanhTSActivity.this, nguoiDung01.getMaND() + " " + nguoiDung01.getTenND(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -103,7 +104,7 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 NguoiDung nguoiDung02 = nguoidungDao.selectNDbyDate(spn_ssts_02.getSelectedItem().toString());
-                Toast.makeText(SoSanhTSActivity.this, nguoiDung02.getMaND() + " " + nguoiDung02.getTenND(), Toast.LENGTH_SHORT).show();
+
                 binding.setNguoidungView02(nguoiDung02);
 
             }
@@ -135,6 +136,33 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
 
     @Override
     public void setJob_btn_ssts_finish() {
-        Toast.makeText(this, "setJob_btn_ssts_finish", Toast.LENGTH_SHORT).show();
+        try {
+            double tdCC = Double.parseDouble(edtSsHeight2.getText().toString().trim()) - Double.parseDouble(edtSsHeight1.getText().toString().trim());
+            double tdCN = Double.parseDouble(edtSsWeight2.getText().toString().trim()) - Double.parseDouble(edtSsWeight1.getText().toString().trim());
+            double tdBMI = Double.parseDouble(tvSsBmi2.getText().toString().trim()) - Double.parseDouble(tvSsBmi1.getText().toString().trim());
+            if (tdCC < 0) {
+                tvSsTdcc.setText("-" + tdCC);
+                tvSsTdcc.setTextColor(Color.RED);
+            } else if (tdCC > 0) {
+                tvSsTdcc.setText("+" + tdCC);
+                tvSsTdcc.setTextColor(Color.GREEN);
+            }else {
+                Toast.makeText(this, "Chiều cao không thay đổi", Toast.LENGTH_SHORT).show();
+            }
+
+
+            if (tdCN < 0) {
+                tvSsTdcn.setText("-" + tdCN);
+                tvSsTdcn.setTextColor(Color.RED);
+            } else if (tdCN > 0) {
+                tvSsTdcn.setText("+" + tdCN);
+                tvSsTdcn.setTextColor(Color.GREEN);
+            }else {
+                Toast.makeText(this, "Cân nặng không thay đổi", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            Log.e("so sanh", e + "");
+        }
     }
 }

@@ -31,7 +31,9 @@
         <activity
             android:name=".activity.ThuVienActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" >
+
+        </activity>
         <activity android:name=".activity.ManHinhChaoActivity">
 
             <intent-filter>

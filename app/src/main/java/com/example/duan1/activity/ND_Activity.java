@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,7 +38,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ND_Activity extends AppCompatActivity implements NDActivity_Interface {
@@ -73,11 +76,14 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
         if (vitri < 0) {
             toolbar.setTitle("TẠO NGƯỜI DÙNG");
             edtCnndBirthday.setHint("dd/MM/yyyy");
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            tvCnndDate.setText(String.valueOf(simpleDateFormat.format(date)) + "");
+
         } else {
             toolbar.setTitle("CẬP NHẬT");
-
             binding.setNguoidungAdd(nguoiDungList.get(vitri));
-            tvCnndDate.setText(nguoiDungList.get(vitri).getNgaydangND());
+            tvCnndDate.setText(nguoiDungList.get(vitri).getNgaydangND() + "");
             if (nguoiDungList.get(vitri).getGioitinh().equalsIgnoreCase("Nam")) {
                 spn_sex.setSelection(0);
             } else {
@@ -90,32 +96,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
         nd_Activity_precenter = new NDActivity_Precenter(this);
         binding.setNdprecenter(nd_Activity_precenter);
 
-//        tvCnndDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ND_Activity.this);
-//                alertDialog.setView(R.layout.dialog_select_date);
-//                final AlertDialog dialog = alertDialog.show();
-//                DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
-//                Calendar calendar = Calendar.getInstance();
-//
-//                // Lấy ra năm - tháng - ngày hiện tại
-//                int year = calendar.get(calendar.YEAR);
-//                final int month = calendar.get(calendar.MONTH);
-//                int day = calendar.get(calendar.DAY_OF_MONTH);
-//
-//                // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
-//                dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
-//                    @Override
-//                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
-//                        String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-//                        tvCnndDate.setText(sDL);
-//                        dialog.dismiss();
-//                    }
-//                });
-//            }
-//        });
 
         img_cnnd_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,8 +201,10 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
             String sex = spn_sex.getSelectedItem().toString();
             String height = edtCnndHeight.getText().toString().trim();
             String weight = edtCnndWeight.getText().toString().trim();
-            String ngaydang = tvCnndDate.getText().toString().trim();
-            int id = nguoidungDao.findIDbyDate(ngaydang);
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String ngaydang = String.valueOf(simpleDateFormat.format(date));
+
             if (ngaydang.equalsIgnoreCase(nguoiDungList.get(nguoiDungList.size() - 1).getNgaydangND())) {
                 NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
                 boolean result = nguoidungDao.updateND(nguoiDung);
@@ -235,7 +217,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
             } else {
                 NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
                 boolean result = nguoidungDao.insertND(nguoiDung);
-
                 if (result) {
                     notifyAll();
                 } else {

@@ -367,7 +367,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="MỤC TIÊU SẮP TỚI"
+                                android:text="MỤC TIÊU"
                                 android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />
@@ -412,7 +412,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="LỊCH HẸN SẮP TỚI"
+                                android:text="LỊCH HẸN"
                                 android:textColor="#fff"
                                 android:textSize="10pt"
                                 android:textStyle="bold" />

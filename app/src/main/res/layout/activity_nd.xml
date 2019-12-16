@@ -78,7 +78,6 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginBottom="8dp"
                         android:gravity="right"
-                        android:text="@{ndprecenter.dateToday}"
                         android:textColor="#000000"
                         android:textSize="8pt" />
                 </LinearLayout>

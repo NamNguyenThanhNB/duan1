@@ -63,7 +63,7 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
         String todayS = tday + "/" + tmonth + "/" + tyear;
         if (lichTrinhList.get(0).getTgdienraLT().equalsIgnoreCase(todayS)) {
             holder.tv_tb.setTextColor(Color.RED);
-            holder.tv_tb.setText("ToDay");
+            holder.tv_tb.setText("Hôm nay");
         } else {
             holder.tv_tb.setTextColor(Color.RED);
             holder.tv_tb.setText("");

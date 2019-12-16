@@ -101,23 +101,32 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
 
         if (mucTieuListDao.size() > 0) {
-            boolean cmt = true;
+            int sttMT= 0;
             int sizeMT = mucTieuListDao.size();
+
+            //lấy số thứ tự của list chỉ có ngày hiện tại và đang diễn ra
+
             for (int i = 0; i < sizeMT; i++) {
                 Date date1 = new Date();
-                Date mti = null;
+                Date smti = null,emti=null;
                 try {
-                    mti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT());
+                    smti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT());
+                    emti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayKTMT());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                if (mti.getYear() == date1.getYear() &&
-                        mti.getMonth() == date1.getMonth() &&
-                        mti.getDay() == date1.getDay()) {
+                if(smti.before(date1) && emti.after(date1)){
                     smucTieuList.add(mucTieuListDao.get(i));
-                }
-                if (mti.after(date1)) {
+                    sttMT++;
+                }else
+
+                if (smti.getYear() == date1.getYear() &&
+                        smti.getMonth() == date1.getMonth() &&
+                        smti.getDay() == date1.getDay()) {
+                    smucTieuList.add(mucTieuListDao.get(i));
+                    sttMT++;
+                }else
+                if (smti.after(date1)) {
                     smucTieuList.add(mucTieuListDao.get(i));
                 }
             }
@@ -139,7 +148,7 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
             }
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             if (smucTieuList.size() > 0) {
-                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList, 1);
+                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList, sttMT);
                 rvMhcMt.setLayoutManager(linearLayoutManager);
                 rvMhcMt.setAdapter(mucTieuAdapter);
             } else {

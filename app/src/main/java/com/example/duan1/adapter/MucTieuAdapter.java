@@ -24,6 +24,8 @@ import com.example.duan1.dao.MucTieuDao;
 import com.example.duan1.model.MucTieu;
 import com.example.duan1.model.ThucPham;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +34,8 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     private Context context;
     private List<MucTieu> mucTieuList;
     private MucTieuDao mucTieuDao;
-    private int x, dem = 0;
+    private int x, dem = 0, stt = 0;
+
 
     public MucTieuAdapter(Context context, List<MucTieu> mucTieuList) {
         this.context = context;
@@ -58,21 +61,47 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     @Override
     public void onBindViewHolder(@NonNull MucTieuHolder holder, final int position) {
 
+        holder.tv_tb.setTextColor(Color.RED);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar calendar = Calendar.getInstance();
-
         // Lấy ra năm - tháng - ngày hiện tại
         int tyear = calendar.get(calendar.YEAR);
         final int tmonth = calendar.get(calendar.MONTH) + 1;
         int tday = calendar.get(calendar.DAY_OF_MONTH);
+
         String todayS = tday + "/" + tmonth + "/" + tyear;
-        if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(todayS)) {
-            holder.tv_tb.setTextColor(Color.RED);
-            holder.tv_tb.setText("ToDay");
-        } else {
-            holder.tv_tb.setTextColor(Color.RED);
-            holder.tv_tb.setText("");
+        Date mtS = null, day = null, mtE = null;
+
+        try {
+            mtE = simpleDateFormat.parse(mucTieuList.get(position).getNgayKTMT());
+            mtS = simpleDateFormat.parse(mucTieuList.get(position).getNgayBDMT());
+            day = simpleDateFormat.parse(todayS);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        if (mtS.before(day) && mtE.after(day)) {
+
+            Calendar c1 = Calendar.getInstance();
+            Calendar c2 = Calendar.getInstance();
+
+            c1.setTime(mtS);
+            c2.setTime(mtE);
+
+            // Công thức tính số ngày giữa 2 mốc thời gian:
+            long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
+            holder.tv_tb.setText("Còn: " + noDay + " ngày");
+
+        }
+        if (mucTieuList.get(position).getNgayBDMT().equalsIgnoreCase(todayS)) {
+            holder.tv_tb.setText("Hôm nay");
+        }
+
+        if (mtS.after(day)) {
+            holder.tv_tb.setText("Chưa đến");
+        }
+
+
         holder.tvRvmtTitle.setText(mucTieuList.get(position).getTenMT());
         holder.tvRvmtSTime.setText(mucTieuList.get(position).getNgayBDMT());
         holder.tvRvmtETime.setText(mucTieuList.get(position).getNgayKTMT());
@@ -237,14 +266,14 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
 
     @Override
     public int getItemCount() {
-        dem = 1;
-        for (int j = 1; j < mucTieuList.size(); j++) {
-            if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(mucTieuList.get(j).getNgayBDMT())) {
-                dem++;
-            }
-        }
-        if (x == 1) {
-            return dem;
+//        dem=stt+1;
+//        for (int j = stt; j < mucTieuList.size(); j++) {
+//            if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(mucTieuList.get(j).getNgayBDMT())) {
+//                dem++;
+//            }
+//        }
+        if (x !=0) {
+            return x;
         } else {
             return mucTieuList.size();
         }

@@ -7,7 +7,11 @@ public class ThucPham {
 
     public ThucPham() {
     }
-
+    public ThucPham(String tenTP, String loaiTP, String chedoTP) {
+        this.tenTP = tenTP;
+        this.loaiTP = loaiTP;
+        this.chedoTP = chedoTP;
+    }
     public String getTenTP() {
         return tenTP;
     }
@@ -32,9 +36,5 @@ public class ThucPham {
         this.chedoTP = chedoTP;
     }
 
-    public ThucPham(String tenTP, String loaiTP, String chedoTP) {
-        this.tenTP = tenTP;
-        this.loaiTP = loaiTP;
-        this.chedoTP = chedoTP;
-    }
+
 }

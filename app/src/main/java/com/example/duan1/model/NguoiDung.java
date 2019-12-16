@@ -20,15 +20,6 @@ public class NguoiDung {
     public String anh;
     public String ngaydangND;
 
-    public String getTuoiND() {
-        return tuoiND;
-    }
-
-    public void setTuoiND(String tuoiND) {
-        this.tuoiND = tuoiND;
-    }
-
-    public String tuoiND;
 
     public NguoiDung() {
     }
@@ -53,6 +44,17 @@ public class NguoiDung {
         this.anh = anh;
         this.ngaydangND = ngaydangND;
     }
+
+
+    public String getTuoiND() {
+        return tuoiND;
+    }
+
+    public void setTuoiND(String tuoiND) {
+        this.tuoiND = tuoiND;
+    }
+
+    public String tuoiND;
 
     public int getMaND() {
         return maND;

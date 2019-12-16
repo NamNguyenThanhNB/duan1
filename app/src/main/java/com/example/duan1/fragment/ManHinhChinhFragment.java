@@ -35,6 +35,7 @@ import com.example.duan1.model.ThucPham;
 import com.example.duan1.presenter.MHChinh_Precenter;
 import com.example.duan1.presenter.ThucPham_Precenter;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,12 +98,25 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
         List<LichTrinh> lichTrinhListDao = lichTrinhDao.selectLT();
         List<MucTieu> smucTieuList = new ArrayList<>();
         List<LichTrinh> slichTrinhList = new ArrayList<>();
+
+
         if (mucTieuListDao.size() > 0) {
+            boolean cmt = true;
             int sizeMT = mucTieuListDao.size();
             for (int i = 0; i < sizeMT; i++) {
                 Date date1 = new Date();
-                ParsePosition posmt = new ParsePosition(0);
-                Date mti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT(), posmt);
+                Date mti = null;
+                try {
+                    mti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                if (mti.getYear() == date1.getYear() &&
+                        mti.getMonth() == date1.getMonth() &&
+                        mti.getDay() == date1.getDay()) {
+                    smucTieuList.add(mucTieuListDao.get(i));
+                }
                 if (mti.after(date1)) {
                     smucTieuList.add(mucTieuListDao.get(i));
                 }
@@ -123,10 +137,9 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
                     }
                 }
             }
-
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             if (smucTieuList.size() > 0) {
-                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList,1);
+                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList, 1);
                 rvMhcMt.setLayoutManager(linearLayoutManager);
                 rvMhcMt.setAdapter(mucTieuAdapter);
             } else {
@@ -139,8 +152,15 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
             for (int i = 0; i < sizeLT; i++) {
                 Date date1 = new Date();
                 ParsePosition posmt = new ParsePosition(0);
-                Date mti = simpleDateFormat.parse(lichTrinhListDao.get(i).getTgdienraLT(), posmt);
-                if (mti.after(date1)) {
+                Date lti = simpleDateFormat.parse(lichTrinhListDao.get(i).getTgdienraLT(), posmt);
+
+                if (lti.getYear() == date1.getYear() &&
+                        lti.getMonth() == date1.getMonth() &&
+                        lti.getDay() == date1.getDay()) {
+                    slichTrinhList.add(lichTrinhListDao.get(i));
+                }
+
+                if (lti.after(date1)) {
                     slichTrinhList.add(lichTrinhListDao.get(i));
                 }
             }
@@ -163,7 +183,7 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             if (slichTrinhList.size() > 0) {
-                lichTrinhAdapter = new LichTrinhAdapter(getActivity(), slichTrinhList,1);
+                lichTrinhAdapter = new LichTrinhAdapter(getActivity(), slichTrinhList, 1);
                 rvMhcDl.setLayoutManager(linearLayoutManager);
                 rvMhcDl.setAdapter(lichTrinhAdapter);
             } else {

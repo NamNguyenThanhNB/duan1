@@ -1,6 +1,7 @@
 package com.example.duan1.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,21 @@ public class LichTrinhAdapter extends RecyclerView.Adapter<LichTrinhHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LichTrinhHolder holder, final int position) {
+
+        Calendar calendar = Calendar.getInstance();
+
+        // Lấy ra năm - tháng - ngày hiện tại
+        int tyear = calendar.get(calendar.YEAR);
+        final int tmonth = calendar.get(calendar.MONTH) + 1;
+        int tday = calendar.get(calendar.DAY_OF_MONTH);
+        String todayS = tday + "/" + tmonth + "/" + tyear;
+        if (lichTrinhList.get(0).getTgdienraLT().equalsIgnoreCase(todayS)) {
+            holder.tv_tb.setTextColor(Color.RED);
+            holder.tv_tb.setText("ToDay");
+        } else {
+            holder.tv_tb.setTextColor(Color.RED);
+            holder.tv_tb.setText("");
+        }
         holder.tv_s.setVisibility(View.GONE);
         holder.tv_e.setText("Thời gian diễn ra: ");
         holder.tvRvmtTitle.setText(lichTrinhList.get(position).getTenLT());

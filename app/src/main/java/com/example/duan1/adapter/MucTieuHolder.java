@@ -14,6 +14,7 @@ class MucTieuHolder extends RecyclerView.ViewHolder {
     public TextView tvRvmtTitle;
     public TextView tvRvmtSTime;
     public TextView tvRvmtETime;
+    public TextView tv_tb;
     public TextView tv_s;
     public TextView tv_e;
 
@@ -22,6 +23,7 @@ class MucTieuHolder extends RecyclerView.ViewHolder {
         tvRvmtTitle = (TextView) itemView.findViewById(R.id.tv_rvmt_title);
         tvRvmtSTime = (TextView) itemView.findViewById(R.id.tv_rvmt_sTime);
         tvRvmtETime = (TextView) itemView.findViewById(R.id.tv_rvmt_eTime);
+        tv_tb = (TextView) itemView.findViewById(R.id.tv_tb);
         tv_s = (TextView) itemView.findViewById(R.id.tv_s);
         tv_e = (TextView) itemView.findViewById(R.id.tv_e);
 

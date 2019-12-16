@@ -25,6 +25,7 @@ import com.example.duan1.model.MucTieu;
 import com.example.duan1.model.ThucPham;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
@@ -57,6 +58,21 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     @Override
     public void onBindViewHolder(@NonNull MucTieuHolder holder, final int position) {
 
+
+        Calendar calendar = Calendar.getInstance();
+
+        // Lấy ra năm - tháng - ngày hiện tại
+        int tyear = calendar.get(calendar.YEAR);
+        final int tmonth = calendar.get(calendar.MONTH) + 1;
+        int tday = calendar.get(calendar.DAY_OF_MONTH);
+        String todayS = tday + "/" + tmonth + "/" + tyear;
+        if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(todayS)) {
+            holder.tv_tb.setTextColor(Color.RED);
+            holder.tv_tb.setText("ToDay");
+        } else {
+            holder.tv_tb.setTextColor(Color.RED);
+            holder.tv_tb.setText("");
+        }
         holder.tvRvmtTitle.setText(mucTieuList.get(position).getTenMT());
         holder.tvRvmtSTime.setText(mucTieuList.get(position).getNgayBDMT());
         holder.tvRvmtETime.setText(mucTieuList.get(position).getNgayKTMT());

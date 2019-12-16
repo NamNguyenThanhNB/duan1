@@ -56,7 +56,6 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
     private NDActivity_Precenter nd_Activity_precenter;
     private ActivityNdBinding binding;
     private int getE;
-
     private NguoidungDao nguoidungDao;
     private List<NguoiDung> nguoiDungList;
     private int vitri = -1000;

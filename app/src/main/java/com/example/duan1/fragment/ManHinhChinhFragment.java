@@ -101,33 +101,35 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
 
         if (mucTieuListDao.size() > 0) {
-            int sttMT= 0;
+            int sttMT = 0;
             int sizeMT = mucTieuListDao.size();
 
             //lấy số thứ tự của list chỉ có ngày hiện tại và đang diễn ra
 
+            Date date1 = new Date();
+            Date smti = null, emti = null;
             for (int i = 0; i < sizeMT; i++) {
-                Date date1 = new Date();
-                Date smti = null,emti=null;
                 try {
                     smti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayBDMT());
                     emti = simpleDateFormat.parse(mucTieuListDao.get(i).getNgayKTMT());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(smti.before(date1) && emti.after(date1)){
+                if (smti.before(date1) && emti.after(date1)) {
                     smucTieuList.add(mucTieuListDao.get(i));
                     sttMT++;
-                }else
-
-                if (smti.getYear() == date1.getYear() &&
+                } else if (smti.getYear() == date1.getYear() &&
                         smti.getMonth() == date1.getMonth() &&
                         smti.getDay() == date1.getDay()) {
                     smucTieuList.add(mucTieuListDao.get(i));
                     sttMT++;
-                }else
-                if (smti.after(date1)) {
+                } else if (smti.after(date1)) {
                     smucTieuList.add(mucTieuListDao.get(i));
+                    for (int j = 0; j < i; j++) {
+                        if (mucTieuListDao.get(i).getTenMT().equalsIgnoreCase(mucTieuListDao.get(j).getTenMT())) {
+                            smucTieuList.remove(i);
+                        }
+                    }
                 }
             }
 
@@ -148,29 +150,43 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
             }
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             if (smucTieuList.size() > 0) {
-                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList, sttMT);
+                mucTieuAdapter = new MucTieuAdapter(getActivity(), smucTieuList, sttMT, true);
                 rvMhcMt.setLayoutManager(linearLayoutManager);
                 rvMhcMt.setAdapter(mucTieuAdapter);
             } else {
-                Log.e("3", "lt");
+                Log.e("3", "mt");
             }
         }
 
         if (lichTrinhListDao.size() > 0) {
+            int sttLT = 0;
             int sizeLT = lichTrinhListDao.size();
-            for (int i = 0; i < sizeLT; i++) {
-                Date date1 = new Date();
-                ParsePosition posmt = new ParsePosition(0);
-                Date lti = simpleDateFormat.parse(lichTrinhListDao.get(i).getTgdienraLT(), posmt);
 
-                if (lti.getYear() == date1.getYear() &&
-                        lti.getMonth() == date1.getMonth() &&
-                        lti.getDay() == date1.getDay()) {
-                    slichTrinhList.add(lichTrinhListDao.get(i));
+            Log.e("size = ", "" + lichTrinhListDao.size());
+
+
+            Date lt = null;
+            Date date1 = new Date();
+            for (int i = 0; i < sizeLT; i++) {
+
+                try {
+                    lt = simpleDateFormat.parse(lichTrinhListDao.get(i).getTgdienraLT());
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
-                if (lti.after(date1)) {
+                if (lt.getYear() == date1.getYear() &&
+                        lt.getMonth() == date1.getMonth() &&
+                        lt.getDay() == date1.getDay()) {
                     slichTrinhList.add(lichTrinhListDao.get(i));
+                    sttLT++;
+                } else if (lt.after(date1)) {
+                    slichTrinhList.add(lichTrinhListDao.get(i));
+                    for (int j = 0; j < i; j++) {
+                        if (lichTrinhListDao.get(i).getTenLT().equalsIgnoreCase(lichTrinhListDao.get(j).getTenLT())) {
+                            slichTrinhList.remove(i);
+                        }
+                    }
                 }
             }
 
@@ -192,14 +208,13 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             if (slichTrinhList.size() > 0) {
-                lichTrinhAdapter = new LichTrinhAdapter(getActivity(), slichTrinhList, 1);
+                lichTrinhAdapter = new LichTrinhAdapter(getActivity(), slichTrinhList, sttLT, true);
                 rvMhcDl.setLayoutManager(linearLayoutManager);
                 rvMhcDl.setAdapter(lichTrinhAdapter);
             } else {
                 Log.e("3", "dl");
             }
         }
-
         return binding.getRoot();
     }
 
@@ -269,7 +284,7 @@ public class ManHinhChinhFragment extends Fragment implements MHChinh_Inteface {
                         edtAddFoodType.setText("");
                         spnAddFoodLevel.setSelection(0);
                     } else {
-                        Toast.makeText(getActivity(), "false:" + result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Tạo thực phẩm không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

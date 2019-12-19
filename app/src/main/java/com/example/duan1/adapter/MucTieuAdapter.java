@@ -1,6 +1,7 @@
 package com.example.duan1.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.R;
+import com.example.duan1.activity.MainActivity;
 import com.example.duan1.activity.ThemMT_DLActivity;
 import com.example.duan1.dao.MucTieuDao;
 import com.example.duan1.model.MucTieu;
@@ -34,7 +36,8 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     private Context context;
     private List<MucTieu> mucTieuList;
     private MucTieuDao mucTieuDao;
-    private int x, dem = 0, stt = 0;
+    private int x = 0;
+    private boolean check = false;
 
 
     public MucTieuAdapter(Context context, List<MucTieu> mucTieuList) {
@@ -43,8 +46,9 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
         mucTieuDao = new MucTieuDao(context);
     }
 
-    public MucTieuAdapter(Context context, List<MucTieu> mucTieuList, int x) {
+    public MucTieuAdapter(Context context, List<MucTieu> mucTieuList, int x, boolean check) {
         this.x = x;
+        this.check = check;
         this.context = context;
         this.mucTieuList = mucTieuList;
         mucTieuDao = new MucTieuDao(context);
@@ -59,7 +63,7 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MucTieuHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MucTieuHolder holder, final int position) {
 
         holder.tv_tb.setTextColor(Color.RED);
 
@@ -69,10 +73,8 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
         int tyear = calendar.get(calendar.YEAR);
         final int tmonth = calendar.get(calendar.MONTH) + 1;
         int tday = calendar.get(calendar.DAY_OF_MONTH);
-
         String todayS = tday + "/" + tmonth + "/" + tyear;
         Date mtS = null, day = null, mtE = null;
-
         try {
             mtE = simpleDateFormat.parse(mucTieuList.get(position).getNgayKTMT());
             mtS = simpleDateFormat.parse(mucTieuList.get(position).getNgayBDMT());
@@ -80,6 +82,7 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         if (mtS.before(day) && mtE.after(day)) {
 
             Calendar c1 = Calendar.getInstance();
@@ -97,10 +100,9 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
             holder.tv_tb.setText("Hôm nay");
         }
 
-        if (mtS.after(day)) {
-            holder.tv_tb.setText("Chưa đến");
+        if (mtS.after(day) && position == 0) {
+            holder.tv_tb.setText("Sắp diễn ra");
         }
-
 
         holder.tvRvmtTitle.setText(mucTieuList.get(position).getTenMT());
         holder.tvRvmtSTime.setText(mucTieuList.get(position).getNgayBDMT());
@@ -167,7 +169,7 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
                         return false;
                     }
                 });
-                if (x != 1) {
+                if (!check) {
 
                     edtMtdlShowEndMT.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
@@ -213,8 +215,13 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
                                 mucTieuList.get(position).setNoidungMT(content);
                                 mucTieuList.get(position).setNgayBDMT(mtStart);
                                 mucTieuList.get(position).setNgayKTMT(mtEnd);
-                                notifyDataSetChanged();
-                                dialog.dismiss();
+                                if (!holder.tv_tb.getText().toString().isEmpty()) {
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    context.startActivity(intent);
+                                } else {
+                                    notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
                             } else {
                                 Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                             }
@@ -228,6 +235,13 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
                             if (result) {
                                 mucTieuList.remove(position);
                                 notifyDataSetChanged();
+                                if (!holder.tv_tb.getText().toString().isEmpty()) {
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    context.startActivity(intent);
+                                } else {
+                                    notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
                             } else {
 
                                 Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
@@ -244,7 +258,7 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
 
             }
         });
-        if (x != 1) {
+        if (!check) {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -252,7 +266,12 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
                     boolean result = mucTieuDao.deleteMT(mucTieuList.get(position).getTenMT());
                     if (result) {
                         mucTieuList.remove(position);
-                        notifyDataSetChanged();
+                        if (!holder.tv_tb.getText().toString().isEmpty()) {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            notifyDataSetChanged();
+                        }
                     } else {
 
                         Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
@@ -266,14 +285,8 @@ public class MucTieuAdapter extends RecyclerView.Adapter<MucTieuHolder> {
 
     @Override
     public int getItemCount() {
-//        dem=stt+1;
-//        for (int j = stt; j < mucTieuList.size(); j++) {
-//            if (mucTieuList.get(0).getNgayBDMT().equalsIgnoreCase(mucTieuList.get(j).getNgayBDMT())) {
-//                dem++;
-//            }
-//        }
-        if (x !=0) {
-            return x;
+        if (check) {
+            return (x);
         } else {
             return mucTieuList.size();
         }

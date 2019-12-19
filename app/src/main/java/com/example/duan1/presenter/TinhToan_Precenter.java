@@ -15,28 +15,32 @@ public class TinhToan_Precenter {
     }
 
     public double tinhtoan(NguoiDung nguoiDung) {
-
-        if (!nguoiDung.getTuoiND().isEmpty() && Integer.parseInt(nguoiDung.getTuoiND()) < 1) {
+        if (!isNumeric(nguoiDung.getTuoiND())) {
+            tinhToan_interface.setError_AgeNotIsNumber();
+        } else if (Integer.parseInt(nguoiDung.getTuoiND()) < 1) {
             try {
                 tinhToan_interface.setError_falseAge();
             } catch (Exception e) {
-                tinhToan_interface.setError_AgeNotIsNumber();
             }
         } else if (nguoiDung.getChieucao().isEmpty()) {
             tinhToan_interface.setError_EmptyHeight();
+        } else if (!isNumeric(nguoiDung.getChieucao())) {
+            tinhToan_interface.setError_HeightNotIsNumber();
         } else if (Double.parseDouble(nguoiDung.getChieucao()) < 1) {
             try {
                 tinhToan_interface.setError_falseHeight();
             } catch (Exception e) {
-                tinhToan_interface.setError_HeightNotIsNumber();
+
             }
         } else if (nguoiDung.getCannang().isEmpty()) {
             tinhToan_interface.setError_EmptyWeight();
+        } else if (!isNumeric(nguoiDung.getCannang())) {
+            tinhToan_interface.setError_WeightNotIsNumber();
         } else if (Double.parseDouble(nguoiDung.getCannang()) < 1) {
             try {
                 tinhToan_interface.setError_falseWeight();
             } catch (Exception e) {
-                tinhToan_interface.setError_WeightNotIsNumber();
+
             }
         } else {
 
@@ -80,5 +84,14 @@ public class TinhToan_Precenter {
 
     public void setStatusBMI(double statusBMI) {
         tinhToan_interface.setStatusBMI(statusBMI);
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

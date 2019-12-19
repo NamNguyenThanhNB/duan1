@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
 
     private EditText edtTtName;
     private EditText edtTtAge;
-    private EditText edtTtSex;
+    private Spinner spn_tt_Sex;
     private EditText edtTtHeight;
     private EditText edtTtWeight;
     private Button btnTtTinhToan;
@@ -58,6 +59,7 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
 
         edtTtName = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Name);
         edtTtAge = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Age);
+        spn_tt_Sex = binding.getRoot().findViewById(R.id.spn_tt_Sex);
         edtTtHeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Height);
         edtTtWeight = (EditText) binding.getRoot().findViewById(R.id.edt_tt_Weight);
 
@@ -72,7 +74,7 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
     public void setJob_btn_tt_TinhToan() {
         NguoiDung nguoiDung = new NguoiDung();
         nguoiDung.setTenND(edtTtName.getText().toString().trim());
-        nguoiDung.setGioitinh(edtTtSex.getText().toString().trim());
+        nguoiDung.setGioitinh(spn_tt_Sex.getSelectedItem().toString());
         nguoiDung.setTuoiND(edtTtAge.getText().toString().trim());
         nguoiDung.setChieucao(edtTtHeight.getText().toString().trim());
         nguoiDung.setCannang(edtTtWeight.getText().toString().trim());
@@ -136,13 +138,14 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
         edtTtAge.setText("");
         edtTtHeight.setText("");
         edtTtName.setText("");
-        edtTtSex.setText("");
+        spn_tt_Sex.setSelection(0);
         edtTtWeight.setText("");
     }
 
     @Override
     public void setJob_cv_tt_NextDMT() {
         Intent intent = new Intent(getActivity(), ThemMT_DLActivity.class);
+        intent.putExtra("MT-DL", 0);
         startActivity(intent);
 
     }
@@ -166,7 +169,7 @@ public class TinhToanFragment extends Fragment implements TinhToan_Interface {
 
     @Override
     public void setError_EmptySex() {
-        edtTtSex.setText("null");
+        spn_tt_Sex.setSelection(0);
     }
 
     @Override

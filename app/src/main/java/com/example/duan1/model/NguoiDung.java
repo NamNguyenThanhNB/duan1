@@ -209,14 +209,10 @@ public class NguoiDung {
         try {
             double cc = Integer.parseInt(getChieucao());
 
-            if (cc < 100) {
+            if (cc <= 100) {
                 solecc = cc;
-            } else if (cc < 200) {
+            } else {
                 solecc = cc - 100;
-            } else if (cc < 300) {
-                solecc = cc - 200;
-            } else if (cc < 400) {
-                solecc = cc - 300;
             }
         } catch (Exception e) {
             Log.e("asd", "" + e);
@@ -230,14 +226,10 @@ public class NguoiDung {
         try {
 
             int cc = Integer.parseInt(getChieucao());
-            if (cc < 100) {
+            if (cc <= 100) {
                 solecc = cc;
-            } else if (cc < 200) {
+            } else {
                 solecc = cc - 100;
-            } else if (cc < 300) {
-                solecc = cc - 200;
-            } else if (cc < 400) {
-                solecc = cc - 300;
             }
         } catch (Exception e) {
             Log.e("asd", "" + e);
@@ -250,14 +242,10 @@ public class NguoiDung {
         try {
 
             int cc = Integer.parseInt(getChieucao());
-            if (cc < 100) {
+            if (cc <= 100) {
                 solecc = cc;
-            } else if (cc < 200) {
+            } else {
                 solecc = cc - 100;
-            } else if (cc < 300) {
-                solecc = cc - 200;
-            } else if (cc < 400) {
-                solecc = cc - 300;
             }
         } catch (Exception e) {
             Log.e("asd", "" + e);

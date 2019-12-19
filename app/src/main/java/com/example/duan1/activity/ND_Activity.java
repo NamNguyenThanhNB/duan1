@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -106,11 +107,34 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
                 DatePicker dpCalendar = dialog.findViewById(R.id.dpCalendar);
                 Calendar calendar = Calendar.getInstance();
 
-                // Lấy ra năm - tháng - ngày hiện tại
-                int year = calendar.get(calendar.YEAR);
-                final int month = calendar.get(calendar.MONTH);
-                int day = calendar.get(calendar.DAY_OF_MONTH);
+                int year, month, day;
+                if (vitri < 0) {
+                    // Lấy ra năm - tháng - ngày hiện tại
+                    year = calendar.get(calendar.YEAR);
+                    month = calendar.get(calendar.MONTH);
+                    day = calendar.get(calendar.DAY_OF_MONTH);
 
+                } else {
+                    Date brith = null;
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        brith = simpleDateFormat.parse(nguoiDungList.get(vitri).getNgaysinh());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    char[] arr = nguoiDungList.get(vitri).getNgaysinh().toCharArray();
+                    int t = arr.length;
+                    String a1 = String.valueOf(arr[t - 4]);
+                    String a2 = String.valueOf(arr[t - 3]);
+                    String a3 = String.valueOf(arr[t - 2]);
+                    String a4 = String.valueOf(arr[t - 1]);
+                    String a = a1 + a2 + a3 + a4;
+
+                    year = Integer.parseInt(a);
+                    month = brith.getMonth();
+                    day = brith.getDate();
+
+                }
                 // Khởi tạo sự kiện lắng nghe khi DatePicker thay đổi
                 dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                     @Override
@@ -177,14 +201,19 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
 
     @Override
     public void setJob_btn_cnnd_finish() {
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String name = edtCnndName.getText().toString().trim();
+        String birth = edtCnndBirthday.getText().toString().trim();
+        String sex = spn_sex.getSelectedItem().toString();
+        String height = edtCnndHeight.getText().toString().trim();
+        String weight = edtCnndWeight.getText().toString().trim();
+        String ngaydang = tvCnndDate.getText().toString().trim();
+
+
         if (vitri < 0) {
             if (checkND()) {
-                String name = edtCnndName.getText().toString().trim();
-                String birth = edtCnndBirthday.getText().toString().trim();
-                String sex = spn_sex.getSelectedItem().toString();
-                String height = edtCnndHeight.getText().toString().trim();
-                String weight = edtCnndWeight.getText().toString().trim();
-                String ngaydang = tvCnndDate.getText().toString().trim();
 
                 NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
                 boolean result = nguoidungDao.insertND(nguoiDung);
@@ -192,35 +221,34 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
                     Intent intent = new Intent(ND_Activity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "false ins", Toast.LENGTH_SHORT).show();
-                }
-            }
-        } else {
-            String name = edtCnndName.getText().toString().trim();
-            String birth = edtCnndBirthday.getText().toString().trim();
-            String sex = spn_sex.getSelectedItem().toString();
-            String height = edtCnndHeight.getText().toString().trim();
-            String weight = edtCnndWeight.getText().toString().trim();
-            Date date = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String ngaydang = String.valueOf(simpleDateFormat.format(date));
-
-            if (ngaydang.equalsIgnoreCase(nguoiDungList.get(nguoiDungList.size() - 1).getNgaydangND())) {
-                NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
-                boolean result = nguoidungDao.updateND(nguoiDung);
-                if (result) {
-                    notifyAll();
-
-                } else {
-                    Toast.makeText(this, "false update", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Tạo người dùng lỗi", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", ngaydang);
-                boolean result = nguoidungDao.insertND(nguoiDung);
-                if (result) {
-                    notifyAll();
+            }
+        } else {
+            if (checkND()) {
+                Date date = new Date();
+                String dates = String.valueOf(simpleDateFormat.format(date));
+                if (dates.equalsIgnoreCase(nguoiDungList.get(nguoiDungList.size() - 1).getNgaydangND())) {
+                    NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", dates);
+                    boolean result = nguoidungDao.updateND(nguoiDung);
+                    if (result) {
+                        Intent intent = new Intent(ND_Activity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "Cập nhật người dùng lỗi", Toast.LENGTH_SHORT).show();
+                        Log.e("Ecnnd: ", "update");
+                    }
                 } else {
-                    Toast.makeText(this, "false ins update", Toast.LENGTH_SHORT).show();
+                    NguoiDung nguoiDung = new NguoiDung(name, birth, sex, height, weight, "null", dates);
+                    boolean result = nguoidungDao.insertND(nguoiDung);
+                    if (result) {
+                        Intent intent = new Intent(ND_Activity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "Cập nhật người dùng lỗi", Toast.LENGTH_SHORT).show();
+                        Log.e("Ecnnd: ", "ins");
+                    }
                 }
             }
         }
@@ -232,6 +260,18 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
         String sex = spn_sex.getSelectedItem().toString();
         String height = edtCnndHeight.getText().toString().trim();
         String weight = edtCnndWeight.getText().toString().trim();
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        // Lấy ra năm - tháng - ngày hiện tại
+        int year = calendar.get(calendar.YEAR);
+        final int month = calendar.get(calendar.MONTH) + 1;
+        int day = calendar.get(calendar.DAY_OF_MONTH);
+
+        String today = day + "/" + month + "/" + year;
+
+        double h = 0, w = 0;
         if (name.isEmpty()) {
             edtCnndName.setError("Hãy nhập tên");
             edtCnndName.requestFocus();
@@ -240,33 +280,49 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
             edtCnndBirthday.setError("Hãy nhập ngày sinh");
             edtCnndBirthday.requestFocus();
             return false;
+        } else if (!isDateValid(birth)) {
+            edtCnndBirthday.setError("Ngày sinh sai định dạng(ngày/tháng/năm)");
+            edtCnndBirthday.setText("");
+            edtCnndBirthday.requestFocus();
+            return false;
+        } else if (stringToDate(birth).after(stringToDate(today))) {
+            edtCnndBirthday.setError("Ngày sinh không lớn hơn ngày hôm nay");
+            edtCnndBirthday.setText("");
+            edtCnndBirthday.requestFocus();
+            return false;
         } else if (height.isEmpty()) {
             edtCnndHeight.setError("Hãy nhập chiều cao");
             edtCnndHeight.requestFocus();
             return false;
-        } else if (Double.parseDouble(height) < 1 || Double.parseDouble(height) > 400) {
+        } else if (!isNumeric(height)) {
+            edtCnndHeight.setError("Hãy nhập chiều cao là một số");
+            edtCnndHeight.setText("");
+            edtCnndHeight.requestFocus();
+            return false;
+        } else if (Double.parseDouble(height) < 1) {
             try {
-                edtCnndHeight.setError("Hãy nhập chiều cao là một số >0 và <400");
+                edtCnndHeight.setError("Chiều cao là một số lớn hơn 0");
+                edtCnndHeight.setText("");
                 edtCnndHeight.requestFocus();
                 return false;
             } catch (Exception e) {
-                edtCnndHeight.setError("Hãy nhập chiều cao là một số");
-                edtCnndHeight.requestFocus();
-                return false;
             }
         } else if (weight.isEmpty()) {
             edtCnndWeight.setError("Hãy nhập cân nặng");
             edtCnndWeight.requestFocus();
             return false;
+        } else if (!isNumeric(weight)) {
+            edtCnndWeight.setError("Hãy nhập cân nặng là một số");
+            edtCnndWeight.setText("");
+            edtCnndWeight.requestFocus();
+            return false;
         } else if (Double.parseDouble(weight) < 1) {
             try {
-                edtCnndWeight.setError("Hãy nhập cân nặng là một số dương");
+                edtCnndWeight.setError("Cân nặng là một số lớn hơn 0");
+                edtCnndWeight.setText("");
                 edtCnndWeight.requestFocus();
                 return false;
             } catch (Exception e) {
-                edtCnndWeight.setError("Hãy nhập cân nặng là một số");
-                edtCnndWeight.requestFocus();
-                return false;
             }
         }
         return true;
@@ -305,6 +361,37 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private Date stringToDate(String aDate) {
+        Date stringDate = null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            stringDate = simpleDateFormat.parse(aDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return stringDate;
+    }
+
+    public static boolean isDateValid(String date) {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

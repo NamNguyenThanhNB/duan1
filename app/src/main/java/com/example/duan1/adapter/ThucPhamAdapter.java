@@ -1,6 +1,7 @@
 package com.example.duan1.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.R;
+import com.example.duan1.activity.MainActivity;
 import com.example.duan1.dao.ThucPhamDao;
 import com.example.duan1.model.ThucPham;
 
@@ -66,6 +68,7 @@ public class ThucPhamAdapter extends RecyclerView.Adapter<ThucPhamHolder> {
                 edtShowFoodType = (EditText) dialog.findViewById(R.id.edt_showFood_Type);
                 spnShowFoodLevel = (Spinner) dialog.findViewById(R.id.spn_showFood_Level);
 
+                edtShowFoodName.setEnabled(false);
                 edtShowFoodName.setText(thucPhamList.get(position).getTenTP());
                 edtShowFoodType.setText(thucPhamList.get(position).getLoaiTP());
                 final String level = thucPhamList.get(position).getChedoTP();
@@ -83,6 +86,7 @@ public class ThucPhamAdapter extends RecyclerView.Adapter<ThucPhamHolder> {
                         final String tentp = edtShowFoodName.getText().toString().trim();
                         final String loaitp = edtShowFoodType.getText().toString().trim();
                         final String chedo = spnShowFoodLevel.getSelectedItem().toString();
+
                         if (tentp.isEmpty()) {
                             edtShowFoodName.setError("Nhập tên thưc phẩm cần sửa");
                             edtShowFoodName.requestFocus();
@@ -90,56 +94,19 @@ public class ThucPhamAdapter extends RecyclerView.Adapter<ThucPhamHolder> {
                             edtShowFoodType.setError("Nhập loại thực phẩm cần sửa");
                             edtShowFoodType.requestFocus();
                         } else {
-                            if (!chedo.equalsIgnoreCase(thucPhamList.get(position).getChedoTP())) {
-                                alertDialog.setView(R.layout.dialog_loadupdate);
-                                final AlertDialog adialog = alertDialog.show();
-                                final Button buttonYes;
-                                final Button buttonNo;
-
-                                buttonYes = (Button) adialog.findViewById(R.id.buttonYes);
-                                buttonNo = (Button) adialog.findViewById(R.id.buttonNo);
-
-                                buttonYes.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        ThucPham thucPham = new ThucPham(tentp, loaitp, chedo);
-                                        boolean result = thucPhamDao.updateTP(thucPham);
-                                        if (result) {
+                            ThucPham thucPham = new ThucPham(tentp, loaitp, chedo);
+                            boolean result = thucPhamDao.updateTP(thucPham);
+                            if (result) {
 //                                thucPhamList.get(position).setTenTP(tentp);
-                                            thucPhamList.get(position).setLoaiTP(loaitp);
-                                            thucPhamList.get(position).setChedoTP(chedo);
-                                            notifyDataSetChanged();
-                                            adialog.dismiss();
-                                            dialog.dismiss();
-                                        } else {
-                                            Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-                                buttonNo.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        adialog.dismiss();
-                                        dialog.dismiss();
-                                    }
-                                });
-
+                                thucPhamList.get(position).setLoaiTP(loaitp);
+                                thucPhamList.get(position).setChedoTP(chedo);
+                                notifyDataSetChanged();
+                                Intent intent = new Intent(context, MainActivity.class);
+                                context.startActivity(intent);
                             } else {
-                                ThucPham thucPham = new ThucPham(tentp, loaitp, chedo);
-                                boolean result = thucPhamDao.updateTP(thucPham);
-                                if (result) {
-//                                thucPhamList.get(position).setTenTP(tentp);
-                                    thucPhamList.get(position).setLoaiTP(loaitp);
-                                    thucPhamList.get(position).setChedoTP(chedo);
-                                    notifyDataSetChanged();
-                                    dialog.dismiss();
-                                } else {
-                                    Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                     }
                 });
 

@@ -213,20 +213,20 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
         Toast.makeText(this, "delete if had data", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean stringToDate(String aDate) {
-
-        if (aDate == null) return false;
+    private Date stringToDate(String aDate) {
+        Date stringDate = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        ParsePosition pos = new ParsePosition(0);
-        Date stringDate = simpleDateFormat.parse(aDate, pos);
-        return true;
-
+        try {
+            stringDate = simpleDateFormat.parse(aDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return stringDate;
     }
 
     public static boolean isDateValid(String date) {
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            df.setLenient(false);
             df.parse(date);
             return true;
         } catch (ParseException e) {
@@ -241,19 +241,49 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
         String mtEnd = edtMtdlEndMT.getText().toString().trim();
         String dlStart = edt_mtdl_startDL.getText().toString().trim();
         String content = edtMtdlContent.getText().toString().trim();
+
+        Calendar calendar = Calendar.getInstance();
+
+        // Lấy ra năm - tháng - ngày hiện tại
+        int year = calendar.get(calendar.YEAR);
+        final int month = calendar.get(calendar.MONTH) + 1;
+        int day = calendar.get(calendar.DAY_OF_MONTH);
+
+        String today = day + "/" + month + "/" + year;
         if (mtdl == 0) {
             if (title.isEmpty()) {
                 edtMtdlTitle.setError("Hãy đặt tên cho mục tiêu");
                 edtMtdlTitle.requestFocus();
+                return;
             } else if (content.isEmpty()) {
                 edtMtdlContent.setError("Nội dung chưa có gì");
                 edtMtdlContent.requestFocus();
+                return;
+            } else if (!isDateValid(mtStart)) {
+                edtMtdlStartMT.setError("Ngày sai định dạng(ngày/tháng/năm)");
+                edtMtdlStartMT.setText("");
+                edtMtdlStartMT.requestFocus();
+                return;
+            } else if (stringToDate(mtStart).before(stringToDate(today))) {
+                edtMtdlStartMT.setError("Ngày bắt đầu không nhỏ hơn hôm nay");
+                edtMtdlStartMT.setText("");
+                edtMtdlStartMT.requestFocus();
+                return;
+            } else if (!isDateValid(mtEnd)) {
+                edtMtdlEndMT.setError("Ngày sai định dạng(ngày/tháng/năm)");
+                edtMtdlEndMT.setText("");
+                edtMtdlEndMT.requestFocus();
+                return;
+            } else if (stringToDate(mtEnd).before(stringToDate(mtStart))) {
+                edtMtdlEndMT.setError("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+                edtMtdlEndMT.setText("");
+                edtMtdlEndMT.requestFocus();
+                return;
             } else {
                 MucTieu mucTieu = new MucTieu(title, content, mtStart, mtEnd);
                 boolean result = mucTieuDao.insertMT(mucTieu);
                 if (result) {
-                    Intent intent = new Intent(this, MucTieuFragment.class);
-                    notifyAll();
+                    Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Tạo mục tiêu không thành công", Toast.LENGTH_SHORT).show();
@@ -264,15 +294,25 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
             if (title.isEmpty()) {
                 edtMtdlTitle.setError("Hãy đặt tên cho lịch hẹn");
                 edtMtdlTitle.requestFocus();
-            }   else if (content.isEmpty()) {
+                return;
+            } else if (content.isEmpty()) {
                 edtMtdlContent.setError("Nội dung chưa có gì");
                 edtMtdlContent.requestFocus();
-            }else {
+                return;
+            } else if (!isDateValid(dlStart)) {
+                edt_mtdl_startDL.setError("Ngày sai định dạng(ngày/tháng/năm)");
+                edt_mtdl_startDL.requestFocus();
+                return;
+            } else if (stringToDate(dlStart).before(stringToDate(today))) {
+                edt_mtdl_startDL.setError("Ngày diễn ra không nhỏ hơn hôm nay");
+                edt_mtdl_startDL.setText("");
+                edt_mtdl_startDL.requestFocus();
+                return;
+            } else {
                 LichTrinh lichTrinh = new LichTrinh(title, content, dlStart);
                 boolean result = lichTrinhDao.insertLT(lichTrinh);
                 if (result) {
-                    Intent intent = new Intent(this, MucTieuFragment.class);
-                    notifyAll();
+                    Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Tạo lịch trình không thành công", Toast.LENGTH_SHORT).show();

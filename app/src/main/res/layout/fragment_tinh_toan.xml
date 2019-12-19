@@ -112,6 +112,7 @@
 
 
                             <Spinner
+                                android:id="@+id/spn_tt_Sex"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:entries="@array/sex_array"

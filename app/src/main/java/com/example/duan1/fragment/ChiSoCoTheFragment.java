@@ -1,6 +1,7 @@
 package com.example.duan1.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.duan1.R;
 import com.example.duan1.activity.HoatDongGDActivity;
@@ -37,7 +39,6 @@ public class ChiSoCoTheFragment extends Fragment implements CSCTActivity_Interfa
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chi_so_co_the, container, false);
 
         nguoidungDao = new NguoidungDao(getActivity());
-
         LinearLayout lnUpdate = binding.getRoot().findViewById(R.id.ln_csct_Update);
         csct_activityPrecenter = new CSCTActivity_Precenter(this);
         binding.setCsctprecenter(csct_activityPrecenter);

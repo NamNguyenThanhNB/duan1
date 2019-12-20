@@ -119,7 +119,7 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
                 dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
                         sMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         edtMtdlStartMT.setText(sMT);
                         dialog.dismiss();
@@ -148,7 +148,7 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
                 dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
                         eMT = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         edtMtdlEndMT.setText(eMT);
                         dialog.dismiss();
@@ -176,7 +176,7 @@ public class ThemMT_DLActivity extends AppCompatActivity implements AddMTDLActiv
                 dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ThemMT_DLActivity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
                         sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         edt_mtdl_startDL.setText(sDL);
                         dialog.dismiss();

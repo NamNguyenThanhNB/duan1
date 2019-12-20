@@ -141,7 +141,7 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
             double tdCN = Double.parseDouble(edtSsWeight2.getText().toString().trim()) - Double.parseDouble(edtSsWeight1.getText().toString().trim());
             double tdBMI = Double.parseDouble(tvSsBmi2.getText().toString().trim()) - Double.parseDouble(tvSsBmi1.getText().toString().trim());
             if (tdCC < 0) {
-                tvSsTdcc.setText("-" + tdCC);
+                tvSsTdcc.setText("" + tdCC);
                 tvSsTdcc.setTextColor(Color.RED);
             } else if (tdCC > 0) {
                 tvSsTdcc.setText("+" + tdCC);
@@ -152,7 +152,7 @@ public class SoSanhTSActivity extends AppCompatActivity implements SSTSActivity_
 
 
             if (tdCN < 0) {
-                tvSsTdcn.setText("-" + tdCN);
+                tvSsTdcn.setText("" + tdCN);
                 tvSsTdcn.setTextColor(Color.RED);
             } else if (tdCN > 0) {
                 tvSsTdcn.setText("+" + tdCN);

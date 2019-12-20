@@ -139,7 +139,7 @@ public class ND_Activity extends AppCompatActivity implements NDActivity_Interfa
                 dpCalendar.init(year, month, day, new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ND_Activity.this, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Toast.LENGTH_SHORT).show();
                         String sDL = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         edtCnndBirthday.setText(sDL);
                         dialog.dismiss();

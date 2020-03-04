@@ -67,7 +67,7 @@
                                 android:layout_weight="5"
                                 android:text="@{nguoidungView.tenND}"
                                 android:textColor="#000000"
-                                android:textSize="32sp"
+                                android:textSize="28sp"
                                 android:textStyle="bold" />
 
 

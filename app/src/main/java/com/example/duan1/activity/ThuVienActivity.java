@@ -20,7 +20,7 @@ import com.example.duan1.model.NguoiDung;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThuVienActivity extends AppCompatActivity {
+public class  ThuVienActivity extends AppCompatActivity {
     private List<NguoiDung> nguoiDungList;
     private NguoiDungAdapter nguoiDungAdapter;
     private RecyclerView rvList_ND;

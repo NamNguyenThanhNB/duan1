@@ -288,14 +288,15 @@ public class NguoiDung {
         int aged = cday - bday;
 
         aged = aged < 0 ? (aged * -1) : aged;
-        String resultMessage = "";
+        String resultMessage = "",resuiltDate="";
         if (agem < 0) {
-            resultMessage = (agem * -1) + " month " + aged + " days " + agey + " years old";
+            resultMessage = (agem * -1) + " month " + aged + " days " + agey + " tuổi";
+            resuiltDate=agey + " years old";
         } else {
             resultMessage = String.valueOf(agey);
         }
 
-        return resultMessage;
+        return resuiltDate;
     }
 
     public int sSex() {
